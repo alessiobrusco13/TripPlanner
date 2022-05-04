@@ -10,13 +10,13 @@ import MapKit
 
 struct Location: Identifiable, Codable {
     enum CodingKeys: CodingKey {
-        case id, name, coordinates, image
+        case id, name, coordinates, images
     }
 
     let id: UUID
     var name: String
     var coordinates: Coordinates
-    var image: UIImage
+    var images: [UIImage]
 
     var locationCoordinates: CLLocationCoordinate2D {
         CLLocationCoordinate2D(
@@ -29,7 +29,7 @@ struct Location: Identifiable, Codable {
         id = UUID()
         name = "New Location"
         coordinates = Coordinates(longitude: 12.4963655, latitude: 41.9027835)
-        image = UIImage(systemName: "questionmark")!
+        images = [UIImage(systemName: "questionmark")!]
     }
 
     init(from decoder: Decoder) throws {
@@ -38,7 +38,7 @@ struct Location: Identifiable, Codable {
         self.id = try container.decode(UUID.self, forKey: .id)
         self.name = try container.decode(String.self, forKey: .name)
         self.coordinates = try container.decode(Coordinates.self, forKey: .coordinates)
-        self.image = try container.decode(UIImage.self, forKey: .image)
+        self.images = try container.decode([UIImage].self, forKey: .images)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -47,7 +47,7 @@ struct Location: Identifiable, Codable {
         try container.encode(id, forKey: .id)
         try container.encode(name, forKey: .name)
         try container.encode(coordinates, forKey: .coordinates)
-        try container.encode(image, forKey: .image, quality: .png)
+        try container.encode(images, forKey: .images)
     }
 }
 
