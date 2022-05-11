@@ -6,8 +6,16 @@
 //
 
 import Foundation
+import MapKit
 
 struct Coordinates: Codable {
     let longitude: Double
     let latitude: Double
+}
+
+extension Coordinates {
+    init(clLocationCoordinate2D: CLLocationCoordinate2D) {
+        longitude = clLocationCoordinate2D.longitude
+        latitude = clLocationCoordinate2D.latitude
+    }
 }

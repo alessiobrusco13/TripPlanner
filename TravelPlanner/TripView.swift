@@ -9,14 +9,32 @@ import SwiftUI
 
 struct TripView: View {
     @ObservedObject var trip: Trip
+    @State private var showingLocationPicker = false
+
 
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Color(.systemGroupedBackground)
+                .ignoresSafeArea()
+
+            ScrollView {
+                ForEach($trip.locations, content: LocationView.init)
+            }
+        }
+        .locationPicker(isPresented: $showingLocationPicker, selection: $trip.locations)
+        .toolbar {
+            Button("Add") {
+                showingLocationPicker.toggle()
+            }
+        }
+        .navigationTitle(trip.name)
     }
 }
 
 struct TripView_Previews: PreviewProvider {
     static var previews: some View {
-        TripView(trip: .example)
+        NavigationView {
+            TripView(trip: .example)
+        }
     }
 }

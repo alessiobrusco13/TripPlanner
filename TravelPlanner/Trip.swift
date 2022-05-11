@@ -17,7 +17,7 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable {
     @Published var name = ""
     @Published var startDate = Date.now
     @Published var endDate = Date.now.addingTimeInterval(1*60*60*24)
-    @Published var image = UIImage(named: "Example")!
+    @Published var image = UIImage(named: "Example1")!
     @Published var locations = [Location]()
 
     static let example: Trip = {
@@ -30,9 +30,7 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable {
         lhs.id == rhs.id
     }
 
-    init() {
-        locations.append(Location())
-    }
+    init() { }
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
