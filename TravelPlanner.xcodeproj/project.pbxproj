@@ -43,6 +43,7 @@
 		892768B0282C255D00FBAEA0 /* LocationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPicker.swift; sourceTree = "<group>"; };
 		892768B2282C257900FBAEA0 /* LocationPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerViewModel.swift; sourceTree = "<group>"; };
 		892768B4282CF0CB00FBAEA0 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
+		892768B6282CF90C00FBAEA0 /* TravelPlanner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TravelPlanner.entitlements; sourceTree = "<group>"; };
 		895D12B5282831750071DC98 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		895D12B72828322B0071DC98 /* ImageDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDeck.swift; sourceTree = "<group>"; };
 		895D12B928283ECA0071DC98 /* View-stacked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View-stacked.swift"; sourceTree = "<group>"; };
@@ -73,6 +74,67 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		895D780B282D000500EE846F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8964BAC82821668800922BCC /* Trip.swift */,
+				8964BACA2821676400922BCC /* Location.swift */,
+				8964BACC2821677400922BCC /* Coordinates.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		895D780C282D002D00EE846F /* LocationPicker */ = {
+			isa = PBXGroup;
+			children = (
+				892768B0282C255D00FBAEA0 /* LocationPicker.swift */,
+				892768B2282C257900FBAEA0 /* LocationPickerViewModel.swift */,
+			);
+			path = LocationPicker;
+			sourceTree = "<group>";
+		};
+		895D780D282D003500EE846F /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				895D12B72828322B0071DC98 /* ImageDeck.swift */,
+				895D12BB282843140071DC98 /* DeckImageView.swift */,
+				892768B4282CF0CB00FBAEA0 /* CircleButton.swift */,
+				891AF91228218B8400BD691F /* ImagePicker.swift */,
+				891AF91428218DB400BD691F /* Camera.swift */,
+				895D780C282D002D00EE846F /* LocationPicker */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		895D780E282D005B00EE846F /* DataServices */ = {
+			isa = PBXGroup;
+			children = (
+				8964BAD5282173C100922BCC /* DataController.swift */,
+				892768AE282BF18200FBAEA0 /* LocationSearchService.swift */,
+			);
+			path = DataServices;
+			sourceTree = "<group>";
+		};
+		895D780F282D006F00EE846F /* Activities */ = {
+			isa = PBXGroup;
+			children = (
+				895D7810282D007500EE846F /* Trips */,
+			);
+			path = Activities;
+			sourceTree = "<group>";
+		};
+		895D7810282D007500EE846F /* Trips */ = {
+			isa = PBXGroup;
+			children = (
+				8990493B2822644B00E2BD9F /* TripView.swift */,
+				891AF910282184FC00BD691F /* NewTripView.swift */,
+				899049352821A94500E2BD9F /* TripRowView.swift */,
+				895D12B5282831750071DC98 /* LocationView.swift */,
+				892768AC282B9EC400FBAEA0 /* LocationRowView.swift */,
+			);
+			path = Trips;
+			sourceTree = "<group>";
+		};
 		8964BAAE2821666B00922BCC = {
 			isa = PBXGroup;
 			children = (
@@ -92,26 +154,14 @@
 		8964BAB92821666B00922BCC /* TravelPlanner */ = {
 			isa = PBXGroup;
 			children = (
+				892768B6282CF90C00FBAEA0 /* TravelPlanner.entitlements */,
 				891AF91628218F1700BD691F /* Info.plist */,
 				8964BABA2821666B00922BCC /* TravelPlannerApp.swift */,
 				8964BABC2821666B00922BCC /* ContentView.swift */,
-				8990493B2822644B00E2BD9F /* TripView.swift */,
-				895D12B5282831750071DC98 /* LocationView.swift */,
-				891AF910282184FC00BD691F /* NewTripView.swift */,
-				899049352821A94500E2BD9F /* TripRowView.swift */,
-				895D12B72828322B0071DC98 /* ImageDeck.swift */,
-				895D12BB282843140071DC98 /* DeckImageView.swift */,
-				892768AC282B9EC400FBAEA0 /* LocationRowView.swift */,
-				892768B0282C255D00FBAEA0 /* LocationPicker.swift */,
-				892768B2282C257900FBAEA0 /* LocationPickerViewModel.swift */,
-				892768B4282CF0CB00FBAEA0 /* CircleButton.swift */,
-				891AF91228218B8400BD691F /* ImagePicker.swift */,
-				891AF91428218DB400BD691F /* Camera.swift */,
-				8964BAD5282173C100922BCC /* DataController.swift */,
-				892768AE282BF18200FBAEA0 /* LocationSearchService.swift */,
-				8964BAC82821668800922BCC /* Trip.swift */,
-				8964BACA2821676400922BCC /* Location.swift */,
-				8964BACC2821677400922BCC /* Coordinates.swift */,
+				895D780F282D006F00EE846F /* Activities */,
+				895D780E282D005B00EE846F /* DataServices */,
+				895D780D282D003500EE846F /* Components */,
+				895D780B282D000500EE846F /* Model */,
 				8964BAD42821735F00922BCC /* Extensions */,
 				8964BABE2821666C00922BCC /* Assets.xcassets */,
 				8964BAC02821666C00922BCC /* Preview Content */,
@@ -354,6 +404,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TravelPlanner/TravelPlanner.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TravelPlanner/Preview Content\"";
@@ -361,6 +412,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TravelPlanner/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GeoPic;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We want to let you take photos for your itineraries.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -374,6 +426,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alessiobrusco.TravelPlanner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -385,6 +438,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TravelPlanner/TravelPlanner.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TravelPlanner/Preview Content\"";
@@ -392,6 +446,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TravelPlanner/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GeoPic;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We want to let you take photos for your itineraries.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -405,6 +460,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.alessiobrusco.TravelPlanner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
