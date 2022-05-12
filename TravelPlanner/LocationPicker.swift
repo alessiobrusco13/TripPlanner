@@ -22,23 +22,32 @@ struct LocationPicker: View {
 
     var body: some View {
         NavigationView {
-            VStack {
-                List(viewModel.locations) { location in
-                    Button {
-                        if outputMethod == .atomic {
-                            atomicSelection = location
-                        } else {
-                            arraySelection.append(location)
-                        }
+            List(viewModel.locations) { location in
+                Button {
+                    if outputMethod == .atomic {
+                        atomicSelection = location
+                    } else {
+                        arraySelection.append(location)
+                    }
 
-                        dismiss()
-                    } label: {
-                        LocationRowView(location: location)
+                    dismiss()
+                } label: {
+                    LocationRowView(location: location)
+                }
+            }
+            .searchable(text: $viewModel.searchText)
+            .animation(.default, value: viewModel.locations)
+            .overlay {
+                if viewModel.isLoading {
+                    ZStack {
+                        Color(.systemGroupedBackground)
+                            .ignoresSafeArea()
+                        
+                        ProgressView()
                     }
                 }
-                .searchable(text: $viewModel.searchText)
-                .navigationTitle("Select your location")
             }
+            .navigationTitle("Select your location")
         }
     }
 

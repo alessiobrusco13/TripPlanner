@@ -11,9 +11,7 @@ import MapKit
 class LocationSearchService {
     let locationSearchPublisher = PassthroughSubject<[MKMapItem], Never>()
 
-    func search(
-        searchText: String
-    ) {
+    func search(searchText: String) {
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = searchText
         request.pointOfInterestFilter = .includingAll

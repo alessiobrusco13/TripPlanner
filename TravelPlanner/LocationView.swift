@@ -11,10 +11,19 @@ struct LocationView: View {
     @Binding var location: Location
     
     var body: some View {
-        VStack {
-            Text(location.name)
-                .font(.title.weight(.semibold))
+        HStack {
+            VStack(alignment: .leading) {
+                Text(location.name)
+                    .font(.title.weight(.semibold))
+
+                Text(location.extendedName)
+                    .font(.title3.weight(.medium))
+                    .foregroundStyle(.secondary)
+            }
+            
+            Spacer()
         }
+        .padding()
     }
 }
 

@@ -23,7 +23,7 @@ struct TripView: View {
         }
         .locationPicker(isPresented: $showingLocationPicker, selection: $trip.locations)
         .toolbar {
-            Button("Add") {
+            CircleButton(systemImage: "doc.badge.plus") {
                 showingLocationPicker.toggle()
             }
         }

@@ -43,10 +43,8 @@ struct ContentView: View {
             ToolbarItem(placement: .navigationBarLeading, content: EditButton.init)
 
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
+                CircleButton(systemImage: "plus") {
                     showingAdd.toggle()
-                } label: {
-                    Image(systemName: "plus")
                 }
             }
 
@@ -77,7 +75,9 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
-            .environmentObject(DataController())
+        NavigationView {
+            ContentView()
+                .environmentObject(DataController())
+        }
     }
 }

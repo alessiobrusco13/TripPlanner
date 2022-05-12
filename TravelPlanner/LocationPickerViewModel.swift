@@ -25,6 +25,10 @@ extension LocationPicker {
             didSet { search() }
         }
 
+        var isLoading: Bool {
+            locations.isEmpty && !searchText.isEmpty
+        }
+
         init() {
             locationsSubscription = searchService.locationSearchPublisher
                 .sink() { [weak self] mapItems in
@@ -33,6 +37,7 @@ extension LocationPicker {
         }
 
         private func search() {
+            locations = []
             searchService.search(searchText: searchText)
         }
     }
