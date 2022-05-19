@@ -54,7 +54,7 @@ struct PhotoPicker<Content: View>: View {
 
         Button {
             #if targetEnvironment(simulator)
-            showingImagePicker.toggle()
+            selection = [UIImage].example.randomElement()!
             #else
             showingCamera.toggle()
             #endif

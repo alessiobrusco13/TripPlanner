@@ -28,15 +28,18 @@ struct ImagesRowView: View {
                 } footer: {
                     PhotoPicker(selection: $images) {
                         Image(systemName: "photo.on.rectangle")
-                            .font(.title)
+                            .font(.title.weight(.semibold))
+                            .foregroundStyle(.white)
                             .padding()
                             .background {
                                 Color.accentColor
-                                    .opacity(0.2)
                             }
                             .clipShape(Circle())
                     }
+                    .frame(maxHeight: 100)
+                    .shadow(color: .black.opacity(0.3), radius: 20)
                 }
+                .padding(.trailing, 2)
             }
             .padding(.horizontal)
         }
