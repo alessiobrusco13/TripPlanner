@@ -12,10 +12,7 @@ struct NewTripView: View {
     @Environment(\.dismiss) var dismiss
 
     @StateObject private var newTrip = Trip()
-
     @State private var uiImage: UIImage?
-    @State private var showingImagePicker = false
-    @State private var showingCamera = false
 
     var image: Image? {
         if let uiImage = uiImage {
@@ -33,15 +30,16 @@ struct NewTripView: View {
                         Spacer()
 
                         if let image = image {
-                            image
-                                .resizable()
-                                .scaledToFill()
-                                .frame(height: 200)
-                                .cornerRadius(10)
-                                .foregroundColor(.clear)
-                                .contextMenu(menuItems: imageButtons)
+                            PhotoPicker(selection: $uiImage) {
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(height: 200)
+                                    .cornerRadius(10)
+                                    .foregroundColor(.clear)
+                            }
                         } else {
-                            Menu(content: imageButtons) {
+                            PhotoPicker(selection: $uiImage) {
                                 Label("Add Photo", systemImage: "camera.fill")
                                     .font(.headline)
                                     .foregroundStyle(.selection)
@@ -64,20 +62,20 @@ struct NewTripView: View {
                 }
 
                 Section("Dates") {
-                        DatePicker(
-                            "Start date:",
-                            selection: $newTrip.startDate,
-                            displayedComponents: .date
-                        )
-                        .font(.headline)
+                    DatePicker(
+                        "Start date:",
+                        selection: $newTrip.startDate,
+                        displayedComponents: .date
+                    )
+                    .font(.headline)
 
-                        DatePicker(
-                            "End date:",
-                            selection: $newTrip.endDate,
-                            in: newTrip.startDate...,
-                            displayedComponents: .date
-                        )
-                        .font(.headline)
+                    DatePicker(
+                        "End date:",
+                        selection: $newTrip.endDate,
+                        in: newTrip.startDate...,
+                        displayedComponents: .date
+                    )
+                    .font(.headline)
                 }
             }
             .background(Color(.systemGroupedBackground))
@@ -99,32 +97,9 @@ struct NewTripView: View {
                     Button("Dismiss", action: dismiss.callAsFunction)
                 }
             }
-            .sheet(isPresented: $showingImagePicker) {
-                ImagePicker(image: $uiImage)
-                    .ignoresSafeArea()
-            }
-            .sheet(isPresented: $showingCamera) {
-                Camera(image: $uiImage)
-                    .ignoresSafeArea()
-            }
             .onChange(of: uiImage ?? UIImage()) { newImage in
                 newTrip.image = newImage
             }
-        }
-    }
-
-    @ViewBuilder
-    func imageButtons() -> some View {
-        Button {
-            showingImagePicker.toggle()
-        } label: {
-            Label("Photo Library", systemImage: "photo.on.rectangle")
-        }
-
-        Button {
-            showingCamera.toggle()
-        } label: {
-            Label("Take Photo", systemImage: "camera")
         }
     }
 }

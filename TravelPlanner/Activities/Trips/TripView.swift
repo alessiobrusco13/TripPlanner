@@ -18,7 +18,9 @@ struct TripView: View {
                 .ignoresSafeArea()
 
             ScrollView {
-                ForEach($trip.locations, content: LocationView.init)
+                VStack(spacing: 30) {
+                    ForEach($trip.locations, content: LocationView.init)
+                }
             }
         }
         .locationPicker(isPresented: $showingLocationPicker, selection: $trip.locations)

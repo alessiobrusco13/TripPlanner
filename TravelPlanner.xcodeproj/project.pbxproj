@@ -16,9 +16,7 @@
 		892768B3282C257900FBAEA0 /* LocationPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892768B2282C257900FBAEA0 /* LocationPickerViewModel.swift */; };
 		892768B5282CF0CB00FBAEA0 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892768B4282CF0CB00FBAEA0 /* CircleButton.swift */; };
 		895D12B6282831750071DC98 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D12B5282831750071DC98 /* LocationView.swift */; };
-		895D12B82828322B0071DC98 /* ImageDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D12B72828322B0071DC98 /* ImageDeck.swift */; };
 		895D12BA28283ECA0071DC98 /* View-stacked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D12B928283ECA0071DC98 /* View-stacked.swift */; };
-		895D12BC282843140071DC98 /* DeckImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D12BB282843140071DC98 /* DeckImageView.swift */; };
 		8964BABB2821666B00922BCC /* TravelPlannerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8964BABA2821666B00922BCC /* TravelPlannerApp.swift */; };
 		8964BABD2821666B00922BCC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8964BABC2821666B00922BCC /* ContentView.swift */; };
 		8964BABF2821666C00922BCC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8964BABE2821666C00922BCC /* Assets.xcassets */; };
@@ -31,6 +29,9 @@
 		8964BAD6282173C100922BCC /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8964BAD5282173C100922BCC /* DataController.swift */; };
 		899049362821A94500E2BD9F /* TripRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899049352821A94500E2BD9F /* TripRowView.swift */; };
 		8990493C2822644B00E2BD9F /* TripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8990493B2822644B00E2BD9F /* TripView.swift */; };
+		89C7CA8B283564B6008E3F72 /* ImagesRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C7CA8A283564B6008E3F72 /* ImagesRowView.swift */; };
+		89C7CA8D283564EC008E3F72 /* [UIImage]-example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C7CA8C283564EC008E3F72 /* [UIImage]-example.swift */; };
+		89C7CA8F28356843008E3F72 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C7CA8E28356843008E3F72 /* PhotoPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,9 +46,7 @@
 		892768B4282CF0CB00FBAEA0 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
 		892768B6282CF90C00FBAEA0 /* TravelPlanner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TravelPlanner.entitlements; sourceTree = "<group>"; };
 		895D12B5282831750071DC98 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
-		895D12B72828322B0071DC98 /* ImageDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDeck.swift; sourceTree = "<group>"; };
 		895D12B928283ECA0071DC98 /* View-stacked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View-stacked.swift"; sourceTree = "<group>"; };
-		895D12BB282843140071DC98 /* DeckImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckImageView.swift; sourceTree = "<group>"; };
 		8964BAB72821666B00922BCC /* TravelPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8964BABA2821666B00922BCC /* TravelPlannerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlannerApp.swift; sourceTree = "<group>"; };
 		8964BABC2821666B00922BCC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -61,6 +60,9 @@
 		8964BAD5282173C100922BCC /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		899049352821A94500E2BD9F /* TripRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRowView.swift; sourceTree = "<group>"; };
 		8990493B2822644B00E2BD9F /* TripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripView.swift; sourceTree = "<group>"; };
+		89C7CA8A283564B6008E3F72 /* ImagesRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesRowView.swift; sourceTree = "<group>"; };
+		89C7CA8C283564EC008E3F72 /* [UIImage]-example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "[UIImage]-example.swift"; sourceTree = "<group>"; };
+		89C7CA8E28356843008E3F72 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,11 +98,11 @@
 		895D780D282D003500EE846F /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				895D12B72828322B0071DC98 /* ImageDeck.swift */,
-				895D12BB282843140071DC98 /* DeckImageView.swift */,
+				89C7CA8A283564B6008E3F72 /* ImagesRowView.swift */,
 				892768B4282CF0CB00FBAEA0 /* CircleButton.swift */,
 				891AF91228218B8400BD691F /* ImagePicker.swift */,
 				891AF91428218DB400BD691F /* Camera.swift */,
+				89C7CA8E28356843008E3F72 /* PhotoPicker.swift */,
 				895D780C282D002D00EE846F /* LocationPicker */,
 			);
 			path = Components;
@@ -159,8 +161,8 @@
 				8964BABA2821666B00922BCC /* TravelPlannerApp.swift */,
 				8964BABC2821666B00922BCC /* ContentView.swift */,
 				895D780F282D006F00EE846F /* Activities */,
-				895D780E282D005B00EE846F /* DataServices */,
 				895D780D282D003500EE846F /* Components */,
+				895D780E282D005B00EE846F /* DataServices */,
 				895D780B282D000500EE846F /* Model */,
 				8964BAD42821735F00922BCC /* Extensions */,
 				8964BABE2821666C00922BCC /* Assets.xcassets */,
@@ -183,6 +185,7 @@
 				8964BAD028216E2600922BCC /* KeyedEncodingContainer-UIImage.swift */,
 				8964BAD22821733F00922BCC /* FileManager-documentsDirectory.swift */,
 				895D12B928283ECA0071DC98 /* View-stacked.swift */,
+				89C7CA8C283564EC008E3F72 /* [UIImage]-example.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -257,9 +260,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				895D12B82828322B0071DC98 /* ImageDeck.swift in Sources */,
+				89C7CA8D283564EC008E3F72 /* [UIImage]-example.swift in Sources */,
 				892768B1282C255D00FBAEA0 /* LocationPicker.swift in Sources */,
 				891AF91528218DB400BD691F /* Camera.swift in Sources */,
+				89C7CA8B283564B6008E3F72 /* ImagesRowView.swift in Sources */,
 				8964BABD2821666B00922BCC /* ContentView.swift in Sources */,
 				892768B3282C257900FBAEA0 /* LocationPickerViewModel.swift in Sources */,
 				8964BAC92821668800922BCC /* Trip.swift in Sources */,
@@ -267,6 +271,7 @@
 				895D12BA28283ECA0071DC98 /* View-stacked.swift in Sources */,
 				899049362821A94500E2BD9F /* TripRowView.swift in Sources */,
 				8964BACB2821676400922BCC /* Location.swift in Sources */,
+				89C7CA8F28356843008E3F72 /* PhotoPicker.swift in Sources */,
 				891AF911282184FC00BD691F /* NewTripView.swift in Sources */,
 				8964BABB2821666B00922BCC /* TravelPlannerApp.swift in Sources */,
 				8964BAD32821733F00922BCC /* FileManager-documentsDirectory.swift in Sources */,
@@ -276,7 +281,6 @@
 				895D12B6282831750071DC98 /* LocationView.swift in Sources */,
 				892768B5282CF0CB00FBAEA0 /* CircleButton.swift in Sources */,
 				891AF91328218B8400BD691F /* ImagePicker.swift in Sources */,
-				895D12BC282843140071DC98 /* DeckImageView.swift in Sources */,
 				8964BAD128216E2600922BCC /* KeyedEncodingContainer-UIImage.swift in Sources */,
 				892768AF282BF18200FBAEA0 /* LocationSearchService.swift in Sources */,
 			);

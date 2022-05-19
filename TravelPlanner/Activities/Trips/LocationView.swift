@@ -11,19 +11,17 @@ struct LocationView: View {
     @Binding var location: Location
     
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(location.name)
-                    .font(.title.weight(.semibold))
+        VStack(alignment: .leading) {
+            ImagesRowView(images: $location.images)
+                .frame(height: 200)
 
-                Text(location.extendedName)
-                    .font(.title3.weight(.medium))
-                    .foregroundStyle(.secondary)
-            }
-            
-            Spacer()
+            LocationRowView(location: location)
+                .padding(.horizontal)
+
+            Divider()
+                .padding(.horizontal)
         }
-        .padding()
+
     }
 }
 

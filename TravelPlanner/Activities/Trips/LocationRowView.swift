@@ -13,7 +13,7 @@ struct LocationRowView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(location.name)
-                .font(.title2.weight(.medium))
+                .font(.title2.weight(.semibold))
 
             Text(location.extendedName)
                 .fontWeight(.medium)

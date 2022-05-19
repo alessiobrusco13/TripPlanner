@@ -31,12 +31,11 @@ struct Location: Identifiable, Codable, Hashable {
         name: "London",
         extendedName: "London, England, United Kingdom",
         coordinates: Coordinates(longitude: 12.4963655, latitude: 41.9027835),
-        images: [UIImage(systemName: "questionmark")!]
+        images: .example
     )
 }
 
 extension Location {
-
     init(mapItem: MKMapItem) {
         id = UUID()
         name = mapItem.name ?? "N/A"
