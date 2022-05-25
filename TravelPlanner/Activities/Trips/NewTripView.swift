@@ -29,23 +29,22 @@ struct NewTripView: View {
                     HStack {
                         Spacer()
 
-                        if let image = image {
-                            PhotoPicker(selection: $uiImage) {
+                        PhotoPicker(selection: $uiImage) {
+                            if let image = image {
                                 image
                                     .resizable()
                                     .scaledToFill()
                                     .frame(height: 200)
                                     .cornerRadius(10)
                                     .foregroundColor(.clear)
-                            }
-                        } else {
-                            PhotoPicker(selection: $uiImage) {
-                                Label("Add Photo", systemImage: "camera.fill")
-                                    .font(.headline)
-                                    .foregroundStyle(.selection)
+                            } else {
+                                PhotoPicker(selection: $uiImage) {
+                                    Label("Add Photo", systemImage: "camera.fill")
+                                        .font(.headline)
+                                        .foregroundStyle(.selection)
+                                }
                             }
                         }
-
 
                         Spacer()
                     }

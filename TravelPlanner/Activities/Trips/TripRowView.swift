@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TripRowView: View {
-    let trip: Trip
+    @ObservedObject var trip: Trip
 
     var dateFormat: Date.FormatStyle {
         .dateTime.day().month()

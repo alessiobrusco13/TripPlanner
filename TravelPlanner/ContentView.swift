@@ -20,6 +20,7 @@ struct ContentView: View {
             ForEach(dataController.trips) { trip in
                 NavigationLink {
                     TripView(trip: trip)
+                        .environmentObject(dataController)
                 } label: {
                     TripRowView(trip: trip)
                 }

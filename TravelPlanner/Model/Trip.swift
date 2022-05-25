@@ -23,6 +23,7 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable {
     static let example: Trip = {
         let trip = Trip()
         trip.name = "New Trip"
+        trip.locations = [.example]
         return trip
     }()
 
@@ -54,5 +55,10 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable {
         try container.encode(endDate, forKey: .endDate)
         try container.encode(image, forKey: .image)
         try container.encode(locations, forKey: .locations)
+    }
+
+    func delete(_ location: Location) {
+        guard let index = locations.firstIndex(of: location) else { return }
+        locations.remove(at: index)
     }
 }
