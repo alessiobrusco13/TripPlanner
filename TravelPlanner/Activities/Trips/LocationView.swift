@@ -23,7 +23,7 @@ struct LocationView: View {
                     Label("Remove Location", systemImage: "trash")
                 }
             }
-            .frame(height: 200)
+            .frame(height: 250)
 
             LocationRowView(location: location)
                 .padding(.horizontal, 30)

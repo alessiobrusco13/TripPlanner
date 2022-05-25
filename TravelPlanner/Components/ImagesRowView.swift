@@ -9,22 +9,10 @@ import MapKit
 import SwiftUI
 
 struct ImagesRowView<Content: View>: View {
-    struct RowData: CollectionRow {
-        let section = 0
-        var items: [UIImage]
-    }
-
     @Binding var location: Location
     @ViewBuilder let ellipseMenuContent: () -> Content
 
     @State private var editing = false
-    @State private var collectionView: UICollectionView?
-
-    var data: [RowData] {
-        var images = [UIImage.remove]
-        images.insert(contentsOf: location.images, at: 1)
-        return [RowData(items: images)]
-    }
 
     var region: MKCoordinateRegion {
         MKCoordinateRegion(
@@ -34,85 +22,75 @@ struct ImagesRowView<Content: View>: View {
         )
     }
 
-    var lastIndex: Int {
-        data.first?.items.firstIndex(of: .add) ?? 0
+    var rows: [GridItem] {
+        [.init(.flexible(minimum: 200, maximum: 200))]
     }
 
     var body: some View {
-        CollectionView(rows: data, sectionLayoutProvider: sectionProvider) { indexPath, collectionView, data in
-            if indexPath.item == 0 {
-                HStack {
-                    Map(coordinateRegion: .constant(region), annotationItems: [location]) {
-                        MapMarker(coordinate: $0.locationCoordinates, tint: Color("AccentColor"))
-                    }
-                    .disabled(true)
-                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-
-                    Divider()
-                }
-                .background { Color(.systemGroupedBackground) }
-                .onAppear {
-                    self.collectionView = collectionView
-                }
-            } else {
-                Image(uiImage: data)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(maxWidth: 225, maxHeight: 200)
-                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                    .background { Color(.systemGroupedBackground) }
-                    .overlay(alignment: .topTrailing) {
-                        if editing {
-                            Button(role: .destructive) {
-                                withAnimation {
-                                    _ = location.images.remove(at: indexPath.item - 1)
-                                    collectionView.reloadData()
-                                }
-                            } label: {
-                                Image(systemName: "minus")
-                                    .font(.title3.bold())
-                                    .foregroundColor(.white)
-                                    .padding()
-                            }
-                            .background {
-                                Circle()
-                                    .fill(.red)
-                            }
-                            .padding(5)
-                            .transition(.scale)
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHGrid(rows: rows, pinnedViews: .sectionFooters) {
+                Section {
+                    HStack {
+                        Map(coordinateRegion: .constant(region), annotationItems: [location]) {
+                            MapMarker(coordinate: $0.locationCoordinates, tint: Color("AccentColor"))
                         }
+                        .disabled(true)
+                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                        .frame(width: 225, height: 225)
+                        .padding(.leading)
+
+                        Divider()
                     }
+
+                    ForEach(location.images, id: \.self) { image in
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 225, height: 225)
+                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                            .overlay(alignment: .topTrailing) {
+                                if editing {
+                                    Button(role: .destructive) {
+                                        withAnimation {
+                                            guard let index = location.images.firstIndex(of: image) else {
+                                                return
+                                            }
+
+                                            location.images.remove(at: index)
+                                        }
+                                    } label: {
+                                        Image(systemName: "minus")
+                                            .font(.title3.bold())
+                                            .foregroundColor(.white)
+                                            .padding()
+                                    }
+                                    .background {
+                                        Circle()
+                                            .fill(.red)
+                                    }
+                                    .padding(-10)
+                                    .transition(.scale)
+                                }
+                            }
+                            .wiggle(enabled: $editing)
+                    }
+                } footer: {
+                    buttons
+                }
             }
         }
         .animation(.default, value: location.images)
-        .overlay(alignment: .trailing) {
-            if location.images.isEmpty {
-                buttons
-                    .padding(.trailing, 50)
-            } else {
-                buttons
-            }
-        }
-    }
-
-    func sectionProvider(sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
-        let groupSize = NSCollectionLayoutSize(widthDimension: .absolute(225), heightDimension: .absolute(200))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-
-        let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .groupPagingCentered
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: -50, bottom: 0, trailing: 0)
-        section.interGroupSpacing = 10
-        return section
     }
 
     var buttons: some View {
         VStack {
             addImageButton
             ellipsisButton
+
+            if editing {
+                cancelButton
+                    .transition(.move(edge: .trailing))
+            }
         }
         .padding(8)
     }
@@ -124,11 +102,21 @@ struct ImagesRowView<Content: View>: View {
                 .foregroundStyle(.white)
                 .frame(width: 64, height: 64)
         }
-        .background {
-            Color.accentColor
+        .buttonBackground()
+    }
+
+    var cancelButton: some View {
+        Button {
+            withAnimation {
+                editing.toggle()
+            }
+        } label: {
+            Image(systemName: "checkmark")
+                .font(.title.weight(.semibold))
+                .foregroundStyle(.white)
+                .frame(width: 64, height: 64)
         }
-        .clipShape(Circle())
-        .shadow(color: .black.opacity(0.3), radius: 20)
+        .buttonBackground(color: .green)
     }
 
     var ellipsisButton: some View {
@@ -139,25 +127,33 @@ struct ImagesRowView<Content: View>: View {
                 .foregroundStyle(.white)
                 .frame(width: 64, height: 64)
         }
-        .background {
-            Color.accentColor
-        }
-        .clipShape(Circle())
-        .shadow(color: .black.opacity(0.3), radius: 20)
+        .buttonBackground()
     }
 
     @ViewBuilder
     func ellipsisButtonActions() -> some View {
-        Button {
-            withAnimation {
-                editing = true
-                collectionView?.reloadData()
+        if !location.images.isEmpty {
+            Button {
+                withAnimation {
+                    editing = true
+                }
+            } label: {
+                Label("Edit Photos", systemImage: "pencil")
             }
-        } label: {
-            Label("Edit Photos", systemImage: "pencil")
         }
 
         ellipseMenuContent()
+    }
+}
+
+fileprivate extension View {
+    func buttonBackground(color: Color = .accentColor) -> some View {
+        self
+            .background {
+                color
+            }
+            .clipShape(Circle())
+            .shadow(color: .black.opacity(0.3), radius: 10)
     }
 }
 
