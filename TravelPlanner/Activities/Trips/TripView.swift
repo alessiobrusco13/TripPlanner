@@ -38,14 +38,20 @@ struct TripView: View {
                         .padding(.bottom)
 
                     VStack {
-                        TextField("Enter trip name", text: $trip.name)
-                            .disabled(!editingTrip)
-                            .focused($editingName)
-                            .font(.largeTitle.weight(.semibold))
-                            .multilineTextAlignment(.center)
-                            .onSubmit {
-                                editingName = false
-                            }
+                        if !editingTrip {
+                            Text(trip.name)
+                                .font(.largeTitle.weight(.semibold))
+                        } else {
+                            TextField("Enter trip name", text: $trip.name)
+                                .focused($editingName)
+                                .font(.largeTitle.weight(.semibold))
+                                .multilineTextAlignment(.center)
+                                .onSubmit {
+                                    editingName = false
+                                }
+                                .frame(maxWidth: 100)
+                                .textFieldStyle(.roundedBorder)
+                        }
 
                         HStack(spacing: 5) {
                             Text(trip.startDate, format: .dateTime.day().month())

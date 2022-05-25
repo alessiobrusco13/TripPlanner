@@ -10,9 +10,11 @@ import SwiftUI
 
 struct ImagesRowView<Content: View>: View {
     @Binding var location: Location
-    @ViewBuilder let ellipseMenuContent: () -> Content
+    @ViewBuilder let ellipseMenuContent: (@escaping () -> Void) -> Content
 
     @State private var editing = false
+    @State private var isWiggling = false
+    @State private var showingDeleteConfirmation = false
 
     var region: MKCoordinateRegion {
         MKCoordinateRegion(
@@ -27,65 +29,73 @@ struct ImagesRowView<Content: View>: View {
     }
 
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            LazyHGrid(rows: rows, pinnedViews: .sectionFooters) {
-                Section {
-                    HStack {
-                        Map(coordinateRegion: .constant(region), annotationItems: [location]) {
-                            MapMarker(coordinate: $0.locationCoordinates, tint: Color("AccentColor"))
-                        }
-                        .disabled(true)
-                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                        .frame(width: 225, height: 225)
-                        .padding(.leading)
-
-                        Divider()
-                    }
-
-                    ForEach(location.images, id: \.self) { image in
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 225, height: 225)
-                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                            .overlay(alignment: .topTrailing) {
-                                if editing {
-                                    Button(role: .destructive) {
-                                        withAnimation {
-                                            guard let index = location.images.firstIndex(of: image) else {
-                                                return
-                                            }
-
-                                            location.images.remove(at: index)
-                                        }
-                                    } label: {
-                                        Image(systemName: "minus")
-                                            .font(.title3.bold())
-                                            .foregroundColor(.white)
-                                            .padding()
-                                    }
-                                    .background {
-                                        Circle()
-                                            .fill(.red)
-                                    }
-                                    .padding(-10)
-                                    .transition(.scale)
-                                }
+        ScrollViewReader { proxy in
+            ScrollView(.horizontal, showsIndicators: false) {
+                LazyHGrid(rows: rows, pinnedViews: .sectionFooters) {
+                    Section {
+                        HStack {
+                            Map(coordinateRegion: .constant(region), annotationItems: [location]) {
+                                MapMarker(coordinate: $0.locationCoordinates, tint: Color("AccentColor"))
                             }
-                            .wiggle(enabled: $editing)
+                            .disabled(true)
+                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                            .frame(width: 225, height: 225)
+                            .padding(.leading)
+
+                            Divider()
+                        }
+
+                        ForEach(location.images, id: \.self) { image in
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 225, height: 225)
+                                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                .id(location.images.firstIndex(of: image) ?? 0)
+                                .overlay(alignment: .topTrailing) {
+                                    if editing {
+                                        Button(role: .destructive) {
+                                            withAnimation {
+                                                guard let index = location.images.firstIndex(of: image) else {
+                                                    return
+                                                }
+
+                                                location.images.remove(at: index)
+                                            }
+                                        } label: {
+                                            Image(systemName: "minus")
+                                                .font(.title3.bold())
+                                                .foregroundColor(.white)
+                                                .padding()
+                                        }
+                                        .background {
+                                            Circle()
+                                                .fill(.red)
+                                        }
+                                        .padding(-10)
+                                        .transition(.scale)
+                                    }
+                                }
+                                .wiggle(enabled: $editing, isWiggling: $isWiggling)
+                        }
+                    } footer: {
+                        buttons(proxy: proxy)
                     }
-                } footer: {
-                    buttons
                 }
             }
         }
         .animation(.default, value: location.images)
+        .onDisappear {
+            withAnimation {
+                editing = false
+            }
+        }
     }
 
-    var buttons: some View {
+    func buttons(proxy: ScrollViewProxy) -> some View {
         VStack {
             addImageButton
-            ellipsisButton
+            ellipsisButton(proxy: proxy)
 
             if editing {
                 cancelButton
@@ -119,8 +129,15 @@ struct ImagesRowView<Content: View>: View {
         .buttonBackground(color: .green)
     }
 
-    var ellipsisButton: some View {
-        Menu(content: ellipsisButtonActions) {
+    func ellipsisButton(proxy: ScrollViewProxy) -> some View {
+        Menu {
+            ellipseMenuContent {
+                withAnimation {
+                    editing = true
+                    proxy.scrollTo(0, anchor: .center)
+                }
+            }
+        } label: {
             Image(systemName: "ellipsis")
                 .rotationEffect(.degrees(90))
                 .font(.title.weight(.semibold))
@@ -129,24 +146,9 @@ struct ImagesRowView<Content: View>: View {
         }
         .buttonBackground()
     }
-
-    @ViewBuilder
-    func ellipsisButtonActions() -> some View {
-        if !location.images.isEmpty {
-            Button {
-                withAnimation {
-                    editing = true
-                }
-            } label: {
-                Label("Edit Photos", systemImage: "pencil")
-            }
-        }
-
-        ellipseMenuContent()
-    }
 }
 
-fileprivate extension View {
+private extension View {
     func buttonBackground(color: Color = .accentColor) -> some View {
         self
             .background {
@@ -159,7 +161,7 @@ fileprivate extension View {
 
 struct RowView_Previews: PreviewProvider {
     static var previews: some View {
-        ImagesRowView(location: .constant(.example)) {
+        ImagesRowView(location: .constant(.example)) {_ in
             EmptyView()
         }
         .ignoresSafeArea()
