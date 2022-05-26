@@ -10,6 +10,7 @@
 		891AF911282184FC00BD691F /* NewTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891AF910282184FC00BD691F /* NewTripView.swift */; };
 		891AF91328218B8400BD691F /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891AF91228218B8400BD691F /* ImagePicker.swift */; };
 		891AF91528218DB400BD691F /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891AF91428218DB400BD691F /* Camera.swift */; };
+		8923EC27283F6A21000557C0 /* ImagesGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8923EC26283F6A21000557C0 /* ImagesGridView.swift */; };
 		892768AD282B9EC400FBAEA0 /* LocationRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892768AC282B9EC400FBAEA0 /* LocationRowView.swift */; };
 		892768AF282BF18200FBAEA0 /* LocationSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892768AE282BF18200FBAEA0 /* LocationSearchService.swift */; };
 		892768B1282C255D00FBAEA0 /* LocationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892768B0282C255D00FBAEA0 /* LocationPicker.swift */; };
@@ -43,6 +44,7 @@
 		891AF91228218B8400BD691F /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		891AF91428218DB400BD691F /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		891AF91628218F1700BD691F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8923EC26283F6A21000557C0 /* ImagesGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesGridView.swift; sourceTree = "<group>"; };
 		892768AC282B9EC400FBAEA0 /* LocationRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRowView.swift; sourceTree = "<group>"; };
 		892768AE282BF18200FBAEA0 /* LocationSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchService.swift; sourceTree = "<group>"; };
 		892768B0282C255D00FBAEA0 /* LocationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPicker.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				892B9F28283A9B3F00235819 /* ImagesRowView.swift */,
+				8923EC26283F6A21000557C0 /* ImagesGridView.swift */,
 				892768B4282CF0CB00FBAEA0 /* CircleButton.swift */,
 				891AF91228218B8400BD691F /* ImagePicker.swift */,
 				891AF91428218DB400BD691F /* Camera.swift */,
@@ -278,6 +281,7 @@
 				892768B1282C255D00FBAEA0 /* LocationPicker.swift in Sources */,
 				891AF91528218DB400BD691F /* Camera.swift in Sources */,
 				892B9F2B283A9BD600235819 /* UIImage-Identifiable.swift in Sources */,
+				8923EC27283F6A21000557C0 /* ImagesGridView.swift in Sources */,
 				8964BABD2821666B00922BCC /* ContentView.swift in Sources */,
 				892768B3282C257900FBAEA0 /* LocationPickerViewModel.swift in Sources */,
 				8964BAC92821668800922BCC /* Trip.swift in Sources */,

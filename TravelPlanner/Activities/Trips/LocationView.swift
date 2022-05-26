@@ -16,10 +16,19 @@ struct LocationView: View {
     @State private var newLocation: Location?
 
     @State private var showingDeleteConfirmation = false
+    @State private var showingImageGrid = false
+
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack(alignment: .leading) {
             ImagesRowView(location: $location) { editAction in
+                Button(role: .destructive) {
+                    showingDeleteConfirmation.toggle()
+                } label: {
+                    Label("Remove Location", systemImage: "trash")
+                }
+
                 Button {
                     changingLocation.toggle()
                 } label: {
@@ -32,14 +41,13 @@ struct LocationView: View {
                     } label: {
                         Label("Edit Photos", systemImage: "pencil")
                     }
-                }
 
-                Button(role: .destructive) {
-                    showingDeleteConfirmation.toggle()
-                } label: {
-                    Label("Remove Location", systemImage: "trash")
+                    Button {
+                        showingImageGrid.toggle()
+                    } label: {
+                        Label("Show Grid", systemImage: "square.grid.2x2")
+                    }
                 }
-
             }
             .frame(height: 250)
 
@@ -64,6 +72,9 @@ struct LocationView: View {
                     trip.delete(location)
                 }
             }
+        }
+        .fullScreenCover(isPresented: $showingImageGrid) {
+            ImagesGridView()
         }
     }
 }

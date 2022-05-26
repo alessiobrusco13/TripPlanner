@@ -18,6 +18,7 @@ struct TripView: View {
 
     @FocusState private var editingName: Bool
     @State private var editingTrip = false
+    @State private var newImage: UIImage?
 
     var body: some View {
         ZStack {
@@ -25,7 +26,7 @@ struct TripView: View {
                 .ignoresSafeArea()
 
             ScrollView {
-                VStack(spacing: 30) {
+                VStack(spacing: 20) {
                     Map(coordinateRegion: $region, annotationItems: trip.locations) { location in
                         MapMarker(coordinate: location.locationCoordinates, tint: .accentColor)
                     }
@@ -33,9 +34,22 @@ struct TripView: View {
                     .frame(height: 300)
 
                     CircleImage(uiImage: trip.image)
-                        .frame(height: 200)
+                        .frame(maxWidth: 350)
+                        .frame(height: 350)
                         .padding(.top, -175)
-                        .padding(.bottom)
+                        .overlay {
+                            if editingTrip {
+                                PhotoPicker(selection: $newImage) {
+                                    Image(systemName: "photo.fill.on.rectangle.fill")
+                                        .font(.largeTitle)
+                                        .contentShape(Rectangle())
+                                }
+                                .padding()
+                                .background()
+                                .cornerRadius(10)
+                                .transition(.scale)
+                            }
+                        }
 
                     VStack {
                         if !editingTrip {
@@ -49,21 +63,62 @@ struct TripView: View {
                                 .onSubmit {
                                     editingName = false
                                 }
-                                .frame(maxWidth: 100)
+                                .frame(maxWidth: 300)
                                 .textFieldStyle(.roundedBorder)
                         }
 
                         HStack(spacing: 5) {
-                            Text(trip.startDate, format: .dateTime.day().month())
+                            if !editingTrip {
+                                Text(trip.startDate, format: .dateTime.day().month())
+                            } else {
+                                DatePicker(
+                                    "Start date",
+                                    selection: $trip.startDate,
+                                    displayedComponents: .date
+                                )
+                                .labelsHidden()
+                            }
 
                             Image(systemName: "arrow.right")
                                 .font(.caption.weight(.heavy))
 
-                            Text(trip.endDate, format: .dateTime.day().month())
+                            if !editingTrip {
+                                Text(trip.endDate, format: .dateTime.day().month())
+                            } else {
+                                DatePicker(
+                                    "End date",
+                                    selection: $trip.endDate,
+                                    in: trip.startDate...,
+                                    displayedComponents: .date
+                                )
+                                .labelsHidden()
+                            }
                         }
+                        .padding(editingTrip ? 8 : 0)
 
                         Divider()
                             .padding(.horizontal)
+                    }
+                    .overlay(alignment: .trailing) {
+                        if editingTrip {
+                            Button {
+                                withAnimation {
+                                    editingTrip = false
+                                }
+                            } label: {
+                                Image(systemName: "checkmark")
+                                    .font(.title.weight(.semibold))
+                                    .foregroundStyle(.white)
+                                    .frame(width: 64, height: 64)
+                            }
+                            .background {
+                                Color.green
+                            }
+                            .clipShape(Circle())
+                            .shadow(color: .black.opacity(0.3), radius: 10)
+                            .padding()
+                            .transition(.move(edge: .trailing))
+                        }
                     }
 
                     ForEach($trip.locations) {
@@ -102,18 +157,13 @@ struct TripView: View {
                             Label("Remove Trip", systemImage: "trash")
                         }
                     } label: {
-                        Image(systemName: editingTrip ? "checkmark" : "ellipsis")
+                        Image(systemName: "ellipsis")
                             .font(.headline)
-                            .padding(editingTrip ? 6 : 14)
+                            .padding(14)
                             .background {
                                 Circle()
                                     .opacity(0.2)
                             }
-                    } primaryAction: {
-                        if editingTrip {
-                            editingName = false
-                            editingTrip = false
-                        }
                     }
 
                     CircleButton(systemImage: "doc.badge.plus") {
@@ -126,6 +176,12 @@ struct TripView: View {
         .onDisappear(perform: dataController.save)
         .onChange(of: trip.locations) { _ in
             setRegion()
+        }
+        .onChange(of: newImage) { image in
+            withAnimation {
+                guard let image = image else { return }
+                trip.image = image
+            }
         }
     }
 
