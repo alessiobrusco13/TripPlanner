@@ -13,6 +13,7 @@ struct LocationPicker: View {
     }
 
     private let outputMethod: OutputMethod
+    let onSelected: (inout Location) -> Void
 
     @Binding var atomicSelection: Location?
     @Binding var arraySelection: [Location]
@@ -51,38 +52,42 @@ struct LocationPicker: View {
         }
     }
 
-    init(selection: Binding<Location?>) {
+    init(selection: Binding<Location?>, onSelected: @escaping (inout Location) -> Void) {
         _arraySelection = .constant([])
         _atomicSelection = selection
 
         outputMethod = .atomic
+        self.onSelected = onSelected
     }
 
-    init(selection: Binding<[Location]>) {
+    init(selection: Binding<[Location]>, onSelected: @escaping (inout Location) -> Void) {
         _arraySelection = selection
         _atomicSelection = .constant(nil)
 
         outputMethod = .array
+        self.onSelected = onSelected
     }
 }
 
 extension View {
     func locationPicker(
         isPresented: Binding<Bool>,
-        selection: Binding<Location?>
+        selection: Binding<Location?>,
+        onSelected: @escaping (inout Location) -> Void = { _ in }
     ) -> some View {
         sheet(isPresented: isPresented) {
-            LocationPicker(selection: selection)
+            LocationPicker(selection: selection, onSelected: onSelected)
                 .foregroundStyle(.primary)
         }
     }
 
     func locationPicker(
         isPresented: Binding<Bool>,
-        selection: Binding<[Location]>
+        selection: Binding<[Location]>,
+        onSelected: @escaping (inout Location) -> Void = { _ in }
     ) -> some View {
         sheet(isPresented: isPresented) {
-            LocationPicker(selection: selection)
+            LocationPicker(selection: selection, onSelected: onSelected)
                 .foregroundStyle(.primary)
         }
     }
@@ -90,6 +95,6 @@ extension View {
 
 struct LocationPickerView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationPicker(selection: .constant(nil))
+        LocationPicker(selection: .constant(nil)) { _ in }
     }
 }

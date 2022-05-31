@@ -89,7 +89,7 @@ struct NewTripView: View {
                         Label("Done", systemImage: "checkmark")
                             .font(.body.weight(.semibold))
                     }
-                    .disabled(newTrip.name.isEmpty)
+                    .disabled(newTrip.name.isEmpty || (image == nil))
                 }
 
                 ToolbarItem(placement: .navigationBarLeading) {

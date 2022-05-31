@@ -9,14 +9,17 @@ import SwiftUI
 
 struct PhotoPicker<Content: View>: View {
     private enum OutputMethod {
-        case array, atomic
+        case array, atomic, image
     }
 
     private let outputMethod: OutputMethod
     @State private var selection: UIImage?
 
-    @Binding var atomicSelection: UIImage?
-    @Binding var arraySelection: [UIImage]
+    @Binding var atomicSelection: Photo?
+    @Binding var arraySelection: [Photo]
+    @Binding var imageSelection: UIImage?
+
+    let location: Location?
 
     @ViewBuilder let label: () -> Content
 
@@ -36,10 +39,13 @@ struct PhotoPicker<Content: View>: View {
         .onChange(of: selection) { image in
             guard let image = image else { return }
 
-            if outputMethod == .atomic {
-                atomicSelection = image
-            } else {
-                arraySelection.append(image)
+            switch outputMethod {
+            case .array:
+                arraySelection.append(Photo(image: image, location: location ?? .example))
+            case .atomic:
+                atomicSelection = Photo(image: image, location: location ?? .example)
+            case .image:
+                imageSelection = selection
             }
         }
     }
@@ -64,26 +70,46 @@ struct PhotoPicker<Content: View>: View {
     }
 
     init(
-        selection: Binding<UIImage?>,
+        selection: Binding<Photo?>,
+        location: Location,
         @ViewBuilder label: @escaping () -> Content
     ) {
         _arraySelection = .constant([])
         _atomicSelection = selection
+        _imageSelection = .constant(nil)
         outputMethod = .atomic
 
+        self.location = location
         self.label = label
     }
 
     init(
-        selection: Binding<[UIImage]>,
+        selection: Binding<[Photo]>,
+        location: Location,
         @ViewBuilder label: @escaping () -> Content
     ) {
         _arraySelection = selection
         _atomicSelection = .constant(nil)
+        _imageSelection = .constant(nil)
         outputMethod = .array
 
+        self.location = location
         self.label = label
     }
+
+    init(
+        selection: Binding<UIImage?>,
+        @ViewBuilder label: @escaping () -> Content
+    ) {
+        _arraySelection = .constant([])
+        _atomicSelection = .constant(nil)
+        _imageSelection = selection
+        outputMethod = .image
+
+        self.location = nil
+        self.label = label
+    }
+
 }
 
 struct PhotoPicker_Previews: PreviewProvider {

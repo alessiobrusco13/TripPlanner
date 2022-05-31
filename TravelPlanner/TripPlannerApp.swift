@@ -11,18 +11,16 @@ import SwiftUI
 struct TripPlannerApp: App {
     @StateObject var dataController = DataController()
     @Environment(\.scenePhase) var scenePhase
-
+    
     var body: some Scene {
         WindowGroup {
-            NavigationView {
-                ContentView()
-                    .environmentObject(dataController)
-                    .onChange(of: scenePhase) { phase in
-                        if phase == .background {
-                            dataController.save()
-                        }
+            ContentView()
+                .environmentObject(dataController)
+                .onChange(of: scenePhase) { phase in
+                    if phase == .background {
+                        dataController.save()
                     }
-            }
+                }
         }
     }
 }

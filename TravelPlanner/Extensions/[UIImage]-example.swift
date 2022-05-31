@@ -16,3 +16,11 @@ extension Array where Element == UIImage {
         UIImage(named:"Example5")!
     ]
 }
+
+extension Array where Element == Photo {
+    static var example: [Photo] {
+        [UIImage].example.map { image in
+            Photo(image: image, location: Location.example)
+        }
+    }
+}

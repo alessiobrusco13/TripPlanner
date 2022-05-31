@@ -121,7 +121,7 @@ struct TripView: View {
                         }
                     }
 
-                    ForEach($trip.locations) {
+                    ForEach(trip.locations) {
                         LocationView(location: $0, trip: trip)
                     }
 

@@ -8,16 +8,16 @@
 import SwiftUI
 import MapKit
 
-struct Location: Identifiable, Codable, Hashable {
+class Location: ObservableObject, Identifiable, Codable, Hashable {
     enum CodingKeys: CodingKey {
-        case id, name, extendedName, coordinates, images
+        case id, name, extendedName, coordinates, photos
     }
 
     let id: UUID
-    let name: String
-    let extendedName: String
-    let coordinates: Coordinates
-    var images: [UIImage]
+    @Published var name: String
+    @Published var extendedName: String
+    @Published var coordinates: Coordinates
+    @Published var photos: [Photo]
 
     var locationCoordinates: CLLocationCoordinate2D {
         CLLocationCoordinate2D(
@@ -31,27 +31,43 @@ struct Location: Identifiable, Codable, Hashable {
         name: "London",
         extendedName: "London, England, United Kingdom",
         coordinates: Coordinates(longitude: 12.4963655, latitude: 41.9027835),
-        images: .example
+        photos: .example
     )
-}
 
-extension Location {
+    static func ==(lhs: Location, rhs: Location) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    init(
+        id: UUID,
+        name: String,
+        extendedName: String,
+        coordinates: Coordinates,
+        photos: [Photo]
+    ) {
+        self.id = id
+        self.name = name
+        self.extendedName = extendedName
+        self.coordinates = coordinates
+        self.photos = photos
+    }
+
     init(mapItem: MKMapItem) {
         id = UUID()
         name = mapItem.name ?? "N/A"
         extendedName = mapItem.placemark.title ?? "N/A"
-        coordinates =  Coordinates(clLocationCoordinate2D: mapItem.placemark.coordinate)
-        images = []
+        coordinates = Coordinates(clLocationCoordinate2D: mapItem.placemark.coordinate)
+        photos = []
     }
 
-    init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         self.id = try container.decode(UUID.self, forKey: .id)
         self.name = try container.decode(String.self, forKey: .name)
         self.extendedName = try container.decode(String.self, forKey: .extendedName)
         self.coordinates = try container.decode(Coordinates.self, forKey: .coordinates)
-        self.images = try container.decode([UIImage].self, forKey: .images)
+        self.photos = try container.decode([Photo].self, forKey: .photos)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -61,15 +77,21 @@ extension Location {
         try container.encode(name, forKey: .name)
         try container.encode(extendedName, forKey: .extendedName)
         try container.encode(coordinates, forKey: .coordinates)
-        try container.encode(images, forKey: .images)
+        try container.encode(photos, forKey: .photos)
     }
 
-    static func == (lhs: Location, rhs: Location) -> Bool {
-        lhs.id == rhs.id
+    func delete(_ photo: Photo) {
+        guard let index = photos.firstIndex(of: photo) else { return }
+        photos.remove(at: index)
     }
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
-}
 
+    func update(location: Location) {
+        name = location.name
+        extendedName = location.extendedName
+        coordinates = location.coordinates
+    }
+}

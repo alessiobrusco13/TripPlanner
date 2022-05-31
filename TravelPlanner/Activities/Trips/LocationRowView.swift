@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LocationRowView: View {
-    let location: Location
+    @ObservedObject var location: Location
 
     var body: some View {
         VStack(alignment: .leading) {

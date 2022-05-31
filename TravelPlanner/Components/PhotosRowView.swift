@@ -1,5 +1,5 @@
 //
-//  ImagesRowView.swift
+//  PhotosRowView.swift
 //  TravelPlanner
 //
 //  Created by Alessio Garzia Marotta Brusco on 22/05/22.
@@ -8,8 +8,8 @@
 import MapKit
 import SwiftUI
 
-struct ImagesRowView<Content: View>: View {
-    @Binding var location: Location
+struct PhotosRowView<Content: View>: View {
+    @ObservedObject var location: Location
     @ViewBuilder let ellipseMenuContent: (@escaping () -> Void) -> Content
 
     @State private var editing = false
@@ -45,22 +45,17 @@ struct ImagesRowView<Content: View>: View {
                             Divider()
                         }
 
-                        ForEach(location.images, id: \.self) { image in
-                            Image(uiImage: image)
+                        ForEach($location.photos, id: \.self) { $photo in
+                            Image(photo: photo)
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 225, height: 225)
                                 .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                                .id(location.images.firstIndex(of: image) ?? 0)
                                 .overlay(alignment: .topTrailing) {
                                     if editing {
                                         Button(role: .destructive) {
                                             withAnimation {
-                                                guard let index = location.images.firstIndex(of: image) else {
-                                                    return
-                                                }
-
-                                                location.images.remove(at: index)
+                                                location.delete(photo)
                                             }
                                         } label: {
                                             Image(systemName: "minus")
@@ -74,6 +69,10 @@ struct ImagesRowView<Content: View>: View {
                                         }
                                         .padding(-10)
                                         .transition(.scale)
+                                    } else {
+                                        FavoriteButton(photo: $photo, location: location)
+                                            .padding(5)
+                                            .transition(.scale)
                                     }
                                 }
                                 .wiggle(enabled: $editing, isWiggling: $isWiggling)
@@ -84,7 +83,7 @@ struct ImagesRowView<Content: View>: View {
                 }
             }
         }
-        .animation(.default, value: location.images)
+        .animation(.default, value: location.photos)
         .onDisappear {
             withAnimation {
                 editing = false
@@ -94,7 +93,7 @@ struct ImagesRowView<Content: View>: View {
 
     func buttons(proxy: ScrollViewProxy) -> some View {
         VStack {
-            addImageButton
+            addPhotoButton
             ellipsisButton(proxy: proxy)
 
             if editing {
@@ -105,8 +104,8 @@ struct ImagesRowView<Content: View>: View {
         .padding(8)
     }
 
-    var addImageButton: some View {
-        PhotoPicker(selection: $location.images) {
+    var addPhotoButton: some View {
+        PhotoPicker(selection: $location.photos, location: location) {
             Image(systemName: "photo.on.rectangle")
                 .font(.title.weight(.semibold))
                 .foregroundStyle(.white)
@@ -159,9 +158,9 @@ private extension View {
     }
 }
 
-struct RowView_Previews: PreviewProvider {
+struct PhotosRowView_Previews: PreviewProvider {
     static var previews: some View {
-        ImagesRowView(location: .constant(.example)) {_ in
+        PhotosRowView(location: .example) {_ in
             EmptyView()
         }
         .ignoresSafeArea()

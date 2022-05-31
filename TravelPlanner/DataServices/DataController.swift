@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import SwiftUI
 
 class DataController: ObservableObject {
     @Published var trips = [Trip]()
@@ -14,12 +15,22 @@ class DataController: ObservableObject {
     private let savePath = FileManager.documentsDirectory.appendingPathComponent("trips")
     private var saveSubscription: AnyCancellable?
 
+    var favoriteImages: [Photo] {
+        trips
+            .map(\.locations)
+            .joined()
+            .map(\.photos)
+            .joined()
+            .filter(\.isFavorite)
+    }
+
     init() {
         do {
             let data = try Data(contentsOf: savePath)
             trips = try JSONDecoder().decode([Trip].self, from: data)
         } catch {
             trips = []
+            print(error)
         }
 
         saveSubscription = $trips
@@ -33,6 +44,7 @@ class DataController: ObservableObject {
         do {
             let data = try JSONEncoder().encode(trips)
             try data.write(to: savePath, options: [.atomic, .completeFileProtection])
+            print("Saved")
         } catch {
             print(error.localizedDescription)
         }
@@ -53,5 +65,38 @@ class DataController: ObservableObject {
     func delete(_ trip: Trip) {
         guard let index = trips.firstIndex(of: trip) else { return }
         trips.remove(at: index)
+    }
+
+    func location(for photo: Photo) -> Location? {
+        let locations = Array(trips.map(\.locations).joined())
+        var locationsPhotos = [(Location, Set<Photo>)]()
+
+        for location in locations {
+            locationsPhotos.append((location, Set(location.photos)))
+        }
+
+        for (location, photos) in locationsPhotos {
+            if photos.contains(photo) {
+                return location
+            }
+        }
+
+        return nil
+    }
+
+    func trip(for location: Location) -> Trip? {
+        var tripsLocations = [(Trip, Set<Location>)]()
+
+        for trip in trips {
+            tripsLocations.append((trip, Set(trip.locations)))
+        }
+
+        for (trip, locations) in tripsLocations {
+            if locations.contains(location) {
+                return trip
+            }
+        }
+
+        return nil
     }
 }

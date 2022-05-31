@@ -33,9 +33,7 @@ extension KeyedEncodingContainer {
         }
         try encode(data, forKey: key)
     }
-}
 
-extension KeyedEncodingContainer {
     mutating func encode(
         _ value: [UIImage],
         forKey key: KeyedEncodingContainer.Key,
@@ -49,6 +47,32 @@ extension KeyedEncodingContainer {
                 imagesData.append(value.pngData())
             case .jpeg(let quality):
                 imagesData.append(value.jpegData(compressionQuality: quality))
+            }
+        }
+
+        guard (imagesData.allSatisfy { $0 != nil }) else {
+            throw EncodingError.invalidValue(
+                value,
+                EncodingError.Context(codingPath: [key], debugDescription: "Failed convert UIImage to data")
+            )
+        }
+
+        try encode(imagesData.compactMap { $0 }, forKey: key)
+    }
+
+    mutating func encode(
+        _ value: Set<UIImage>,
+        forKey key: KeyedEncodingContainer.Key,
+        quality: ImageEncodingQuality = .png
+    ) throws {
+        var imagesData = Set<Data?>()
+
+        for value in value {
+            switch quality {
+            case .png:
+                imagesData.insert(value.pngData())
+            case .jpeg(let quality):
+                imagesData.insert(value.jpegData(compressionQuality: quality))
             }
         }
 
@@ -77,9 +101,7 @@ extension KeyedDecodingContainer {
             )
         }
     }
-}
 
-extension KeyedDecodingContainer {
     func decode(
         _ type: [UIImage].Type,
         forKey key: KeyedDecodingContainer.Key
@@ -98,5 +120,25 @@ extension KeyedDecodingContainer {
         }
 
         return images.compactMap { $0 }
+    }
+
+    func decode(
+        _ type: Set<UIImage>.Type,
+        forKey key: KeyedDecodingContainer.Key
+    ) throws -> Set<UIImage> {
+        let imagesData = try decode(Set<Data>.self, forKey: key)
+        var images = Set<UIImage?>()
+
+        for imageData in imagesData {
+            images.insert(UIImage(data: imageData))
+        }
+
+        guard (images.allSatisfy { $0 != nil }) else {
+            throw DecodingError.dataCorrupted(
+                DecodingError.Context(codingPath: [key], debugDescription: "Failed load UIImage from decoded data")
+            )
+        }
+
+        return Set(images.compactMap { $0 })
     }
 }
