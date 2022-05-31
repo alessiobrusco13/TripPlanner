@@ -79,7 +79,7 @@ struct LocationView: View {
             }
         }
         .fullScreenCover(isPresented: $showingImageGrid) {
-            PhotosGridView(photos: .constant(.example), itemSize: CGSize(width: 90, height: 90))
+            PhotosGridView(photos: $location.photos)
         }
     }
 }

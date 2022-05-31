@@ -18,7 +18,7 @@ struct FavoritesView: View {
     
     var body: some View {
         NavigationView {
-            PhotosGridView(photos: favoritesBinding, itemSize: CGSize(width: 200, height: 200))
+            PhotosGridView(photos: favoritesBinding, hideDismissButton: true)
                 .navigationTitle("Favorites")
         }
     }
