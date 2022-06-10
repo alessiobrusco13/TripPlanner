@@ -19,7 +19,10 @@ extension LocationPicker {
         @Published var locations = [Location]()
         @Published var searchText = "" {
             didSet {
-                search()
+                Task {
+                    try await Task.sleep(nanoseconds: 1_000_000)
+                    search()
+                }
             }
         }
         

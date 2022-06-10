@@ -39,8 +39,8 @@
 		89B0A16F28480686008CEACF /* PhotosTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B0A16E28480686008CEACF /* PhotosTabView.swift */; };
 		89C7CA8D283564EC008E3F72 /* [UIImage]-example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C7CA8C283564EC008E3F72 /* [UIImage]-example.swift */; };
 		89C7CA8F28356843008E3F72 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C7CA8E28356843008E3F72 /* PhotoPicker.swift */; };
-		89C8B148283E69B10084E1DF /* Wiggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C8B147283E69B10084E1DF /* Wiggle.swift */; };
 		89DCCB13283B809500030B89 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DCCB12283B809500030B89 /* CircleImage.swift */; };
+		89FF84A02853AF5F000CBD55 /* NoPressEffectButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FF849F2853AF5F000CBD55 /* NoPressEffectButtonStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,8 +79,8 @@
 		89B0A16E28480686008CEACF /* PhotosTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTabView.swift; sourceTree = "<group>"; };
 		89C7CA8C283564EC008E3F72 /* [UIImage]-example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "[UIImage]-example.swift"; sourceTree = "<group>"; };
 		89C7CA8E28356843008E3F72 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
-		89C8B147283E69B10084E1DF /* Wiggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wiggle.swift; sourceTree = "<group>"; };
 		89DCCB12283B809500030B89 /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
+		89FF849F2853AF5F000CBD55 /* NoPressEffectButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPressEffectButtonStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,7 +128,7 @@
 				89C7CA8E28356843008E3F72 /* PhotoPicker.swift */,
 				895D780C282D002D00EE846F /* LocationPicker */,
 				89DCCB12283B809500030B89 /* CircleImage.swift */,
-				89C8B147283E69B10084E1DF /* Wiggle.swift */,
+				89FF849F2853AF5F000CBD55 /* NoPressEffectButtonStyle.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -295,7 +295,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89C8B148283E69B10084E1DF /* Wiggle.swift in Sources */,
 				89C7CA8D283564EC008E3F72 /* [UIImage]-example.swift in Sources */,
 				892B9F29283A9B3F00235819 /* PhotosRowView.swift in Sources */,
 				892768B1282C255D00FBAEA0 /* LocationPicker.swift in Sources */,
@@ -325,6 +324,7 @@
 				8964BAD128216E2600922BCC /* KeyedEncodingContainer-UIImage.swift in Sources */,
 				8965A879284355AF0065ED88 /* FavoritesView.swift in Sources */,
 				899AA1B2284274670080CD11 /* PhotoView.swift in Sources */,
+				89FF84A02853AF5F000CBD55 /* NoPressEffectButtonStyle.swift in Sources */,
 				892B9F2D283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift in Sources */,
 				89B0A16F28480686008CEACF /* PhotosTabView.swift in Sources */,
 			);

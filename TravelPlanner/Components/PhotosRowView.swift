@@ -10,14 +10,11 @@ import SwiftUI
 
 struct PhotosRowView<Content: View>: View {
     @Binding var location: Location
-    @ViewBuilder let ellipseMenuContent: (@escaping () -> Void) -> Content
-
-    @State private var editing = false
-    @State private var isWiggling = false
-    @State private var showingDeleteConfirmation = false
+    @ViewBuilder let ellipseMenuContent: () -> Content
     
+    @State private var showingDeleteConfirmation = false
     @State private var newImage: UIImage?
-
+    
     var region: MKCoordinateRegion {
         MKCoordinateRegion(
             center: location.locationCoordinates,
@@ -25,11 +22,11 @@ struct PhotosRowView<Content: View>: View {
             longitudinalMeters: 1000
         )
     }
-
+    
     var rows: [GridItem] {
         [.init(.flexible(minimum: 200, maximum: 200))]
     }
-
+    
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView(.horizontal, showsIndicators: false) {
@@ -43,10 +40,10 @@ struct PhotosRowView<Content: View>: View {
                             .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                             .frame(width: 225, height: 225)
                             .padding(.leading)
-
+                            
                             Divider()
                         }
-
+                        
                         ForEach($location.photos, id: \.self) { $photo in
                             Image(photo: photo)
                                 .resizable()
@@ -54,30 +51,10 @@ struct PhotosRowView<Content: View>: View {
                                 .frame(width: 225, height: 225)
                                 .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                                 .overlay(alignment: .topTrailing) {
-                                    if editing {
-                                        Button(role: .destructive) {
-                                            withAnimation {
-                                                location.delete(photo)
-                                            }
-                                        } label: {
-                                            Image(systemName: "minus")
-                                                .font(.title3.bold())
-                                                .foregroundColor(.white)
-                                                .padding()
-                                        }
-                                        .background {
-                                            Circle()
-                                                .fill(.red)
-                                        }
-                                        .padding(-10)
+                                    FavoriteButton(photo: $photo)
+                                        .padding(5)
                                         .transition(.scale)
-                                    } else {
-                                        FavoriteButton(photo: $photo)
-                                            .padding(5)
-                                            .transition(.scale)
-                                    }
                                 }
-                                .wiggle(enabled: $editing, isWiggling: $isWiggling)
                                 .id(photo.id)
                         }
                     } footer: {
@@ -87,30 +64,20 @@ struct PhotosRowView<Content: View>: View {
             }
         }
         .animation(.default, value: location.photos)
-        .onDisappear {
-            withAnimation {
-                editing = false
-            }
-        }
         .onChange(of: newImage) { image in
             guard let image = image else { return }
             location.photos.append(Photo(image: image))
         }
     }
-
+    
     func buttons(proxy: ScrollViewProxy) -> some View {
         VStack {
             addPhotoButton
             ellipsisButton(proxy: proxy)
-
-            if editing {
-                cancelButton
-                    .transition(.move(edge: .trailing))
-            }
         }
         .padding(8)
     }
-
+    
     var addPhotoButton: some View {
         PhotoPicker(selection: $newImage) {
             Image(systemName: "photo.on.rectangle")
@@ -120,29 +87,10 @@ struct PhotosRowView<Content: View>: View {
         }
         .buttonBackground()
     }
-
-    var cancelButton: some View {
-        Button {
-            withAnimation {
-                editing.toggle()
-            }
-        } label: {
-            Image(systemName: "checkmark")
-                .font(.title.weight(.semibold))
-                .foregroundStyle(.white)
-                .frame(width: 64, height: 64)
-        }
-        .buttonBackground(color: .green)
-    }
-
+    
     func ellipsisButton(proxy: ScrollViewProxy) -> some View {
         Menu {
-            ellipseMenuContent {
-                withAnimation {
-                    editing = true
-                    proxy.scrollTo(0, anchor: .center)
-                }
-            }
+            ellipseMenuContent()
         } label: {
             Image(systemName: "ellipsis")
                 .rotationEffect(.degrees(90))
@@ -167,7 +115,7 @@ private extension View {
 
 struct PhotosRowView_Previews: PreviewProvider {
     static var previews: some View {
-        PhotosRowView(location: .constant(.example)) {_ in
+        PhotosRowView(location: .constant(.example)) {
             EmptyView()
         }
         .ignoresSafeArea()

@@ -13,19 +13,7 @@ struct ContentView: View {
     }
     
     var body: some View {
-        TabView {
-            TripsView()
-                .tag(Tab.trips)
-                .tabItem {
-                    Label("Trips", systemImage: "airplane.departure")
-                }
-            
-            FavoritesView()
-                .tag(Tab.favorites)
-                .tabItem {
-                    Label("Favorites", systemImage: "heart.fill")
-                }
-        }
+        TripsView()
     }
 }
 

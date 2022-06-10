@@ -9,29 +9,36 @@ import SwiftUI
 
 struct LocationPicker: View {
     @Binding var selection: Location?
-
+    
     @Environment(\.dismiss) var dismiss
     @StateObject private var viewModel = ViewModel()
-
+    
     var body: some View {
         NavigationView {
             List($viewModel.locations) { $location in
                 Button {
                     selection = location
-
+                    
                     dismiss()
                 } label: {
-                    LocationRowView(location: $location)
+                    VStack(alignment: .leading) {
+                        Text(location.name)
+                            .font(.title2.weight(.semibold))
+                        
+                        Text(location.extendedName)
+                            .fontWeight(.medium)
+                            .foregroundStyle(.secondary)
+                    }
                 }
             }
             .searchable(text: $viewModel.searchText)
             .overlay {
                 if viewModel.isLoading {
-                    ZStack {
-                        Color(.systemGroupedBackground)
-                            .ignoresSafeArea()
-                        
+                    VStack {
                         ProgressView()
+                        
+                        Text("Loading".uppercased())
+                            .foregroundColor(.secondary)
                     }
                 }
             }

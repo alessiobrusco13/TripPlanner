@@ -18,7 +18,7 @@ struct FavoritesView: View {
     
     var body: some View {
         NavigationView {
-            PhotosGridView(photos: favoritesBinding, hideDismissButton: true)
+            PhotosGridView(photos: favoritesBinding)
                 .navigationTitle("Favorites")
         }
     }

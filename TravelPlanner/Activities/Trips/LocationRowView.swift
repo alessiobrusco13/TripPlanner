@@ -9,16 +9,33 @@ import SwiftUI
 
 struct LocationRowView: View {
     @Binding var location: Location
-
+    
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(location.name)
-                .font(.title2.weight(.semibold))
-
-            Text(location.extendedName)
-                .fontWeight(.medium)
-                .foregroundStyle(.secondary)
+        NavigationLink {
+            PhotosGridView(photos: $location.photos)
+                .navigationTitle(location.name)
+        } label: {
+            VStack(alignment: .leading) {
+                Text(location.extendedName)
+                    .fontWeight(.medium)
+                    .foregroundStyle(.secondary)
+                
+                HStack {
+                    Text(location.name)
+                        .font(.title.weight(.semibold))
+                    
+                    if !location.photos.isEmpty {
+                        Image(systemName: "chevron.right")
+                            .font(.title2.weight(.semibold))
+                            .foregroundStyle(.gray)
+                    }
+                }
+            }
+            .lineLimit(1)
         }
+        .buttonStyle(.noPressEffect)
+        .disabled(location.photos.isEmpty)
+        .foregroundStyle(.primary)
     }
 }
 

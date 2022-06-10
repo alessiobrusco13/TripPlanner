@@ -21,41 +21,31 @@ struct LocationView: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        VStack(alignment: .leading) {
-            PhotosRowView(location: $location) { editAction in
+        VStack(alignment: .leading, spacing: 10) {
+            LocationRowView(location: $location)
+                .padding(.horizontal)
+            
+            PhotosRowView(location: $location) {
                 Button(role: .destructive) {
                     showingDeleteConfirmation.toggle()
                 } label: {
                     Label("Remove Location", systemImage: "trash")
                 }
+                
+                Divider()
 
                 Button {
                     changingLocation.toggle()
                 } label: {
                     Label("Change Location", systemImage: "mappin.and.ellipse")
                 }
-
-                if !location.photos.isEmpty {
-                    Button {
-                        editAction()
-                    } label: {
-                        Label("Edit Photos", systemImage: "pencil")
-                    }
-
-                    Button {
-                        showingImageGrid.toggle()
-                    } label: {
-                        Label("Show Grid", systemImage: "square.grid.2x2")
-                    }
+                
+                NavigationLink {
+                    PhotosGridView(photos: $location.photos)
+                } label: {
+                    Label("Edit Photos", systemImage: "pencil")
                 }
             }
-            .frame(height: 250)
-
-            LocationRowView(location: $location)
-                .padding(.horizontal)
-
-            Divider()
-                .padding(.horizontal)
         }
         .transition(.slide)
         .locationPicker(isPresented: $changingLocation, selection: $newLocation)
@@ -75,9 +65,6 @@ struct LocationView: View {
                     trip.delete(location)
                 }
             }
-        }
-        .fullScreenCover(isPresented: $showingImageGrid) {
-            PhotosGridView(photos: $location.photos)
         }
     }
 }
