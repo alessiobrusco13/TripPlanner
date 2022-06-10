@@ -5,8 +5,8 @@
 //  Created by Alessio Garzia Marotta Brusco on 04/05/22.
 //
 
-import SwiftUI
 import MapKit
+import SwiftUI
 
 struct TripView: View {
     @Environment(\.dismiss) var dismiss
@@ -59,15 +59,26 @@ struct TripView: View {
                         Text(trip.name)
                             .font(.largeTitle.weight(.semibold))
                     } else {
-                        TextField("Enter trip name", text: $trip.name)
-                            .focused($editingName)
-                            .font(.largeTitle.weight(.semibold))
-                            .multilineTextAlignment(.center)
-                            .onSubmit {
-                                editingName = false
-                            }
-                            .frame(maxWidth: 300)
-                            .textFieldStyle(.roundedBorder)
+                        HStack {
+                            TextField("Enter trip name", text: $trip.name)
+                                .focused($editingName)
+                                .font(.largeTitle.weight(.semibold))
+                                .multilineTextAlignment(.center)
+                                .onSubmit {
+                                    editingName = false
+                                }
+                                .textFieldStyle(.roundedBorder)
+                                .overlay(alignment: .trailing) {
+                                    Button("Done") {
+                                        withAnimation {
+                                            editingTrip = false
+                                        }
+                                    }
+                                    .font(.title3.weight(.bold))
+                                    .padding()
+                                }
+                        }
+                        .frame(maxWidth: 364)
                     }
                     
                     HStack(spacing: 5) {
@@ -98,30 +109,6 @@ struct TripView: View {
                         }
                     }
                     .padding(editingTrip ? 8 : 0)
-                    
-                    Divider()
-                        .padding(.horizontal)
-                }
-                .overlay(alignment: .trailing) {
-                    if editingTrip {
-                        Button {
-                            withAnimation {
-                                editingTrip = false
-                            }
-                        } label: {
-                            Image(systemName: "checkmark")
-                                .font(.title.weight(.semibold))
-                                .foregroundStyle(.white)
-                                .frame(width: 64, height: 64)
-                        }
-                        .background {
-                            Color.green
-                        }
-                        .clipShape(Circle())
-                        .shadow(color: .black.opacity(0.3), radius: 10)
-                        .padding()
-                        .transition(.move(edge: .trailing))
-                    }
                 }
                 
                 ForEach($trip.locations) {

@@ -8,21 +8,23 @@
 import SwiftUI
 
 struct PhotosTabView: View {
-    @Binding var photos: [Photo]
+    @Binding var photos: [PhotoAsset]
+    let cache: CachedImageManager
     let dismiss: () -> Void
 
-    @State private var selection: Photo
+    @State private var selection: PhotoAsset
 
-    init(photos: Binding<[Photo]>, initialSelection: Photo, dismiss: @escaping () -> Void) {
+    init(photos: Binding<[PhotoAsset]>, initialSelection: PhotoAsset, cache: CachedImageManager, dismiss: @escaping () -> Void) {
         _photos = photos
         _selection = State(initialValue: initialSelection)
+        self.cache = cache
         self.dismiss = dismiss
     }
 
     var body: some View {
         TabView(selection: $selection) {
             ForEach($photos) { $photo in
-                PhotoView(photo: $photo)
+                PhotoPageView(photo: $photo, cache: cache)
                     .tag(photo)
             }
         }
@@ -43,7 +45,7 @@ struct PhotosTabView: View {
                 buttons
                     .frame(maxWidth: .infinity)
                     .padding(3)
-                    .background(.regularMaterial)
+                    .background(.thickMaterial)
             }
         }
     }
@@ -55,7 +57,7 @@ struct PhotosTabView: View {
                 Button {
                     dismiss()
                 } label: {
-                    Image(systemName: "xmark.circle")
+                    Image(systemName: "xmark.circle.fill")
                 }
                 
                 Button {
@@ -74,7 +76,7 @@ struct PhotosTabView: View {
 
 struct PhotosTabView_Previews: PreviewProvider {
     static var previews: some View {
-        PhotosTabView(photos: .constant(.example), initialSelection: .example) {
+        PhotosTabView(photos: .constant(.example), initialSelection: .example, cache: .init()) {
 
         }
     }

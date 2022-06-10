@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FavoriteButton: View {
-    @Binding var photo: Photo
+    @Binding var photo: PhotoAsset
 
     var body: some View {
         Button {

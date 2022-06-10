@@ -13,7 +13,7 @@ struct Location: Identifiable, Codable, Hashable, Sendable {
     var name: String
     var extendedName: String
     var coordinates: Coordinates
-    var photos: [Photo]
+    var photos: [PhotoAsset]
 
     var locationCoordinates: CLLocationCoordinate2D {
         CLLocationCoordinate2D(
@@ -39,7 +39,7 @@ struct Location: Identifiable, Codable, Hashable, Sendable {
         name: String,
         extendedName: String,
         coordinates: Coordinates,
-        photos: [Photo]
+        photos: [PhotoAsset]
     ) {
         self.id = id
         self.name = name
@@ -56,7 +56,7 @@ struct Location: Identifiable, Codable, Hashable, Sendable {
         photos = []
     }
 
-    mutating func delete(_ photo: Photo) {
+    mutating func delete(_ photo: PhotoAsset) {
         guard let index = photos.firstIndex(of: photo) else { return }
         photos.remove(at: index)
     }

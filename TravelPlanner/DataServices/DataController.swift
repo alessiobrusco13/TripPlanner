@@ -1,7 +1,7 @@
 //
 //  DataController.swift
 //  TripPlanner
-//
+//s
 //  Created by Alessio Garzia Marotta Brusco on 03/05/22.
 //
 
@@ -12,11 +12,14 @@ import SwiftUI
 @MainActor
 class DataController: ObservableObject {
     @Published var trips = [Trip]()
+    @Published var photoCollection = PhotoCollection(smartAlbum: .smartAlbumUserLibrary)
 
     private let savePath = FileManager.documentsDirectory.appendingPathComponent("trips")
     private var saveSubscription: AnyCancellable?
+    
+    var isPhotosLoaded = false
 
-    var favoriteImages: [Photo] {
+    var favoriteImages: [PhotoAsset] {
         trips
             .map(\.locations)
             .joined()
@@ -50,6 +53,24 @@ class DataController: ObservableObject {
             print(error.localizedDescription)
         }
     }
+    
+    func loadPhotos() async {
+        guard !isPhotosLoaded else { return }
+        
+        let authorized = await PhotoLibrary.checkAuthorization()
+        guard authorized else {
+            return
+        }
+        
+        Task {
+            do {
+                try await self.photoCollection.load()
+            } catch {
+                print(error.localizedDescription)
+            }
+            self.isPhotosLoaded = true
+        }
+    }
 
     func add(_ newTrip: Trip) {
         trips.append(newTrip)
@@ -68,9 +89,9 @@ class DataController: ObservableObject {
         trips.remove(at: index)
     }
 
-    func location(for photo: Photo) -> Location? {
+    func location(for photo: PhotoAsset) -> Location? {
         let locations = Array(trips.map(\.locations).joined())
-        var locationsPhotos = [(Location, Set<Photo>)]()
+        var locationsPhotos = [(Location, Set<PhotoAsset>)]()
 
         for location in locations {
             locationsPhotos.append((location, Set(location.photos)))

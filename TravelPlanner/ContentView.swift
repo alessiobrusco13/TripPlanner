@@ -8,10 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    enum Tab: Hashable {
-        case trips, favorites
-    }
-    
     var body: some View {
         TripsView()
     }

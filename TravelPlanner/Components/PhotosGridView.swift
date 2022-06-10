@@ -12,10 +12,10 @@ import SwiftUI
 // - Edit mode (use binding; set view mode to list)
 
 struct PhotosGridView: View {
-    @Binding var photos: [Photo]
+    @Binding var photos: [PhotoAsset]
     
     @EnvironmentObject private var dataController: DataController
-    @State private var selectedPhoto: Photo?
+    @State private var selectedPhoto: PhotoAsset?
     
     @Environment(\.dismiss) var dismiss
     @Environment(\.displayScale) private var displayScale
@@ -43,11 +43,7 @@ struct PhotosGridView: View {
                             selectedPhoto = photo
                         }
                     } label: {
-                        Image(photo: photo)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: Self.itemSize.width, height: Self.itemSize.height)
-                            .cornerRadius(Self.itemCornerRadius)
+                        PhotoView(asset: photo, cache: dataController.photoCollection.cache)
                     }
                 }
             }
@@ -56,7 +52,7 @@ struct PhotosGridView: View {
         .navigationBarTitleDisplayMode(.inline)
         .overlay {
             if let selectedPhoto = selectedPhoto {
-                PhotosTabView(photos: $photos, initialSelection: selectedPhoto) {
+                PhotosTabView(photos: $photos, initialSelection: selectedPhoto, cache: dataController.photoCollection.cache) {
                     withAnimation {
                         self.selectedPhoto = nil
                     }

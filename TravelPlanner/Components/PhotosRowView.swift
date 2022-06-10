@@ -9,6 +9,7 @@ import MapKit
 import SwiftUI
 
 struct PhotosRowView<Content: View>: View {
+    @EnvironmentObject private var dataController: DataController
     @Binding var location: Location
     @ViewBuilder let ellipseMenuContent: () -> Content
     
@@ -45,9 +46,7 @@ struct PhotosRowView<Content: View>: View {
                         }
                         
                         ForEach($location.photos, id: \.self) { $photo in
-                            Image(photo: photo)
-                                .resizable()
-                                .scaledToFill()
+                            PhotoView(asset: photo, cache: dataController.photoCollection.cache)
                                 .frame(width: 225, height: 225)
                                 .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                                 .overlay(alignment: .topTrailing) {
@@ -66,7 +65,7 @@ struct PhotosRowView<Content: View>: View {
         .animation(.default, value: location.photos)
         .onChange(of: newImage) { image in
             guard let image = image else { return }
-            location.photos.append(Photo(image: image))
+            location.photos.append(PhotoAsset(image: image))
         }
     }
     
