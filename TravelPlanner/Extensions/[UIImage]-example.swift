@@ -19,8 +19,6 @@ extension Array where Element == UIImage {
 
 extension Array where Element == Photo {
     static var example: [Photo] {
-        [UIImage].example.map { image in
-            Photo(image: image, location: Location.example)
-        }
+        [UIImage].example.map { Photo(image: $0) }
     }
 }

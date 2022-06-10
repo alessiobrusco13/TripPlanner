@@ -9,12 +9,14 @@ import MapKit
 import SwiftUI
 
 struct PhotosRowView<Content: View>: View {
-    @ObservedObject var location: Location
+    @Binding var location: Location
     @ViewBuilder let ellipseMenuContent: (@escaping () -> Void) -> Content
 
     @State private var editing = false
     @State private var isWiggling = false
     @State private var showingDeleteConfirmation = false
+    
+    @State private var newImage: UIImage?
 
     var region: MKCoordinateRegion {
         MKCoordinateRegion(
@@ -70,12 +72,13 @@ struct PhotosRowView<Content: View>: View {
                                         .padding(-10)
                                         .transition(.scale)
                                     } else {
-                                        FavoriteButton(photo: $photo, location: location)
+                                        FavoriteButton(photo: $photo)
                                             .padding(5)
                                             .transition(.scale)
                                     }
                                 }
                                 .wiggle(enabled: $editing, isWiggling: $isWiggling)
+                                .id(photo.id)
                         }
                     } footer: {
                         buttons(proxy: proxy)
@@ -88,6 +91,10 @@ struct PhotosRowView<Content: View>: View {
             withAnimation {
                 editing = false
             }
+        }
+        .onChange(of: newImage) { image in
+            guard let image = image else { return }
+            location.photos.append(Photo(image: image))
         }
     }
 
@@ -105,7 +112,7 @@ struct PhotosRowView<Content: View>: View {
     }
 
     var addPhotoButton: some View {
-        PhotoPicker(selection: $location.photos, location: location) {
+        PhotoPicker(selection: $newImage) {
             Image(systemName: "photo.on.rectangle")
                 .font(.title.weight(.semibold))
                 .foregroundStyle(.white)
@@ -160,7 +167,7 @@ private extension View {
 
 struct PhotosRowView_Previews: PreviewProvider {
     static var previews: some View {
-        PhotosRowView(location: .example) {_ in
+        PhotosRowView(location: .constant(.example)) {_ in
             EmptyView()
         }
         .ignoresSafeArea()

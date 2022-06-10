@@ -12,7 +12,6 @@
 		891AF91528218DB400BD691F /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891AF91428218DB400BD691F /* Camera.swift */; };
 		8923EC27283F6A21000557C0 /* PhotosGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8923EC26283F6A21000557C0 /* PhotosGridView.swift */; };
 		892768AD282B9EC400FBAEA0 /* LocationRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892768AC282B9EC400FBAEA0 /* LocationRowView.swift */; };
-		892768AF282BF18200FBAEA0 /* LocationSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892768AE282BF18200FBAEA0 /* LocationSearchService.swift */; };
 		892768B1282C255D00FBAEA0 /* LocationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892768B0282C255D00FBAEA0 /* LocationPicker.swift */; };
 		892768B3282C257900FBAEA0 /* LocationPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892768B2282C257900FBAEA0 /* LocationPickerViewModel.swift */; };
 		892768B5282CF0CB00FBAEA0 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892768B4282CF0CB00FBAEA0 /* CircleButton.swift */; };
@@ -20,7 +19,6 @@
 		892B9F29283A9B3F00235819 /* PhotosRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B9F28283A9B3F00235819 /* PhotosRowView.swift */; };
 		892B9F2D283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B9F2C283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift */; };
 		895D12B6282831750071DC98 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D12B5282831750071DC98 /* LocationView.swift */; };
-		895D12BA28283ECA0071DC98 /* View-stacked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D12B928283ECA0071DC98 /* View-stacked.swift */; };
 		8964BABB2821666B00922BCC /* TripPlannerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8964BABA2821666B00922BCC /* TripPlannerApp.swift */; };
 		8964BABD2821666B00922BCC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8964BABC2821666B00922BCC /* ContentView.swift */; };
 		8964BABF2821666C00922BCC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8964BABE2821666C00922BCC /* Assets.xcassets */; };
@@ -38,6 +36,7 @@
 		8990493C2822644B00E2BD9F /* TripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8990493B2822644B00E2BD9F /* TripView.swift */; };
 		899AA1B2284274670080CD11 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899AA1B1284274670080CD11 /* PhotoView.swift */; };
 		899AA1B8284284800080CD11 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899AA1B7284284800080CD11 /* Photo.swift */; };
+		89B0A16F28480686008CEACF /* PhotosTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B0A16E28480686008CEACF /* PhotosTabView.swift */; };
 		89C7CA8D283564EC008E3F72 /* [UIImage]-example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C7CA8C283564EC008E3F72 /* [UIImage]-example.swift */; };
 		89C7CA8F28356843008E3F72 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C7CA8E28356843008E3F72 /* PhotoPicker.swift */; };
 		89C8B148283E69B10084E1DF /* Wiggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C8B147283E69B10084E1DF /* Wiggle.swift */; };
@@ -51,7 +50,6 @@
 		891AF91628218F1700BD691F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8923EC26283F6A21000557C0 /* PhotosGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosGridView.swift; sourceTree = "<group>"; };
 		892768AC282B9EC400FBAEA0 /* LocationRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRowView.swift; sourceTree = "<group>"; };
-		892768AE282BF18200FBAEA0 /* LocationSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchService.swift; sourceTree = "<group>"; };
 		892768B0282C255D00FBAEA0 /* LocationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPicker.swift; sourceTree = "<group>"; };
 		892768B2282C257900FBAEA0 /* LocationPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerViewModel.swift; sourceTree = "<group>"; };
 		892768B4282CF0CB00FBAEA0 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
@@ -60,7 +58,6 @@
 		892B9F28283A9B3F00235819 /* PhotosRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosRowView.swift; sourceTree = "<group>"; };
 		892B9F2C283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "[CLLocationCoordinate2D]-centerCoordinate.swift"; sourceTree = "<group>"; };
 		895D12B5282831750071DC98 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
-		895D12B928283ECA0071DC98 /* View-stacked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View-stacked.swift"; sourceTree = "<group>"; };
 		8964BAB72821666B00922BCC /* TravelPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8964BABA2821666B00922BCC /* TripPlannerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripPlannerApp.swift; sourceTree = "<group>"; };
 		8964BABC2821666B00922BCC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -79,6 +76,7 @@
 		8990493B2822644B00E2BD9F /* TripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripView.swift; sourceTree = "<group>"; };
 		899AA1B1284274670080CD11 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		899AA1B7284284800080CD11 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		89B0A16E28480686008CEACF /* PhotosTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTabView.swift; sourceTree = "<group>"; };
 		89C7CA8C283564EC008E3F72 /* [UIImage]-example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "[UIImage]-example.swift"; sourceTree = "<group>"; };
 		89C7CA8E28356843008E3F72 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		89C8B147283E69B10084E1DF /* Wiggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wiggle.swift; sourceTree = "<group>"; };
@@ -123,6 +121,7 @@
 				892B9F28283A9B3F00235819 /* PhotosRowView.swift */,
 				8923EC26283F6A21000557C0 /* PhotosGridView.swift */,
 				899AA1B1284274670080CD11 /* PhotoView.swift */,
+				89B0A16E28480686008CEACF /* PhotosTabView.swift */,
 				892768B4282CF0CB00FBAEA0 /* CircleButton.swift */,
 				891AF91228218B8400BD691F /* ImagePicker.swift */,
 				891AF91428218DB400BD691F /* Camera.swift */,
@@ -138,7 +137,6 @@
 			isa = PBXGroup;
 			children = (
 				8964BAD5282173C100922BCC /* DataController.swift */,
-				892768AE282BF18200FBAEA0 /* LocationSearchService.swift */,
 			);
 			path = DataServices;
 			sourceTree = "<group>";
@@ -213,7 +211,6 @@
 				8964BAD028216E2600922BCC /* KeyedEncodingContainer-UIImage.swift */,
 				892B9F2C283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift */,
 				8964BAD22821733F00922BCC /* FileManager-documentsDirectory.swift */,
-				895D12B928283ECA0071DC98 /* View-stacked.swift */,
 				89C7CA8C283564EC008E3F72 /* [UIImage]-example.swift */,
 				8965A8732843538A0065ED88 /* Image-Photo.swift */,
 			);
@@ -311,7 +308,6 @@
 				8964BAC92821668800922BCC /* Trip.swift in Sources */,
 				8965A876284353F30065ED88 /* TripsView.swift in Sources */,
 				892768AD282B9EC400FBAEA0 /* LocationRowView.swift in Sources */,
-				895D12BA28283ECA0071DC98 /* View-stacked.swift in Sources */,
 				899049362821A94500E2BD9F /* TripRowView.swift in Sources */,
 				8964BACB2821676400922BCC /* Location.swift in Sources */,
 				89C7CA8F28356843008E3F72 /* PhotoPicker.swift in Sources */,
@@ -329,8 +325,8 @@
 				8964BAD128216E2600922BCC /* KeyedEncodingContainer-UIImage.swift in Sources */,
 				8965A879284355AF0065ED88 /* FavoritesView.swift in Sources */,
 				899AA1B2284274670080CD11 /* PhotoView.swift in Sources */,
-				892768AF282BF18200FBAEA0 /* LocationSearchService.swift in Sources */,
 				892B9F2D283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift in Sources */,
+				89B0A16F28480686008CEACF /* PhotosTabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,6 +390,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = minimal;
 			};
 			name = Debug;
 		};
@@ -447,6 +444,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = minimal;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

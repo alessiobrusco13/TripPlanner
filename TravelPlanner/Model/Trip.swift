@@ -35,7 +35,27 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable {
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        try decodeData(container: container)
+    }
 
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+     func encode(to encoder: Encoder) throws {
+         var container = encoder.container(keyedBy: CodingKeys.self)
+         try encodeData(container: &container)
+    }
+    
+    private func encodeData(container: inout KeyedEncodingContainer<Trip.CodingKeys>) throws {
+        try container.encode(name, forKey: .name)
+        try container.encode(startDate, forKey: .startDate)
+        try container.encode(endDate, forKey: .endDate)
+        try container.encode(image, forKey: .image)
+        try container.encode(locations, forKey: .locations)
+    }
+    
+    private func decodeData(container: KeyedDecodingContainer<Trip.CodingKeys>) throws {
         name = try container.decode(String.self, forKey: .name)
         image = try container.decode(UIImage.self, forKey: .image)
         startDate = try container.decode(Date.self, forKey: .startDate)
@@ -43,22 +63,14 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable {
         locations = try container.decode([Location].self, forKey: .locations)
     }
 
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-
-        try container.encode(name, forKey: .name)
-        try container.encode(startDate, forKey: .startDate)
-        try container.encode(endDate, forKey: .endDate)
-        try container.encode(image, forKey: .image)
-        try container.encode(locations, forKey: .locations)
-    }
-
+    @MainActor
     func delete(_ location: Location) {
         guard let index = locations.firstIndex(of: location) else { return }
         locations.remove(at: index)
+    }
+    
+    @MainActor
+    func append(_ location: Location) {
+        locations.append(location)
     }
 }

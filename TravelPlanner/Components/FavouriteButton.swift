@@ -9,12 +9,10 @@ import SwiftUI
 
 struct FavoriteButton: View {
     @Binding var photo: Photo
-    let location: Location?
 
     var body: some View {
         Button {
             withAnimation {
-                location?.objectWillChange.send()
                 photo.isFavorite.toggle()
             }
         } label: {

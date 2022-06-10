@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LocationRowView: View {
-    @ObservedObject var location: Location
+    @Binding var location: Location
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -24,6 +24,6 @@ struct LocationRowView: View {
 
 struct LocationRowView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationRowView(location: Location.example)
+        LocationRowView(location: .constant(Location.example))
     }
 }

@@ -28,7 +28,9 @@ struct TripsView: View {
                     .listRowSeparator(.hidden, edges: .all)
                     .tag(trip)
                 }
-                .onDelete(perform: dataController.delete)
+                .onDelete {
+                    dataController.delete($0)
+                }
             }
             .listStyle(.plain)
             .animation(.default, value: dataController.trips)
@@ -40,7 +42,9 @@ struct TripsView: View {
                 }
             }
             .navigationTitle("Trips")
-            .sheet(isPresented: $showingAdd, content: NewTripView.init)
+            .sheet(isPresented: $showingAdd) {
+                NewTripView()
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading, content: EditButton.init)
 

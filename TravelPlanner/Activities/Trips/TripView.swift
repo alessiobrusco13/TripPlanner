@@ -19,6 +19,13 @@ struct TripView: View {
     @FocusState private var editingName: Bool
     @State private var editingTrip = false
     @State private var newImage: UIImage?
+    
+    @State private var newLocation: Location?
+    
+    init(trip: Trip) {
+        self.trip = trip
+        setRegion()
+    }
 
     var body: some View {
         ZStack {
@@ -121,7 +128,7 @@ struct TripView: View {
                         }
                     }
 
-                    ForEach(trip.locations) {
+                    ForEach($trip.locations) {
                         LocationView(location: $0, trip: trip)
                     }
 
@@ -132,7 +139,7 @@ struct TripView: View {
                 }
             }
         }
-        .locationPicker(isPresented: $showingLocationPicker, selection: $trip.locations)
+        .locationPicker(isPresented: $showingLocationPicker, selection: $newLocation)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -141,9 +148,6 @@ struct TripView: View {
                         Button {
                             withAnimation {
                                 editingTrip = true
-                            }
-
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                                 editingName = true
                             }
                         } label: {
@@ -172,15 +176,21 @@ struct TripView: View {
                 }
             }
         }
-        .onAppear(perform: setRegion)
-        .onDisappear(perform: dataController.save)
         .onChange(of: trip.locations) { _ in
             setRegion()
         }
         .onChange(of: newImage) { image in
+            guard let image = image else { return }
+            
             withAnimation {
-                guard let image = image else { return }
                 trip.image = image
+            }
+        }
+        .onChange(of: newLocation) { location in
+            guard let location =  location else { return }
+            
+            withAnimation {
+                trip.append(location)
             }
         }
     }

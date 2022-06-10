@@ -9,6 +9,7 @@ import Combine
 import Foundation
 import SwiftUI
 
+@MainActor
 class DataController: ObservableObject {
     @Published var trips = [Trip]()
 
@@ -35,8 +36,8 @@ class DataController: ObservableObject {
 
         saveSubscription = $trips
             .debounce(for: 5, scheduler: RunLoop.main)
-            .sink { [weak self] _ in
-                self?.save()
+            .sink { _ in
+                self.save()
             }
     }
 

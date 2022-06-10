@@ -9,7 +9,7 @@ import MapKit
 import SwiftUI
 
 struct LocationView: View {
-    @ObservedObject var location: Location
+    @Binding var location: Location
     @ObservedObject var trip: Trip
 
     @State private var changingLocation = false
@@ -22,7 +22,7 @@ struct LocationView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            PhotosRowView(location: location) { editAction in
+            PhotosRowView(location: $location) { editAction in
                 Button(role: .destructive) {
                     showingDeleteConfirmation.toggle()
                 } label: {
@@ -51,16 +51,14 @@ struct LocationView: View {
             }
             .frame(height: 250)
 
-            LocationRowView(location: location)
+            LocationRowView(location: $location)
                 .padding(.horizontal)
 
             Divider()
                 .padding(.horizontal)
         }
         .transition(.slide)
-        .locationPicker(isPresented: $changingLocation, selection: $newLocation) { location in
-            
-        }
+        .locationPicker(isPresented: $changingLocation, selection: $newLocation)
         .onChange(of: newLocation) { newValue in
             withAnimation {
                 guard let newValue = newValue else { return }
@@ -86,7 +84,7 @@ struct LocationView: View {
 
 struct LocationView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationView(location: .example, trip: .example)
+        LocationView(location: .constant(.example), trip: .example)
             .environmentObject(DataController())
     }
 }

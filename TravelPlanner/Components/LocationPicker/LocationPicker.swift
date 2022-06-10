@@ -8,36 +8,23 @@
 import SwiftUI
 
 struct LocationPicker: View {
-    private enum OutputMethod {
-        case array, atomic
-    }
-
-    private let outputMethod: OutputMethod
-    let onSelected: (inout Location) -> Void
-
-    @Binding var atomicSelection: Location?
-    @Binding var arraySelection: [Location]
+    @Binding var selection: Location?
 
     @Environment(\.dismiss) var dismiss
     @StateObject private var viewModel = ViewModel()
 
     var body: some View {
         NavigationView {
-            List(viewModel.locations) { location in
+            List($viewModel.locations) { $location in
                 Button {
-                    if outputMethod == .atomic {
-                        atomicSelection = location
-                    } else {
-                        arraySelection.append(location)
-                    }
+                    selection = location
 
                     dismiss()
                 } label: {
-                    LocationRowView(location: location)
+                    LocationRowView(location: $location)
                 }
             }
             .searchable(text: $viewModel.searchText)
-            .animation(.default, value: viewModel.locations)
             .overlay {
                 if viewModel.isLoading {
                     ZStack {
@@ -49,45 +36,23 @@ struct LocationPicker: View {
                 }
             }
             .navigationTitle("Select your location")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel", action: dismiss.callAsFunction)
+                        .foregroundStyle(.selection)
+                }
+            }
         }
-    }
-
-    init(selection: Binding<Location?>, onSelected: @escaping (inout Location) -> Void) {
-        _arraySelection = .constant([])
-        _atomicSelection = selection
-
-        outputMethod = .atomic
-        self.onSelected = onSelected
-    }
-
-    init(selection: Binding<[Location]>, onSelected: @escaping (inout Location) -> Void) {
-        _arraySelection = selection
-        _atomicSelection = .constant(nil)
-
-        outputMethod = .array
-        self.onSelected = onSelected
     }
 }
 
 extension View {
     func locationPicker(
         isPresented: Binding<Bool>,
-        selection: Binding<Location?>,
-        onSelected: @escaping (inout Location) -> Void = { _ in }
+        selection: Binding<Location?>
     ) -> some View {
-        sheet(isPresented: isPresented) {
-            LocationPicker(selection: selection, onSelected: onSelected)
-                .foregroundStyle(.primary)
-        }
-    }
-
-    func locationPicker(
-        isPresented: Binding<Bool>,
-        selection: Binding<[Location]>,
-        onSelected: @escaping (inout Location) -> Void = { _ in }
-    ) -> some View {
-        sheet(isPresented: isPresented) {
-            LocationPicker(selection: selection, onSelected: onSelected)
+        fullScreenCover(isPresented: isPresented) {
+            LocationPicker(selection: selection)
                 .foregroundStyle(.primary)
         }
     }
@@ -95,6 +60,6 @@ extension View {
 
 struct LocationPickerView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationPicker(selection: .constant(nil)) { _ in }
+        LocationPicker(selection: .constant(nil))
     }
 }

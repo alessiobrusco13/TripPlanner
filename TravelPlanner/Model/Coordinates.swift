@@ -8,7 +8,7 @@
 import Foundation
 import MapKit
 
-struct Coordinates: Codable {
+struct Coordinates: Codable, Sendable {
     let longitude: Double
     let latitude: Double
 }

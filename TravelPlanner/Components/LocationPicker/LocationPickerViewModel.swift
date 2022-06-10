@@ -13,32 +13,30 @@ extension LocationPicker {
     enum SearchSetting {
         case searchForPointsOfInterest, searchForCities
     }
-
+    
+    @MainActor
     class ViewModel: ObservableObject {
-        private var locationsSubscription: AnyCancellable?
-        private let searchService = LocationSearchService()
-
         @Published var locations = [Location]()
-        @Published var errorCode: MKError.Code?
-
         @Published var searchText = "" {
-            didSet { search() }
+            didSet {
+                search()
+            }
         }
-
+        
+        private func search() {
+            let request = MKLocalSearch.Request()
+            request.pointOfInterestFilter = .includingAll
+            request.naturalLanguageQuery = searchText
+            
+            let search = MKLocalSearch(request: request)
+            search.start { [weak self] response, error in
+                guard let response else { return }
+                self?.locations = response.mapItems.map(Location.init)
+            }
+        }
+        
         var isLoading: Bool {
             locations.isEmpty && !searchText.isEmpty
-        }
-
-        init() {
-            locationsSubscription = searchService.locationSearchPublisher
-                .sink() { [weak self] mapItems in
-                    self?.locations = mapItems.map(Location.init)
-                }
-        }
-
-        private func search() {
-            locations = []
-            searchService.search(searchText: searchText)
         }
     }
 }
