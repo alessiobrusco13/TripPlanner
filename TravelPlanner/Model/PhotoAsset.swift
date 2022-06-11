@@ -24,12 +24,18 @@ struct PhotoAsset: Identifiable, Hashable, Codable, Sendable {
     static func ==(lhs: PhotoAsset, rhs: PhotoAsset) -> Bool {
         lhs.id == rhs.id
     }
+    
+    static func loadPHAsset(withIdentifier identifier: String) -> PHAsset? {
+        let fetchedAssets = PHAsset.fetchAssets(withLocalIdentifiers: [identifier], options: nil)
+        return fetchedAssets.firstObject
+    }
 
     static let example = PhotoAsset(image: [UIImage].example[0])
 
     init(image: UIImage) {
         identifier = UUID().uuidString
         self.isFavorite = false
+        self.phAsset = Self.loadPHAsset(withIdentifier: identifier)
     }
     
     init(phAsset: PHAsset, index: Int?) {
@@ -41,8 +47,7 @@ struct PhotoAsset: Identifiable, Hashable, Codable, Sendable {
     
     init(identifier: String) {
         self.identifier = identifier
-        let fetchedAssets = PHAsset.fetchAssets(withLocalIdentifiers: [identifier], options: nil)
-        self.phAsset = fetchedAssets.firstObject
+        self.phAsset = Self.loadPHAsset(withIdentifier: identifier)
         self.isFavorite = false
     }
 
@@ -51,6 +56,8 @@ struct PhotoAsset: Identifiable, Hashable, Codable, Sendable {
 
         self.identifier = try container.decode(String.self, forKey: .identifier)
         self.isFavorite = try container.decode(Bool.self, forKey: .isFavorite)
+    
+        self.phAsset = Self.loadPHAsset(withIdentifier: identifier)
     }
 
     func encode(to encoder: Encoder) throws {

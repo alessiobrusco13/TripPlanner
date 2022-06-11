@@ -15,6 +15,7 @@ struct PhotosRowView<Content: View>: View {
     
     @State private var showingDeleteConfirmation = false
     @State private var newImage: UIImage?
+    @State private var newIdentifier: String?
     
     var region: MKCoordinateRegion {
         MKCoordinateRegion(
@@ -64,8 +65,20 @@ struct PhotosRowView<Content: View>: View {
         }
         .animation(.default, value: location.photos)
         .onChange(of: newImage) { image in
-            guard let image = image else { return }
-            location.photos.append(PhotoAsset(image: image))
+//            guard let image = image else { return }
+//            location.photos.append(PhotoAsset(image: image))
+        }
+        .onChange(of: newIdentifier) { identifier in
+            #warning("Force Unwrap")
+            location.photos.append(PhotoAsset(identifier: identifier!))
+        }
+        .task {
+            await dataController.photoCollection.cache.startCaching(for: location.photos, targetSize: CGSize(width: 225, height: 225))
+        }
+        .onDisappear {
+            Task {
+                await dataController.photoCollection.cache.stopCaching(for: location.photos, targetSize: CGSize(width: 225, height: 225))
+            }
         }
     }
     
@@ -78,7 +91,7 @@ struct PhotosRowView<Content: View>: View {
     }
     
     var addPhotoButton: some View {
-        PhotoPicker(selection: $newImage) {
+        PhotoPicker(selection: $newImage, identifier: $newIdentifier) {
             Image(systemName: "photo.on.rectangle")
                 .font(.title.weight(.semibold))
                 .foregroundStyle(.white)

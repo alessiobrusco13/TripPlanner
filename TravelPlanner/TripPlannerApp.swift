@@ -21,6 +21,9 @@ struct TripPlannerApp: App {
                         dataController.save()
                     }
                 }
+                .task {
+                    await dataController.loadPhotos()
+                }
         }
     }
 }

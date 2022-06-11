@@ -20,7 +20,7 @@ struct PhotoView: View {
             if let image = image {
                 image
                     .resizable()
-                    .scaledToFit()
+                    .scaledToFill()
             } else {
                 ProgressView()
             }
@@ -33,9 +33,30 @@ struct PhotoView: View {
                 Task {
                     if let result = result {
                         image = result.image
+                    } else {
+                        print("\n\n\nTHERE WAS A PROBLEM LOADING THE IMAGE\n\n\n")
                     }
                 }
             }
+            
+//            guard let asset = PHAsset.fetchAssets(withLocalIdentifiers: [asset.identifier], options: nil).firstObject else {
+//                print("\n\n\nCOULDN'T FIND ANY ASSETS\n\n\n")
+//                return
+//            }
+//
+            
+//            guard let phAsset = asset.phAsset else {
+//                print("Nil")
+//                return
+//            }
+//            let manager = PHImageManager.default()
+//            manager.requestImage(for: phAsset, targetSize: CGSize(width: 1024, height: 1024), contentMode: .aspectFill, options: nil) { image, _ in
+//                if let image = image {
+//                    self.image = Image(uiImage: image)
+//                } else {
+//                    print("\n\n\nFAILED TO LOAD IMAGE FROM ASSET\n\n\n")
+//                }
+//            }
         }
     }
 }

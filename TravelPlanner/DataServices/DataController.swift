@@ -58,9 +58,7 @@ class DataController: ObservableObject {
         guard !isPhotosLoaded else { return }
         
         let authorized = await PhotoLibrary.checkAuthorization()
-        guard authorized else {
-            return
-        }
+        guard authorized else { return }
         
         Task {
             do {
@@ -68,6 +66,7 @@ class DataController: ObservableObject {
             } catch {
                 print(error.localizedDescription)
             }
+            
             self.isPhotosLoaded = true
         }
     }

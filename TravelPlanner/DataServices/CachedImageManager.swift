@@ -61,6 +61,7 @@ actor CachedImageManager {
     func requestImage(for asset: PhotoAsset, targetSize: CGSize, completion: @escaping ((image: Image?, isLowerQuality: Bool)?) -> Void) -> PHImageRequestID? {
         guard let phAsset = asset.phAsset else {
             completion(nil)
+            print("\n\n\nNO ASSET WAS FOUND\n\n\n")
             return nil
         }
         
@@ -68,16 +69,20 @@ actor CachedImageManager {
             if let error = info?[PHImageErrorKey] as? Error {
                 completion(nil)
                 print(error.localizedDescription)
+                print("\n\n\nERROR\n\n\n")
             } else if let cancelled = (info?[PHImageCancelledKey] as? NSNumber)?.boolValue, cancelled {
                 completion(nil)
+                print("\n\n\nCANCELLED\n\n\n")
             } else if let image = image {
                 let isLowerQualityImage = (info?[PHImageResultIsDegradedKey] as? NSNumber)?.boolValue ?? false
                 let result = (image: Image(uiImage: image), isLowerQuality: isLowerQualityImage)
                 completion(result)
             } else {
+                print("\n\n\nSTUFF\n\n\n")
                 completion(nil)
             }
         }
+        
         return requestID
     }
     

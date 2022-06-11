@@ -1,5 +1,5 @@
 //
-//  PhotoLibery.swift
+//  PhotoLibrary.swift
 //  TravelPlanner
 //
 //  Created by Alessio Garzia Marotta Brusco on 10/06/22.

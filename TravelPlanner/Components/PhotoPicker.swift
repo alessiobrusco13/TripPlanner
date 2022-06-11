@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PhotoPicker<Content: View>: View {
     @Binding var selection: UIImage?
+    @Binding var identifier: String?
     @ViewBuilder let label: () -> Content
 
     @State private var showingImagePicker = false
@@ -17,7 +18,7 @@ struct PhotoPicker<Content: View>: View {
     var body: some View {
         Menu(content: imageButtons, label: label)
         .sheet(isPresented: $showingImagePicker) {
-            ImagePicker(image: $selection)
+            ImagePicker(image: $selection, identifier: $identifier)
                 .ignoresSafeArea()
         }
         .fullScreenCover(isPresented: $showingCamera) {
@@ -48,6 +49,6 @@ struct PhotoPicker<Content: View>: View {
 
 struct PhotoPicker_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoPicker(selection: .constant(nil)) { EmptyView() }
+        PhotoPicker(selection: .constant(nil), identifier: .constant(nil)) { EmptyView() }
     }
 }

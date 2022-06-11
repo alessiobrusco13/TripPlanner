@@ -25,7 +25,9 @@ class PhotoAssetCollection: RandomAccessCollection, IteratorProtocol, Sequence {
             return asset
         }
         
-        let asset = PhotoAsset(phAsset: fetchResult.object(at: position), index: position)
+        let phAsset = fetchResult.object(at: position)
+        let asset = PhotoAsset(phAsset: phAsset, index: position)
+        
         cache[position] = asset
         return asset
     }
