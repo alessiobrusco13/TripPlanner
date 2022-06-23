@@ -17,7 +17,7 @@
                BlueprintIdentifier = "8964BAB62821666B00922BCC"
                BuildableName = "TravelPlanner.app"
                BlueprintName = "TravelPlanner"
-               ReferencedContainer = "container:TravelPlanner.xcodeproj">
+               ReferencedContainer = "container:Geopicxcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,7 +47,7 @@
             BlueprintIdentifier = "8964BAB62821666B00922BCC"
             BuildableName = "TravelPlanner.app"
             BlueprintName = "TravelPlanner"
-            ReferencedContainer = "container:TravelPlanner.xcodeproj">
+            ReferencedContainer = "container:Geopicxcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -64,7 +64,7 @@
             BlueprintIdentifier = "8964BAB62821666B00922BCC"
             BuildableName = "TravelPlanner.app"
             BlueprintName = "TravelPlanner"
-            ReferencedContainer = "container:TravelPlanner.xcodeproj">
+            ReferencedContainer = "container:Geopicxcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

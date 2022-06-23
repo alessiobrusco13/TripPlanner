@@ -43,7 +43,7 @@ struct PhotosGridView: View {
                             selectedPhoto = photo
                         }
                     } label: {
-                        PhotoView(asset: photo, cache: dataController.photoCollection.cache)
+                        photoItemView(asset: photo)
                     }
                 }
             }
@@ -61,6 +61,21 @@ struct PhotosGridView: View {
                 .background(.ultraThinMaterial)
             }
         }
+    }
+    
+    private func photoItemView(asset: PhotoAsset) -> some View {
+        PhotoItemView(asset: asset, cache: dataController.photoCollection.cache, imageSize: imageSize)
+            .frame(width: Self.itemSize.width, height: Self.itemSize.height)
+            .clipped()
+            .cornerRadius(Self.itemCornerRadius)
+            .task {
+                await dataController.photoCollection.cache.startCaching(for: [asset], targetSize: imageSize)
+            }
+            .onDisappear {
+                Task {
+                    await dataController.photoCollection.cache.stopCaching(for: [asset], targetSize: imageSize)
+                }
+            }
     }
 }
 

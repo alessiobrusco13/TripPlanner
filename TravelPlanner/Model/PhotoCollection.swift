@@ -7,14 +7,12 @@
 
 import Photos
 
-class PhotoCollection: NSObject, ObservableObject, PHPhotoLibraryChangeObserver {
+class PhotoCollection {
     enum PhotoCollectionError: Error {
         case missingAssetCollection
         case unableToLoadSmartAlbum(PHAssetCollectionSubtype)
         case addImageError(Error)
     }
-    
-    @Published var photoAssets = PhotoAssetCollection(PHFetchResult<PHAsset>())
     
     var identifier: String? {
         assetCollection?.localIdentifier
@@ -27,20 +25,12 @@ class PhotoCollection: NSObject, ObservableObject, PHPhotoLibraryChangeObserver 
     
     init(smartAlbum smartAlbumType: PHAssetCollectionSubtype) {
         self.smartAlbumType = smartAlbumType
-        super.init()
-    }
-    
-    deinit {
-        PHPhotoLibrary.shared().unregisterChangeObserver(self)
     }
     
     func load() async throws {
-        PHPhotoLibrary.shared().register(self)
-        
         if let smartAlbumType = smartAlbumType {
             if let assetCollection = PhotoCollection.getSmartAlbum(subtype: smartAlbumType) {
                 self.assetCollection = assetCollection
-                await refreshPhotoAssets()
                 return
             } else {
                 throw PhotoCollectionError.unableToLoadSmartAlbum(smartAlbumType)
@@ -66,32 +56,8 @@ class PhotoCollection: NSObject, ObservableObject, PHPhotoLibraryChangeObserver 
                     }
                 }
             }
-            
-            await refreshPhotoAssets()
-            
         } catch {
             throw PhotoCollectionError.addImageError(error)
-        }
-    }
-    
-    private func refreshPhotoAssets(_ fetchResult: PHFetchResult<PHAsset>? = nil) async {
-        var newFetchResult = fetchResult
-
-        if newFetchResult == nil {
-            let fetchOptions = PHFetchOptions()
-            fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-            
-            if let assetCollection = assetCollection,
-               let fetchResult = (PHAsset.fetchAssets(in: assetCollection, options: fetchOptions) as AnyObject?) as? PHFetchResult<PHAsset>
-            {
-                newFetchResult = fetchResult
-            }
-        }
-        
-        if let newFetchResult = newFetchResult {
-            await MainActor.run {
-                photoAssets = PhotoAssetCollection(newFetchResult)
-            }
         }
     }
     
@@ -100,12 +66,5 @@ class PhotoCollection: NSObject, ObservableObject, PHPhotoLibraryChangeObserver 
         let collections = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: subtype, options: fetchOptions)
         
         return collections.firstObject
-    }
-    
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
-        Task { @MainActor in
-            guard let changes = changeInstance.changeDetails(for: self.photoAssets.fetchResult) else { return }
-            await self.refreshPhotoAssets(changes.fetchResultAfterChanges)
-        }
     }
 }

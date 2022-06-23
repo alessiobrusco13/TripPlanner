@@ -18,17 +18,17 @@ struct ImagePicker: UIViewControllerRepresentable {
 
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
             picker.dismiss(animated: true)
-
-            guard let first = results.first else { return }
             
-            #warning("Force Unwrap")
-            parent.identifier = first.assetIdentifier!
+            guard let first = results.first else { return }
             
             if first.itemProvider.canLoadObject(ofClass: UIImage.self) {
                 first.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, _ in
                     self?.parent.image = image as? UIImage
                 }
             }
+            
+            guard let identifier = first.assetIdentifier else { return }
+            parent.identifier = identifier
         }
     }
 

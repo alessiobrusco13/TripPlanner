@@ -28,10 +28,10 @@ struct PhotoPageView: View {
 
     var body: some View {
         PhotoView(asset: photo, cache: cache)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .clipShape(RoundedRectangle(cornerRadius: 15))
             .padding()
             .scaleEffect(scale)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .gesture(geasture)
     }
 }

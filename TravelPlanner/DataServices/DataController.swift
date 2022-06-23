@@ -12,7 +12,7 @@ import SwiftUI
 @MainActor
 class DataController: ObservableObject {
     @Published var trips = [Trip]()
-    @Published var photoCollection = PhotoCollection(smartAlbum: .smartAlbumUserLibrary)
+    var photoCollection = PhotoCollection(smartAlbum: .smartAlbumUserLibrary)
 
     private let savePath = FileManager.documentsDirectory.appendingPathComponent("trips")
     private var saveSubscription: AnyCancellable?
@@ -119,5 +119,19 @@ class DataController: ObservableObject {
         }
 
         return nil
+    }
+    
+    func path(for location: Location) -> (tripIndex: Int, locationIndex: Int)? {
+        guard let trip = trip(for: location) else { return nil }
+        guard let tripIndex = trips.firstIndex(of: trip) else { return nil }
+        guard let locationIndex = trip.locations.firstIndex(of: location) else { return nil }
+        return (tripIndex, locationIndex)
+    }
+    
+    func path(for photo: PhotoAsset) -> (tripIndex: Int, locationIndex: Int, photoIndex: Int)? {
+        guard let location = location(for: photo) else { return nil }
+        guard let locationPath = path(for: location) else { return nil }
+        guard let imageIndex = location.photos.firstIndex(of: photo) else { return nil }
+        return (locationPath.tripIndex, locationPath.locationIndex, imageIndex)
     }
 }

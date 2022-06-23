@@ -42,7 +42,7 @@ struct TripView: View {
                     .padding(.top, -175)
                     .overlay {
                         if editingTrip {
-                            PhotoPicker(selection: $newImage, identifier: .constant(nil)) {
+                            PhotoPicker(selection: $newImage) {
                                 Image(systemName: "photo.fill.on.rectangle.fill")
                                     .font(.largeTitle)
                                     .contentShape(Rectangle())
@@ -173,6 +173,14 @@ struct TripView: View {
             
             withAnimation {
                 trip.append(location)
+            }
+        }
+        .task {
+            await dataController.photoCollection.cache.startCaching(for: trip.allPhotos, targetSize: CGSize(width: 550, height: 550))
+        }
+        .onDisappear {
+            Task {
+                await dataController.photoCollection.cache.stopCaching()
             }
         }
     }

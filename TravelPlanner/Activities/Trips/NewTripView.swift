@@ -29,7 +29,7 @@ struct NewTripView: View {
                     HStack {
                         Spacer()
 
-                        PhotoPicker(selection: $uiImage, identifier: .constant(nil)) {
+                        PhotoPicker(selection: $uiImage) {
                             if let image = image {
                                 image
                                     .resizable()
@@ -38,7 +38,7 @@ struct NewTripView: View {
                                     .cornerRadius(10)
                                     .foregroundColor(.clear)
                             } else {
-                                PhotoPicker(selection: $uiImage, identifier: .constant(nil)) {
+                                PhotoPicker(selection: $uiImage) {
                                     Label("Add Photo", systemImage: "camera.fill")
                                         .font(.headline)
                                         .foregroundStyle(.selection)

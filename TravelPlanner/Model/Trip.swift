@@ -19,6 +19,14 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable {
     @Published var endDate = Date.now.addingTimeInterval(1*60*60*24)
     @Published var image = UIImage(named: "Example1")!
     @Published var locations = [Location]()
+    
+    var allPhotos: [PhotoAsset] {
+        Array(
+            locations
+                .map(\.photos)
+                .joined()
+        )
+    }
 
     static let example: Trip = {
         let trip = Trip()

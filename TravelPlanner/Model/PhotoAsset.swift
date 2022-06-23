@@ -5,10 +5,10 @@
 //  Created by Alessio Garzia Marotta Brusco on 28/05/22.
 //
 
-@preconcurrency import Photos
+import Photos
 import SwiftUI
 
-struct PhotoAsset: Identifiable, Hashable, Codable, Sendable {
+struct PhotoAsset: Identifiable, Hashable, Codable {
     enum CodingKeys: CodingKey {
         case identifier, isFavorite
     }

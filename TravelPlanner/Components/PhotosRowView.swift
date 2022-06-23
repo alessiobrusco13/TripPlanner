@@ -14,7 +14,6 @@ struct PhotosRowView<Content: View>: View {
     @ViewBuilder let ellipseMenuContent: () -> Content
     
     @State private var showingDeleteConfirmation = false
-    @State private var newImage: UIImage?
     @State private var newIdentifier: String?
     
     var region: MKCoordinateRegion {
@@ -47,7 +46,7 @@ struct PhotosRowView<Content: View>: View {
                         }
                         
                         ForEach($location.photos, id: \.self) { $photo in
-                            PhotoView(asset: photo, cache: dataController.photoCollection.cache)
+                            PhotoItemView(asset: photo, cache: dataController.photoCollection.cache, imageSize: CGSize(width: 550, height: 550))
                                 .frame(width: 225, height: 225)
                                 .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                                 .overlay(alignment: .topTrailing) {
@@ -64,21 +63,9 @@ struct PhotosRowView<Content: View>: View {
             }
         }
         .animation(.default, value: location.photos)
-        .onChange(of: newImage) { image in
-//            guard let image = image else { return }
-//            location.photos.append(PhotoAsset(image: image))
-        }
         .onChange(of: newIdentifier) { identifier in
-            #warning("Force Unwrap")
-            location.photos.append(PhotoAsset(identifier: identifier!))
-        }
-        .task {
-            await dataController.photoCollection.cache.startCaching(for: location.photos, targetSize: CGSize(width: 225, height: 225))
-        }
-        .onDisappear {
-            Task {
-                await dataController.photoCollection.cache.stopCaching(for: location.photos, targetSize: CGSize(width: 225, height: 225))
-            }
+            guard let identifier =  identifier else { return }
+            location.photos.append(PhotoAsset(identifier: identifier))
         }
     }
     
@@ -91,7 +78,7 @@ struct PhotosRowView<Content: View>: View {
     }
     
     var addPhotoButton: some View {
-        PhotoPicker(selection: $newImage, identifier: $newIdentifier) {
+        PhotoPicker(identifier: $newIdentifier) {
             Image(systemName: "photo.on.rectangle")
                 .font(.title.weight(.semibold))
                 .foregroundStyle(.white)
