@@ -42,7 +42,7 @@ struct TripView: View {
                     .padding(.top, -175)
                     .overlay {
                         if editingTrip {
-                            PhotoPicker(selection: $newImage) {
+                            PhotoPickerLink(imageSelection: $newImage) {
                                 Image(systemName: "photo.fill.on.rectangle.fill")
                                     .font(.largeTitle)
                                     .contentShape(Rectangle())

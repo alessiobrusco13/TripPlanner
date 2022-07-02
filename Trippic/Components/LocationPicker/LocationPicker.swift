@@ -15,32 +15,30 @@ struct LocationPicker: View {
     
     var body: some View {
         NavigationView {
-            List($viewModel.locations) { $location in
-                Button {
-                    selection = location
-                    
-                    dismiss()
-                } label: {
-                    VStack(alignment: .leading) {
-                        Text(location.name)
-                            .font(.title2.weight(.semibold))
-                        
-                        Text(location.extendedName)
-                            .fontWeight(.medium)
-                            .foregroundStyle(.secondary)
+            GeometryReader { geo in
+                List {
+                    if viewModel.locations.isEmpty {
+                        placeholderView(size: geo.size)
+                    } else {
+                        ForEach(viewModel.locations) { location in
+                            Button {
+#warning("Modifying state during view update, this will cause undefined behavior.")
+                                selection = location
+                                dismiss()
+                            } label: {
+                                VStack(alignment: .leading) {
+                                    Text(location.name)
+                                        .font(.title2.weight(.semibold))
+                                    
+                                    Text(location.extendedName)
+                                        .fontWeight(.medium)
+                                        .foregroundStyle(.secondary)
+                                }
+                            }
+                        }
                     }
                 }
-            }
-            .searchable(text: $viewModel.searchText)
-            .overlay {
-                if viewModel.isLoading {
-                    VStack {
-                        ProgressView()
-                        
-                        Text("Loading".uppercased())
-                            .foregroundColor(.secondary)
-                    }
-                }
+                .searchable(text: $viewModel.searchText)
             }
             .navigationTitle("Select your location")
             .toolbar {
@@ -51,6 +49,25 @@ struct LocationPicker: View {
             }
         }
     }
+    
+    func placeholderView(size: CGSize) -> some View {
+        Group {
+            if viewModel.isLoading {
+                VStack {
+                    ProgressView()
+                    
+                    Text("Loading".uppercased())
+                        .foregroundColor(.secondary)
+                }
+            } else {
+                Text("Type to find a location.")
+                    .font(.title2)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .listRowBackground(EmptyView())
+        .frame(width: size.width, height: size.height * 0.8)
+    }
 }
 
 extension View {
@@ -58,7 +75,7 @@ extension View {
         isPresented: Binding<Bool>,
         selection: Binding<Location?>
     ) -> some View {
-        fullScreenCover(isPresented: isPresented) {
+        sheet(isPresented: isPresented) {
             LocationPicker(selection: selection)
                 .foregroundStyle(.primary)
         }
@@ -67,6 +84,28 @@ extension View {
 
 struct LocationPickerView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationPicker(selection: .constant(nil))
+        Preview()
+    }
+}
+
+extension LocationPickerView_Previews {
+    struct Preview: View {
+        @State private var selection: Location?
+        @State private var showingPicker = false
+        
+        var body: some View {
+            NavigationView {
+                VStack {
+                    if let selection = selection {
+                        LocationRowView(location: .constant(selection))
+                    }
+                    
+                    Button("Pick Location") {
+                        showingPicker.toggle()
+                    }
+                }
+                .locationPicker(isPresented: $showingPicker, selection: $selection)
+            }
+        }
     }
 }

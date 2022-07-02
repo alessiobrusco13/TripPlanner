@@ -78,7 +78,7 @@ struct PhotosRowView<Content: View>: View {
     }
     
     var addPhotoButton: some View {
-        PhotoPicker(identifier: $newIdentifier) {
+        PhotoPickerLink(idSelection: $newIdentifier) {
             Image(systemName: "photo.on.rectangle")
                 .font(.title.weight(.semibold))
                 .foregroundStyle(.white)
@@ -118,5 +118,6 @@ struct PhotosRowView_Previews: PreviewProvider {
             EmptyView()
         }
         .ignoresSafeArea()
+        .environmentObject(DataController())
     }
 }

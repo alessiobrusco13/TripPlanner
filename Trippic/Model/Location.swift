@@ -8,7 +8,7 @@
 import SwiftUI
 import MapKit
 
-struct Location: Identifiable, Codable, Hashable, Sendable {
+struct Location: Identifiable, Codable, Hashable, Sendable {    
     let id: UUID
     var name: String
     var extendedName: String

@@ -36,7 +36,7 @@ struct TripsView: View {
             .animation(.default, value: dataController.trips)
             .overlay {
                 if dataController.trips.isEmpty {
-                    Text("Create a trip tapping the \"+\" button.")
+                    Text("Create a trip tapping the + button.")
                         .font(.title3.italic())
                         .foregroundStyle(.secondary)
                 }
