@@ -20,18 +20,15 @@ struct PhotosGridView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.displayScale) private var displayScale
     
-    private static let itemCornerRadius = 15.0
-    private static let itemSize = CGSize(width: 200, height: 200)
-    
     private var imageSize: CGSize {
         CGSize(
-            width: Self.itemSize.width * min(displayScale, 2),
-            height: Self.itemSize.height * min(displayScale, 2)
+            width: 200 * min(displayScale, 2),
+            height: 200 * min(displayScale, 2)
         )
     }
     
     private var columns: [GridItem] {
-        [GridItem(.adaptive(minimum: Self.itemSize.width, maximum: Self.itemSize.height))]
+        [GridItem(.adaptive(minimum: 150, maximum: 200))]
     }
     
     var body: some View {
@@ -47,12 +44,13 @@ struct PhotosGridView: View {
                     }
                 }
             }
+            .frame(maxWidth: .infinity)
+            .padding(8)
         }
-        .navigationBarHidden(selectedPhoto != nil)
         .navigationBarTitleDisplayMode(.inline)
         .overlay {
             if let selectedPhoto = selectedPhoto {
-                PhotosTabView(photos: $photos, initialSelection: selectedPhoto, cache: dataController.photoCollection.cache) {
+                PhotosTabView(photos: $photos, initialSelection: selectedPhoto) {
                     withAnimation {
                         self.selectedPhoto = nil
                     }
@@ -64,18 +62,19 @@ struct PhotosGridView: View {
     }
     
     private func photoItemView(asset: PhotoAsset) -> some View {
-        PhotoItemView(asset: asset, cache: dataController.photoCollection.cache, imageSize: imageSize)
-            .frame(width: Self.itemSize.width, height: Self.itemSize.height)
-            .clipped()
-            .cornerRadius(Self.itemCornerRadius)
-            .task {
-                await dataController.photoCollection.cache.startCaching(for: [asset], targetSize: imageSize)
-            }
-            .onDisappear {
-                Task {
-                    await dataController.photoCollection.cache.stopCaching(for: [asset], targetSize: imageSize)
+        PhotoView(asset: asset) { image in
+            image
+                .resizable()
+                .aspectRatio(1, contentMode: .fill)
+                .clipped()
+                .cornerRadius(15)
+                .onAppear {
+                    dataController.startCaching([asset], targetSize: imageSize)
                 }
-            }
+                .onDisappear {
+                    dataController.stopCaching([asset], targetSize: imageSize)
+                }
+        }
     }
 }
 

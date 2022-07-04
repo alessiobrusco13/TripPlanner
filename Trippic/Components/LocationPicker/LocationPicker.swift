@@ -42,7 +42,7 @@ struct LocationPicker: View {
             }
             .navigationTitle("Select your location")
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel", action: dismiss.callAsFunction)
                         .foregroundStyle(.selection)
                 }

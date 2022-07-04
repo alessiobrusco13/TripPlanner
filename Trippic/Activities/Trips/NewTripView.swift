@@ -81,7 +81,7 @@ struct NewTripView: View {
             .navigationTitle(newTrip.name.isEmpty ? "New Trip" : newTrip.name)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .primaryAction) {
                     Button {
                         dataController.add(newTrip)
                         dismiss()
@@ -92,7 +92,7 @@ struct NewTripView: View {
                     .disabled(newTrip.name.isEmpty || (image == nil))
                 }
 
-                ToolbarItem(placement: .navigationBarLeading) {
+                ToolbarItem(placement: .cancellationAction) {
                     Button("Dismiss", action: dismiss.callAsFunction)
                 }
             }

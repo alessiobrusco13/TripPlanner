@@ -9,7 +9,6 @@ import SwiftUI
 
 struct PhotoPageView: View {
     @Binding var photo: PhotoAsset
-    var cache: CachedImageManager
     @State private var scale = 1.0
 
     var geasture: some Gesture {
@@ -27,17 +26,26 @@ struct PhotoPageView: View {
     }
 
     var body: some View {
-        PhotoView(asset: photo, cache: cache)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .clipShape(RoundedRectangle(cornerRadius: 15))
-            .padding()
-            .scaleEffect(scale)
-            .gesture(geasture)
+        GeometryReader { geo in
+            ZStack {
+                PhotoView(asset: photo) { image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .cornerRadius(15)
+                        .frame(maxWidth: geo.size.width * 0.9, maxHeight: geo.size.height * 0.9)
+                }
+                .padding(.bottom, 70)
+                .scaleEffect(scale)
+                .gesture(geasture)
+            }
+            .frame(width: geo.size.width, height: geo.size.height)
+        }
     }
 }
 
 struct PhotoPageView_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoPageView(photo: .constant(.example), cache: .init())
+        PhotoPageView(photo: .constant(.example))
     }
 }

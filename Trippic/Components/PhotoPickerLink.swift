@@ -40,7 +40,7 @@ struct PhotoPickerLink<Content: View>: View {
 
 struct PhotoPickerLink_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoPickerLink(imageSelection: .constant(.remove)) {
+        PhotoPickerLink(imageSelection: .constant(.init())) {
             Text("hello")
         }
     }

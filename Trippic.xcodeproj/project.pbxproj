@@ -10,7 +10,6 @@
 		891ABB042864E839003D20A5 /* PhotoPickerLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891ABB032864E839003D20A5 /* PhotoPickerLink.swift */; };
 		891AF911282184FC00BD691F /* NewTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891AF910282184FC00BD691F /* NewTripView.swift */; };
 		891AF91328218B8400BD691F /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891AF91228218B8400BD691F /* PhotoPicker.swift */; };
-		892215272854ABA2002E40AF /* PhotoItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892215262854ABA2002E40AF /* PhotoItemView.swift */; };
 		8923EC27283F6A21000557C0 /* PhotosGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8923EC26283F6A21000557C0 /* PhotosGridView.swift */; };
 		892768AD282B9EC400FBAEA0 /* LocationRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892768AC282B9EC400FBAEA0 /* LocationRowView.swift */; };
 		892768B1282C255D00FBAEA0 /* LocationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892768B0282C255D00FBAEA0 /* LocationPicker.swift */; };
@@ -38,8 +37,6 @@
 		89B0A16F28480686008CEACF /* PhotosTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B0A16E28480686008CEACF /* PhotosTabView.swift */; };
 		89C7CA8D283564EC008E3F72 /* [UIImage]-example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C7CA8C283564EC008E3F72 /* [UIImage]-example.swift */; };
 		89DCCB13283B809500030B89 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DCCB12283B809500030B89 /* CircleImage.swift */; };
-		89FA5FAF2853E38F0083EE75 /* CachedImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FA5FAE2853E38F0083EE75 /* CachedImageManager.swift */; };
-		89FA5FB32853E71A0083EE75 /* PhotoCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FA5FB22853E71A0083EE75 /* PhotoCollection.swift */; };
 		89FA5FB52853E9C00083EE75 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FA5FB42853E9C00083EE75 /* PhotoView.swift */; };
 		89FA5FB72853EED60083EE75 /* PhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FA5FB62853EED60083EE75 /* PhotoLibrary.swift */; };
 		89FF84A02853AF5F000CBD55 /* NoPressEffectButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FF849F2853AF5F000CBD55 /* NoPressEffectButtonStyle.swift */; };
@@ -50,7 +47,6 @@
 		891AF910282184FC00BD691F /* NewTripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTripView.swift; sourceTree = "<group>"; };
 		891AF91228218B8400BD691F /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		891AF91628218F1700BD691F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		892215262854ABA2002E40AF /* PhotoItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoItemView.swift; sourceTree = "<group>"; };
 		8923EC26283F6A21000557C0 /* PhotosGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosGridView.swift; sourceTree = "<group>"; };
 		892768AC282B9EC400FBAEA0 /* LocationRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRowView.swift; sourceTree = "<group>"; };
 		892768B0282C255D00FBAEA0 /* LocationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPicker.swift; sourceTree = "<group>"; };
@@ -80,8 +76,6 @@
 		89B0A16E28480686008CEACF /* PhotosTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTabView.swift; sourceTree = "<group>"; };
 		89C7CA8C283564EC008E3F72 /* [UIImage]-example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "[UIImage]-example.swift"; sourceTree = "<group>"; };
 		89DCCB12283B809500030B89 /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
-		89FA5FAE2853E38F0083EE75 /* CachedImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImageManager.swift; sourceTree = "<group>"; };
-		89FA5FB22853E71A0083EE75 /* PhotoCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollection.swift; sourceTree = "<group>"; };
 		89FA5FB42853E9C00083EE75 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		89FA5FB62853EED60083EE75 /* PhotoLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibrary.swift; sourceTree = "<group>"; };
 		89FF849F2853AF5F000CBD55 /* NoPressEffectButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPressEffectButtonStyle.swift; sourceTree = "<group>"; };
@@ -104,7 +98,6 @@
 				8964BAC82821668800922BCC /* Trip.swift */,
 				8964BACA2821676400922BCC /* Location.swift */,
 				899AA1B7284284800080CD11 /* PhotoAsset.swift */,
-				89FA5FB22853E71A0083EE75 /* PhotoCollection.swift */,
 				8964BACC2821677400922BCC /* Coordinates.swift */,
 			);
 			path = Model;
@@ -129,7 +122,6 @@
 				89B0A16E28480686008CEACF /* PhotosTabView.swift */,
 				892768B4282CF0CB00FBAEA0 /* CircleButton.swift */,
 				89FA5FB42853E9C00083EE75 /* PhotoView.swift */,
-				892215262854ABA2002E40AF /* PhotoItemView.swift */,
 				891AF91228218B8400BD691F /* PhotoPicker.swift */,
 				891ABB032864E839003D20A5 /* PhotoPickerLink.swift */,
 				895D780C282D002D00EE846F /* LocationPicker */,
@@ -144,7 +136,6 @@
 			children = (
 				8964BAD5282173C100922BCC /* DataController.swift */,
 				89FA5FB62853EED60083EE75 /* PhotoLibrary.swift */,
-				89FA5FAE2853E38F0083EE75 /* CachedImageManager.swift */,
 			);
 			path = DataServices;
 			sourceTree = "<group>";
@@ -301,14 +292,12 @@
 				89FA5FB72853EED60083EE75 /* PhotoLibrary.swift in Sources */,
 				8923EC27283F6A21000557C0 /* PhotosGridView.swift in Sources */,
 				8964BABD2821666B00922BCC /* ContentView.swift in Sources */,
-				89FA5FB32853E71A0083EE75 /* PhotoCollection.swift in Sources */,
 				892768B3282C257900FBAEA0 /* LocationPickerViewModel.swift in Sources */,
 				8964BAC92821668800922BCC /* Trip.swift in Sources */,
 				8965A876284353F30065ED88 /* TripsView.swift in Sources */,
 				892768AD282B9EC400FBAEA0 /* LocationRowView.swift in Sources */,
 				899049362821A94500E2BD9F /* TripRowView.swift in Sources */,
 				8964BACB2821676400922BCC /* Location.swift in Sources */,
-				892215272854ABA2002E40AF /* PhotoItemView.swift in Sources */,
 				891AF911282184FC00BD691F /* NewTripView.swift in Sources */,
 				899AA1B8284284800080CD11 /* PhotoAsset.swift in Sources */,
 				8964BABB2821666B00922BCC /* TrippicApp.swift in Sources */,
@@ -317,7 +306,6 @@
 				8964BAD6282173C100922BCC /* DataController.swift in Sources */,
 				891ABB042864E839003D20A5 /* PhotoPickerLink.swift in Sources */,
 				8990493C2822644B00E2BD9F /* TripView.swift in Sources */,
-				89FA5FAF2853E38F0083EE75 /* CachedImageManager.swift in Sources */,
 				8964BACD2821677400922BCC /* Coordinates.swift in Sources */,
 				895D12B6282831750071DC98 /* LocationView.swift in Sources */,
 				892768B5282CF0CB00FBAEA0 /* CircleButton.swift in Sources */,
@@ -470,6 +458,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -507,6 +496,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

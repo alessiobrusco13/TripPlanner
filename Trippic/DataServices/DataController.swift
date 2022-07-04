@@ -7,18 +7,30 @@
 
 import Combine
 import Foundation
+import Photos
 import SwiftUI
 
 @MainActor
 class DataController: ObservableObject {
+    enum PhotoError: LocalizedError {
+        case assetNotFound
+        case requestCancelled
+        case other(Error?)
+    }
+    
     @Published var trips = [Trip]()
-    var photoCollection = PhotoCollection(smartAlbum: .smartAlbumUserLibrary)
-
+    
     private let savePath = FileManager.documentsDirectory.appendingPathComponent("trips")
     private var saveSubscription: AnyCancellable?
     
-    var isPhotosLoaded = false
-
+    private let imageManager = PHCachingImageManager()
+    
+    private lazy var imageRequestOptions: PHImageRequestOptions = {
+        let options = PHImageRequestOptions()
+        options.deliveryMode = .opportunistic
+        return options
+    }()
+    
     var favoriteImages: [PhotoAsset] {
         trips
             .map(\.locations)
@@ -27,7 +39,7 @@ class DataController: ObservableObject {
             .joined()
             .filter(\.isFavorite)
     }
-
+    
     init() {
         do {
             let data = try Data(contentsOf: savePath)
@@ -36,14 +48,14 @@ class DataController: ObservableObject {
             trips = []
             print(error)
         }
-
+        
         saveSubscription = $trips
             .debounce(for: 5, scheduler: RunLoop.main)
             .sink { _ in
                 self.save()
             }
     }
-
+    
     func save() {
         do {
             let data = try JSONEncoder().encode(trips)
@@ -54,71 +66,95 @@ class DataController: ObservableObject {
         }
     }
     
-    func loadPhotos() async {
-        guard !isPhotosLoaded else { return }
-        
-        let authorized = await PhotoLibrary.checkAuthorization()
-        guard authorized else { return }
-        
-        Task {
-            do {
-                try await self.photoCollection.load()
-            } catch {
-                print(error.localizedDescription)
-            }
-            
-            self.isPhotosLoaded = true
-        }
-    }
-
     func add(_ newTrip: Trip) {
         trips.append(newTrip)
     }
-
+    
     func delete(_ offsets: IndexSet) {
         trips.remove(atOffsets: offsets)
     }
-
+    
     func delete(_ selected: Set<Trip>) {
         trips.removeAll(where: selected.contains)
     }
-
+    
     func delete(_ trip: Trip) {
         guard let index = trips.firstIndex(of: trip) else { return }
         trips.remove(at: index)
     }
-
+    
     func location(for photo: PhotoAsset) -> Location? {
         let locations = Array(trips.map(\.locations).joined())
         var locationsPhotos = [(Location, Set<PhotoAsset>)]()
-
+        
         for location in locations {
             locationsPhotos.append((location, Set(location.photos)))
         }
-
+        
         for (location, photos) in locationsPhotos {
             if photos.contains(photo) {
                 return location
             }
         }
-
+        
         return nil
     }
-
+    
     func trip(for location: Location) -> Trip? {
         var tripsLocations = [(Trip, Set<Location>)]()
-
+        
         for trip in trips {
             tripsLocations.append((trip, Set(trip.locations)))
         }
-
+        
         for (trip, locations) in tripsLocations {
             if locations.contains(location) {
                 return trip
             }
         }
-
+        
         return nil
+    }
+    
+    func startCaching(_ assets: [PhotoAsset], targetSize: CGSize) {
+        guard !assets.isEmpty else { return }
+        let phAssets = assets.compactMap { $0.phAsset }
+        
+        imageManager.startCachingImages(for: phAssets, targetSize: targetSize, contentMode: .aspectFill, options: imageRequestOptions)
+    }
+    
+    func stopCaching(_ assets: [PhotoAsset], targetSize: CGSize) {
+        guard !assets.isEmpty else { return }
+        let phAssets = assets.compactMap { $0.phAsset }
+        
+        imageManager.stopCachingImages(for: phAssets, targetSize: targetSize, contentMode: .aspectFill, options: imageRequestOptions)
+    }
+    
+    func stopCaching() {
+        imageManager.stopCachingImagesForAllAssets()
+    }
+    
+    func requestImage(for asset: PhotoAsset, targetSize: CGSize, completion: @escaping @Sendable (Result<Image, PhotoError>) -> Void) {
+        guard let phAsset = asset.phAsset else {
+            completion(.failure(.assetNotFound))
+            return
+        }
+        
+        imageManager.requestImage(for: phAsset, targetSize: targetSize, contentMode: .aspectFill, options: imageRequestOptions) { image, info in
+            if let error = info?[PHImageErrorKey] as? Error {
+                completion(.failure(.other(error)))
+                return
+            } else if let cancelled = (info?[PHImageCancelledKey] as? NSNumber)?.boolValue, cancelled {
+                completion(.failure(.requestCancelled))
+                return
+            } else if let image = image {
+                completion(.success(Image(uiImage: image)))
+                return
+            } else {
+                completion(.failure(.other(nil)))
+                return
+            }
+        }
     }
     
     func path(for location: Location) -> (tripIndex: Int, locationIndex: Int)? {

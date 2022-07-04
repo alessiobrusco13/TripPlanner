@@ -13,7 +13,7 @@ struct PhotoAsset: Identifiable, Hashable, Codable {
         case identifier, isFavorite
     }
     
-    var id: String { identifier }
+    let id = UUID()
     
     var identifier: String
     var isFavorite: Bool
@@ -70,8 +70,4 @@ struct PhotoAsset: Identifiable, Hashable, Codable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(identifier)
     }
-}
-
-extension PHObject: Identifiable {
-    public var id: String { localIdentifier }
 }

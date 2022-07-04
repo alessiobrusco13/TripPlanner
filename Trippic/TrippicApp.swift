@@ -22,7 +22,7 @@ struct TrippicApp: App {
                     }
                 }
                 .task {
-                    await dataController.loadPhotos()
+                    await PhotoLibrary.checkAuthorization()
                 }
         }
     }

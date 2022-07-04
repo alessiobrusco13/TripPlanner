@@ -12,7 +12,6 @@ struct TripsView: View {
 
     @State private var selectedTrips = Set<Trip>()
     @State private var editMode = EditMode.inactive
-
     @State private var showingAdd = false
 
     var body: some View {
@@ -77,6 +76,7 @@ struct TripsView: View {
                 selectedTrips.removeAll()
             }
         }
+        .navigationViewStyle(.stack)
     }
 }
 

@@ -5,10 +5,10 @@
 //  Created by Alessio Garzia Marotta Brusco on 03/05/22.
 //
 
-import SwiftUI
 import MapKit
+import SwiftUI
 
-struct Location: Identifiable, Codable, Hashable, Sendable {    
+struct Location: Identifiable, Codable, Hashable, Sendable {
     let id: UUID
     var name: String
     var extendedName: String

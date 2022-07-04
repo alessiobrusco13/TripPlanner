@@ -45,16 +45,20 @@ struct PhotosRowView<Content: View>: View {
                             Divider()
                         }
                         
-                        ForEach($location.photos, id: \.self) { $photo in
-                            PhotoItemView(asset: photo, cache: dataController.photoCollection.cache, imageSize: CGSize(width: 550, height: 550))
-                                .frame(width: 225, height: 225)
-                                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                                .overlay(alignment: .topTrailing) {
-                                    FavoriteButton(photo: $photo)
-                                        .padding(5)
-                                        .transition(.scale)
-                                }
-                                .id(photo.id)
+                        ForEach($location.photos) { $photo in
+                            PhotoView(asset: photo) { image in
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 225, height: 225)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                    .overlay(alignment: .topTrailing) {
+                                        FavoriteButton(photo: $photo)
+                                            .padding(5)
+                                            .transition(.scale)
+                                    }
+                            }
+                            .id(photo.id)
                         }
                     } footer: {
                         buttons(proxy: proxy)

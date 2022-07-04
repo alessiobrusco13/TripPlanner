@@ -8,21 +8,20 @@
 import Photos
 import SwiftUI
 
-struct PhotoView: View {
+struct PhotoView<Content: View>: View {
+    let asset: PhotoAsset
+    @ViewBuilder let content: (Image) -> Content
+    
     @EnvironmentObject private var dataController: DataController
-    
-    var asset: PhotoAsset
-    var cache: CachedImageManager?
-    
     @State private var image: Image?
-    @State private var imageRequestID: PHImageRequestID?
     
     var body: some View {
         Group {
             if let image = image {
-                image
-                    .resizable()
-                    .scaledToFill()
+                content(image)
+            } else {
+                ProgressView()
+                    .scaleEffect(0.5)
             }
         }
         .task {
@@ -30,14 +29,16 @@ struct PhotoView: View {
                 withAnimation {
                     _ = dataController.trips[path.tripIndex].locations[path.locationIndex].photos.remove(at: path.photoIndex)
                 }
+                
+                return
             }
             
-            guard image == nil, let cache = cache else { return }
+            guard image == nil else { return }
             
-            imageRequestID = await cache.requestImage(for: asset, targetSize: CGSize(width: 1024, height: 1024)) { result in
-                Task {
-                    if let result = result {
-                        image = result.image
+            dataController.requestImage(for: asset, targetSize: CGSize(width: 1024, height: 1024)) { result in
+                if case .success(let image) = result {
+                    Task { @MainActor in
+                        self.image = image
                     }
                 }
             }

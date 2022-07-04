@@ -124,7 +124,7 @@ struct TripView: View {
         .locationPicker(isPresented: $showingLocationPicker, selection: $newLocation)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
+            ToolbarItem(placement: .primaryAction) {
                 HStack {
                     Menu {
                         Button {
@@ -175,13 +175,11 @@ struct TripView: View {
                 trip.append(location)
             }
         }
-        .task {
-            await dataController.photoCollection.cache.startCaching(for: trip.allPhotos, targetSize: CGSize(width: 550, height: 550))
+        .onAppear {
+            dataController.startCaching(trip.allPhotos, targetSize: CGSize(width: 550, height: 550))
         }
         .onDisappear {
-            Task {
-                await dataController.photoCollection.cache.stopCaching()
-            }
+            dataController.stopCaching()
         }
     }
     

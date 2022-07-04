@@ -7,7 +7,8 @@
 
 import Photos
 
-class PhotoLibrary {
+enum PhotoLibrary {
+    @discardableResult
     static func checkAuthorization() async -> Bool {
         switch PHPhotoLibrary.authorizationStatus(for: .readWrite) {
         case .authorized:

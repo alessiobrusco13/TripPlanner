@@ -9,22 +9,20 @@ import SwiftUI
 
 struct PhotosTabView: View {
     @Binding var photos: [PhotoAsset]
-    let cache: CachedImageManager
     let dismiss: () -> Void
 
     @State private var selection: PhotoAsset
 
-    init(photos: Binding<[PhotoAsset]>, initialSelection: PhotoAsset, cache: CachedImageManager, dismiss: @escaping () -> Void) {
+    init(photos: Binding<[PhotoAsset]>, initialSelection: PhotoAsset, dismiss: @escaping () -> Void) {
         _photos = photos
         _selection = State(initialValue: initialSelection)
-        self.cache = cache
         self.dismiss = dismiss
     }
 
     var body: some View {
         TabView(selection: $selection) {
             ForEach($photos) { $photo in
-                PhotoPageView(photo: $photo, cache: cache)
+                PhotoPageView(photo: $photo)
                     .tag(photo)
             }
         }
@@ -32,7 +30,7 @@ struct PhotosTabView: View {
         .padding(.bottom, 32)
         .ignoresSafeArea()
         .safeAreaInset(edge: .bottom) {
-            VStack {
+            VStack(spacing: 15) {
                 HStack {
                     ForEach(photos.indices, id: \.self) { index in
                         Circle()
@@ -40,12 +38,11 @@ struct PhotosTabView: View {
                             .frame(width: 8)
                     }
                 }
-                .padding(5)
                 
                 buttons
                     .frame(maxWidth: .infinity)
-                    .padding(3)
-                    .background(.thickMaterial)
+                    .padding(.top)
+                    .background(.regularMaterial)
             }
         }
     }
@@ -76,7 +73,7 @@ struct PhotosTabView: View {
 
 struct PhotosTabView_Previews: PreviewProvider {
     static var previews: some View {
-        PhotosTabView(photos: .constant(.example), initialSelection: .example, cache: .init()) {
+        PhotosTabView(photos: .constant(.example), initialSelection: .example) {
 
         }
     }
