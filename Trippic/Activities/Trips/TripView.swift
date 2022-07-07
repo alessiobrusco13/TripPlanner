@@ -146,6 +146,7 @@ struct TripView: View {
             }
         }
         .locationPicker(isPresented: $showingLocationPicker, selection: $viewModel.newLocation)
+        .accessibilityHidden(showingTripPhoto || showingFullscreenMap)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarHidden(showingFullscreenMap)
         .toolbar {

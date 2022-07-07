@@ -48,15 +48,16 @@ struct PhotosTabView: View {
                                 .frame(width: 8)
                         }
                     }
+                    .padding(8)
+                    .background(.regularMaterial, in: Capsule(style: .continuous))
                 }
                 
                 buttons
                     .frame(maxWidth: .infinity)
-                    .padding(.top)
+                    .padding(.vertical)
                     .background(.regularMaterial)
-                    
             }
-            .padding(.bottom)
+            .ignoresSafeArea()
         }
     }
 
@@ -88,8 +89,7 @@ struct PhotosTabView: View {
 
 struct PhotosTabView_Previews: PreviewProvider {
     static var previews: some View {
-        PhotosTabView(photos: .constant(.example), initialSelection: .example, editingEnabled: true) {
-
-        }
+        PhotosTabView(photos: .constant(.example), initialSelection: .example, editingEnabled: true) { }
+            .environmentObject(DataController())
     }
 }
