@@ -12,15 +12,7 @@ struct NewTripView: View {
     @Environment(\.dismiss) var dismiss
 
     @StateObject private var newTrip = Trip()
-    @State private var uiImage: UIImage?
-
-    var image: Image? {
-        if let uiImage = uiImage {
-            return Image(uiImage: uiImage)
-        } else {
-            return nil
-        }
-    }
+    @State private var newID: String?
 
     var body: some View {
         NavigationView {
@@ -28,21 +20,21 @@ struct NewTripView: View {
                 Section {
                     HStack {
                         Spacer()
-
-                        PhotoPickerLink(imageSelection: $uiImage) {
-                            if let image = image {
-                                image
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(height: 200)
-                                    .cornerRadius(10)
-                                    .foregroundColor(.clear)
-                            } else {
-                                PhotoPickerLink(imageSelection: $uiImage) {
-                                    Label("Add Photo", systemImage: "camera.fill")
-                                        .font(.headline)
-                                        .foregroundStyle(.selection)
+                        
+                        PhotoPickerLink(assetSelection: $newTrip.photo) {
+                            if newTrip.photo != .example {
+                                PhotoView(asset: newTrip.photo) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(height: 200)
+                                        .cornerRadius(10)
+                                        .foregroundColor(.clear)
                                 }
+                            } else {
+                                Label("Add Photo", systemImage: "camera.fill")
+                                    .font(.headline)
+                                    .foregroundStyle(.selection)
                             }
                         }
 
@@ -89,15 +81,16 @@ struct NewTripView: View {
                         Label("Done", systemImage: "checkmark")
                             .font(.body.weight(.semibold))
                     }
-                    .disabled(newTrip.name.isEmpty || (image == nil))
+                    .disabled(newTrip.name.isEmpty || (newTrip.photo == .example))
                 }
 
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Dismiss", action: dismiss.callAsFunction)
                 }
             }
-            .onChange(of: uiImage ?? UIImage()) { newImage in
-                newTrip.image = newImage
+            .onChange(of: newID) { id in
+                guard let id = id else { return }
+                newTrip.photo = PhotoAsset(identifier: id)
             }
         }
     }

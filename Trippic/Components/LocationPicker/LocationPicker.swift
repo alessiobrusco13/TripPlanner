@@ -22,7 +22,6 @@ struct LocationPicker: View {
                     } else {
                         ForEach(viewModel.locations) { location in
                             Button {
-#warning("Modifying state during view update, this will cause undefined behavior.")
                                 selection = location
                                 dismiss()
                             } label: {
@@ -97,7 +96,7 @@ extension LocationPickerView_Previews {
             NavigationView {
                 VStack {
                     if let selection = selection {
-                        LocationRowView(location: .constant(selection))
+                        LocationRowView(location: .constant(selection), navigationLinkActive: .constant(false))
                     }
                     
                     Button("Pick Location") {

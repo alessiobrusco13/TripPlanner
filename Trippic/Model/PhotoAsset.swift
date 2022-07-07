@@ -17,6 +17,7 @@ struct PhotoAsset: Identifiable, Hashable, Codable {
     
     var identifier: String
     var isFavorite: Bool
+    var creationDate = Date.now
     
     var index: Int?
     var phAsset: PHAsset?
@@ -30,7 +31,7 @@ struct PhotoAsset: Identifiable, Hashable, Codable {
         return fetchedAssets.firstObject
     }
 
-    static let example = PhotoAsset(image: [UIImage].example[0])
+    static let example = PhotoAsset(image: .example)
 
     init(image: UIImage) {
         identifier = UUID().uuidString

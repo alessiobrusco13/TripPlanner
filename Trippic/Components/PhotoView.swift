@@ -25,20 +25,21 @@ struct PhotoView<Content: View>: View {
             }
         }
         .task {
-            if asset.phAsset == nil, let path = dataController.path(for: asset) {
-                withAnimation {
-                    _ = dataController.trips[path.tripIndex].locations[path.locationIndex].photos.remove(at: path.photoIndex)
-                }
-                
-                return
-            }
-            
             guard image == nil else { return }
             
             dataController.requestImage(for: asset, targetSize: CGSize(width: 1024, height: 1024)) { result in
-                if case .success(let image) = result {
-                    Task { @MainActor in
+                Task { @MainActor in
+                    switch result {
+                    case .success(let image):
                         self.image = image
+                    case .failure(let error):
+                        print(error)
+                        
+                        if case .assetNotFound = error, let path = dataController.path(for: asset) {
+                            withAnimation {
+                                _ = dataController.trips[path.tripIndex].locations[path.locationIndex].photos.remove(at: path.photoIndex)
+                            }
+                        }
                     }
                 }
             }

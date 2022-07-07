@@ -30,6 +30,7 @@ struct TripsView: View {
                 .onDelete {
                     dataController.delete($0)
                 }
+                .listRowInsets(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 10))
             }
             .listStyle(.plain)
             .animation(.default, value: dataController.trips)

@@ -42,9 +42,11 @@ struct TripRowView: View {
         .frame(height: 150)
         .foregroundStyle(.white)
         .background {
-            Image(uiImage: trip.image)
-                .resizable()
-                .scaledToFill()
+            PhotoView(asset: trip.photo) { image in
+                image
+                    .resizable()
+                    .scaledToFill()
+            }
         }
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
     }

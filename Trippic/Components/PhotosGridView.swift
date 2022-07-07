@@ -13,22 +13,23 @@ import SwiftUI
 
 struct PhotosGridView: View {
     @Binding var photos: [PhotoAsset]
+    @Binding var selectedPhoto: PhotoAsset?
+    let editingEnabled: Bool
     
     @EnvironmentObject private var dataController: DataController
-    @State private var selectedPhoto: PhotoAsset?
-    
-    @Environment(\.dismiss) var dismiss
     @Environment(\.displayScale) private var displayScale
+    
+    private let itemWidth = 180.0
     
     private var imageSize: CGSize {
         CGSize(
-            width: 200 * min(displayScale, 2),
-            height: 200 * min(displayScale, 2)
+            width: 400 * min(displayScale, 2),
+            height: 400 * min(displayScale, 2)
         )
     }
     
     private var columns: [GridItem] {
-        [GridItem(.adaptive(minimum: 150, maximum: 200))]
+        [GridItem(.adaptive(minimum: itemWidth, maximum: itemWidth))]
     }
     
     var body: some View {
@@ -43,14 +44,14 @@ struct PhotosGridView: View {
                         photoItemView(asset: photo)
                     }
                 }
+                .accessibilityHidden(selectedPhoto != nil)
             }
             .frame(maxWidth: .infinity)
-            .padding(8)
         }
         .navigationBarTitleDisplayMode(.inline)
         .overlay {
             if let selectedPhoto = selectedPhoto {
-                PhotosTabView(photos: $photos, initialSelection: selectedPhoto) {
+                PhotosTabView(photos: $photos, initialSelection: selectedPhoto, editingEnabled: editingEnabled) {
                     withAnimation {
                         self.selectedPhoto = nil
                     }
@@ -65,8 +66,8 @@ struct PhotosGridView: View {
         PhotoView(asset: asset) { image in
             image
                 .resizable()
-                .aspectRatio(1, contentMode: .fill)
-                .clipped()
+                .scaledToFill()
+                .frame(width: itemWidth, height: itemWidth)
                 .cornerRadius(15)
                 .onAppear {
                     dataController.startCaching([asset], targetSize: imageSize)
@@ -80,7 +81,7 @@ struct PhotosGridView: View {
 
 struct PhotosGridView_Previews: PreviewProvider {
     static var previews: some View {
-        PhotosGridView(photos: .constant(.example))
+        PhotosGridView(photos: .constant(.example), selectedPhoto: .constant(.example), editingEnabled: false)
             .environmentObject(DataController())
     }
 }

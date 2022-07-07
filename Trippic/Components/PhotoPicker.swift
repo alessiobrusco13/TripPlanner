@@ -29,11 +29,13 @@ struct PhotoPicker: UIViewControllerRepresentable {
             
             guard let identifier = first.assetIdentifier else { return }
             parent.identifier = identifier
+            parent.asset = PhotoAsset(identifier: identifier)
         }
     }
 
     @Binding var image: UIImage?
     @Binding var identifier: String?
+    @Binding var asset: PhotoAsset
 
     func makeUIViewController(context: Context) -> PHPickerViewController {
         var config = PHPickerConfiguration(photoLibrary: .shared())

@@ -9,7 +9,7 @@ import SwiftUI
 
 class Trip: ObservableObject, Identifiable, Codable, Hashable {
     enum CodingKeys: CodingKey {
-        case name, startDate, endDate, image, locations
+        case name, startDate, endDate, photo, locations
     }
 
     let id = UUID()
@@ -17,7 +17,7 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable {
     @Published var name = ""
     @Published var startDate = Date.now
     @Published var endDate = Date.now.addingTimeInterval(1*60*60*24)
-    @Published var image = UIImage(named: "Example1")!
+    @Published var photo = PhotoAsset.example
     @Published var locations = [Location]()
     
     var allPhotos: [PhotoAsset] {
@@ -59,13 +59,13 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable {
         try container.encode(name, forKey: .name)
         try container.encode(startDate, forKey: .startDate)
         try container.encode(endDate, forKey: .endDate)
-        try container.encode(image, forKey: .image)
+        try container.encode(photo, forKey: .photo)
         try container.encode(locations, forKey: .locations)
     }
     
     private func decodeData(container: KeyedDecodingContainer<Trip.CodingKeys>) throws {
         name = try container.decode(String.self, forKey: .name)
-        image = try container.decode(UIImage.self, forKey: .image)
+        photo = try container.decode(PhotoAsset.self, forKey: .photo)
         startDate = try container.decode(Date.self, forKey: .startDate)
         endDate = try container.decode(Date.self, forKey: .endDate)
         locations = try container.decode([Location].self, forKey: .locations)

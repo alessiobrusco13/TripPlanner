@@ -60,6 +60,14 @@ struct Location: Identifiable, Codable, Hashable, Sendable {
         guard let index = photos.firstIndex(of: photo) else { return }
         photos.remove(at: index)
     }
+    
+    mutating func delete(_ offsets: IndexSet) {
+        photos.remove(atOffsets: offsets)
+    }
+    
+    mutating func delete(_ selected: Set<PhotoAsset>) {
+        photos.removeAll(where: selected.contains)
+    }
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)

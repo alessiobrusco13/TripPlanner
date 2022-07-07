@@ -167,7 +167,7 @@ class DataController: ObservableObject {
     func path(for photo: PhotoAsset) -> (tripIndex: Int, locationIndex: Int, photoIndex: Int)? {
         guard let location = location(for: photo) else { return nil }
         guard let locationPath = path(for: location) else { return nil }
-        guard let imageIndex = location.photos.firstIndex(of: photo) else { return nil }
-        return (locationPath.tripIndex, locationPath.locationIndex, imageIndex)
+        guard let photoIndex = location.photos.firstIndex(of: photo) else { return nil }
+        return (locationPath.tripIndex, locationPath.locationIndex, photoIndex)
     }
 }

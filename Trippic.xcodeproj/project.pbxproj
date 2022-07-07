@@ -18,6 +18,8 @@
 		892A756D28468B970002DB4B /* FavouriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892A756C28468B970002DB4B /* FavouriteButton.swift */; };
 		892B9F29283A9B3F00235819 /* PhotosRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B9F28283A9B3F00235819 /* PhotosRowView.swift */; };
 		892B9F2D283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B9F2C283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift */; };
+		892CE2E1287634A9006D7415 /* PhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892CE2E0287634A9006D7415 /* PhotosView.swift */; };
+		892CE2E3287635E1006D7415 /* PhotosListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892CE2E2287635E1006D7415 /* PhotosListView.swift */; };
 		895D12B6282831750071DC98 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D12B5282831750071DC98 /* LocationView.swift */; };
 		8964BABB2821666B00922BCC /* TrippicApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8964BABA2821666B00922BCC /* TrippicApp.swift */; };
 		8964BABD2821666B00922BCC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8964BABC2821666B00922BCC /* ContentView.swift */; };
@@ -35,8 +37,10 @@
 		899AA1B2284274670080CD11 /* PhotoPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899AA1B1284274670080CD11 /* PhotoPageView.swift */; };
 		899AA1B8284284800080CD11 /* PhotoAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899AA1B7284284800080CD11 /* PhotoAsset.swift */; };
 		89B0A16F28480686008CEACF /* PhotosTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B0A16E28480686008CEACF /* PhotosTabView.swift */; };
-		89C7CA8D283564EC008E3F72 /* [UIImage]-example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C7CA8C283564EC008E3F72 /* [UIImage]-example.swift */; };
+		89C7CA8D283564EC008E3F72 /* UIImage-example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C7CA8C283564EC008E3F72 /* UIImage-example.swift */; };
 		89DCCB13283B809500030B89 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DCCB12283B809500030B89 /* CircleImage.swift */; };
+		89E1627B28747695006047D3 /* TripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E1627A28747695006047D3 /* TripViewModel.swift */; };
+		89E1627D287494BA006047D3 /* PinchToZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E1627C287494BA006047D3 /* PinchToZoom.swift */; };
 		89FA5FB52853E9C00083EE75 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FA5FB42853E9C00083EE75 /* PhotoView.swift */; };
 		89FA5FB72853EED60083EE75 /* PhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FA5FB62853EED60083EE75 /* PhotoLibrary.swift */; };
 		89FF84A02853AF5F000CBD55 /* NoPressEffectButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FF849F2853AF5F000CBD55 /* NoPressEffectButtonStyle.swift */; };
@@ -56,6 +60,8 @@
 		892A756C28468B970002DB4B /* FavouriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteButton.swift; sourceTree = "<group>"; };
 		892B9F28283A9B3F00235819 /* PhotosRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosRowView.swift; sourceTree = "<group>"; };
 		892B9F2C283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "[CLLocationCoordinate2D]-centerCoordinate.swift"; sourceTree = "<group>"; };
+		892CE2E0287634A9006D7415 /* PhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosView.swift; sourceTree = "<group>"; };
+		892CE2E2287635E1006D7415 /* PhotosListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosListView.swift; sourceTree = "<group>"; };
 		895D12B5282831750071DC98 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		8964BAB72821666B00922BCC /* Trippic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trippic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8964BABA2821666B00922BCC /* TrippicApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrippicApp.swift; sourceTree = "<group>"; };
@@ -74,8 +80,10 @@
 		899AA1B1284274670080CD11 /* PhotoPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPageView.swift; sourceTree = "<group>"; };
 		899AA1B7284284800080CD11 /* PhotoAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAsset.swift; sourceTree = "<group>"; };
 		89B0A16E28480686008CEACF /* PhotosTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTabView.swift; sourceTree = "<group>"; };
-		89C7CA8C283564EC008E3F72 /* [UIImage]-example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "[UIImage]-example.swift"; sourceTree = "<group>"; };
+		89C7CA8C283564EC008E3F72 /* UIImage-example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage-example.swift"; sourceTree = "<group>"; };
 		89DCCB12283B809500030B89 /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
+		89E1627A28747695006047D3 /* TripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewModel.swift; sourceTree = "<group>"; };
+		89E1627C287494BA006047D3 /* PinchToZoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinchToZoom.swift; sourceTree = "<group>"; };
 		89FA5FB42853E9C00083EE75 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		89FA5FB62853EED60083EE75 /* PhotoLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibrary.swift; sourceTree = "<group>"; };
 		89FF849F2853AF5F000CBD55 /* NoPressEffectButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPressEffectButtonStyle.swift; sourceTree = "<group>"; };
@@ -117,11 +125,14 @@
 			children = (
 				892A756C28468B970002DB4B /* FavouriteButton.swift */,
 				892B9F28283A9B3F00235819 /* PhotosRowView.swift */,
+				892CE2E0287634A9006D7415 /* PhotosView.swift */,
 				8923EC26283F6A21000557C0 /* PhotosGridView.swift */,
-				899AA1B1284274670080CD11 /* PhotoPageView.swift */,
+				892CE2E2287635E1006D7415 /* PhotosListView.swift */,
 				89B0A16E28480686008CEACF /* PhotosTabView.swift */,
+				899AA1B1284274670080CD11 /* PhotoPageView.swift */,
 				892768B4282CF0CB00FBAEA0 /* CircleButton.swift */,
 				89FA5FB42853E9C00083EE75 /* PhotoView.swift */,
+				89E1627C287494BA006047D3 /* PinchToZoom.swift */,
 				891AF91228218B8400BD691F /* PhotoPicker.swift */,
 				891ABB032864E839003D20A5 /* PhotoPickerLink.swift */,
 				895D780C282D002D00EE846F /* LocationPicker */,
@@ -153,6 +164,7 @@
 			children = (
 				8965A875284353F30065ED88 /* TripsView.swift */,
 				8990493B2822644B00E2BD9F /* TripView.swift */,
+				89E1627A28747695006047D3 /* TripViewModel.swift */,
 				891AF910282184FC00BD691F /* NewTripView.swift */,
 				899049352821A94500E2BD9F /* TripRowView.swift */,
 				895D12B5282831750071DC98 /* LocationView.swift */,
@@ -209,7 +221,7 @@
 				8964BAD028216E2600922BCC /* KeyedEncodingContainer-UIImage.swift */,
 				892B9F2C283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift */,
 				8964BAD22821733F00922BCC /* FileManager-documentsDirectory.swift */,
-				89C7CA8C283564EC008E3F72 /* [UIImage]-example.swift */,
+				89C7CA8C283564EC008E3F72 /* UIImage-example.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -284,11 +296,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89C7CA8D283564EC008E3F72 /* [UIImage]-example.swift in Sources */,
+				89C7CA8D283564EC008E3F72 /* UIImage-example.swift in Sources */,
 				892B9F29283A9B3F00235819 /* PhotosRowView.swift in Sources */,
 				892768B1282C255D00FBAEA0 /* LocationPicker.swift in Sources */,
 				89FA5FB52853E9C00083EE75 /* PhotoView.swift in Sources */,
 				892A756D28468B970002DB4B /* FavouriteButton.swift in Sources */,
+				89E1627D287494BA006047D3 /* PinchToZoom.swift in Sources */,
 				89FA5FB72853EED60083EE75 /* PhotoLibrary.swift in Sources */,
 				8923EC27283F6A21000557C0 /* PhotosGridView.swift in Sources */,
 				8964BABD2821666B00922BCC /* ContentView.swift in Sources */,
@@ -300,6 +313,7 @@
 				8964BACB2821676400922BCC /* Location.swift in Sources */,
 				891AF911282184FC00BD691F /* NewTripView.swift in Sources */,
 				899AA1B8284284800080CD11 /* PhotoAsset.swift in Sources */,
+				892CE2E3287635E1006D7415 /* PhotosListView.swift in Sources */,
 				8964BABB2821666B00922BCC /* TrippicApp.swift in Sources */,
 				8964BAD32821733F00922BCC /* FileManager-documentsDirectory.swift in Sources */,
 				89DCCB13283B809500030B89 /* CircleImage.swift in Sources */,
@@ -309,12 +323,14 @@
 				8964BACD2821677400922BCC /* Coordinates.swift in Sources */,
 				895D12B6282831750071DC98 /* LocationView.swift in Sources */,
 				892768B5282CF0CB00FBAEA0 /* CircleButton.swift in Sources */,
+				89E1627B28747695006047D3 /* TripViewModel.swift in Sources */,
 				891AF91328218B8400BD691F /* PhotoPicker.swift in Sources */,
 				8964BAD128216E2600922BCC /* KeyedEncodingContainer-UIImage.swift in Sources */,
 				899AA1B2284274670080CD11 /* PhotoPageView.swift in Sources */,
 				89FF84A02853AF5F000CBD55 /* NoPressEffectButtonStyle.swift in Sources */,
 				892B9F2D283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift in Sources */,
 				89B0A16F28480686008CEACF /* PhotosTabView.swift in Sources */,
+				892CE2E1287634A9006D7415 /* PhotosView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

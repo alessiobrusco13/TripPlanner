@@ -9,10 +9,11 @@ import SwiftUI
 
 struct LocationRowView: View {
     @Binding var location: Location
+    @Binding var navigationLinkActive: Bool
     
     var body: some View {
-        NavigationLink {
-            PhotosGridView(photos: $location.photos)
+        NavigationLink(isActive: $navigationLinkActive) {
+            PhotosView(photos: $location.photos)
                 .navigationTitle(location.name)
         } label: {
             VStack(alignment: .leading) {
@@ -41,6 +42,6 @@ struct LocationRowView: View {
 
 struct LocationRowView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationRowView(location: .constant(Location.example))
+        LocationRowView(location: .constant(Location.example), navigationLinkActive: .constant(false))
     }
 }

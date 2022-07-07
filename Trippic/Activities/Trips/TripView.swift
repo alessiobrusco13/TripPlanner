@@ -11,108 +11,132 @@ import SwiftUI
 struct TripView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject private var dataController: DataController
-    @ObservedObject var trip: Trip
     
     @State private var showingLocationPicker = false
-    @State private var region = MKCoordinateRegion()
+    @StateObject private var viewModel: ViewModel
     
     @FocusState private var editingName: Bool
     @State private var editingTrip = false
-    @State private var newImage: UIImage?
+    @State private var newID: String?
     
-    @State private var newLocation: Location?
+    @State private var showingPhotosGrid = false
+    @State private var showingTripPhoto = false
+    @State private var showingFullscreenMap = false
+    
+    @Namespace private var namespace
     
     init(trip: Trip) {
-        self.trip = trip
-        setRegion()
+        _viewModel = StateObject(wrappedValue: ViewModel(trip: trip))
     }
     
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                Map(coordinateRegion: $region, annotationItems: trip.locations) { location in
-                    MapMarker(coordinate: location.locationCoordinates, tint: .accentColor)
+                Button {
+                    withAnimation {
+                        showingFullscreenMap.toggle()
+                        viewModel.scaleUpRegion()
+                    }
+                } label: {
+                    Map(coordinateRegion: $viewModel.region, annotationItems: viewModel.trip.locations) { location in
+                        MapMarker(coordinate: location.locationCoordinates, tint: Color("AccentColor"))
+                    }
+                    .matchedGeometryEffect(id: "map", in: namespace)
+                    .disabled(true)
+                    .frame(height: 300)
+                    .cornerRadius(15)
+                    .padding([.horizontal, .top])
                 }
-                .frame(maxWidth: .infinity)
-                .frame(height: 300)
                 
-                CircleImage(uiImage: trip.image)
-                    .frame(maxWidth: 350)
-                    .frame(height: 350)
-                    .padding(.top, -175)
-                    .overlay {
-                        if editingTrip {
-                            PhotoPickerLink(imageSelection: $newImage) {
-                                Image(systemName: "photo.fill.on.rectangle.fill")
-                                    .font(.largeTitle)
-                                    .contentShape(Rectangle())
+                VStack(spacing: 8) {
+                    Button {
+                        if !editingTrip {
+                            withAnimation(.spring()) {
+                                showingTripPhoto.toggle()
                             }
-                            .padding()
-                            .background()
-                            .cornerRadius(10)
-                            .transition(.scale)
                         }
-                    }
-                
-                VStack {
-                    if !editingTrip {
-                        Text(trip.name)
-                            .font(.largeTitle.weight(.semibold))
-                    } else {
-                        HStack {
-                            TextField("Enter trip name", text: $trip.name)
-                                .focused($editingName)
-                                .font(.largeTitle.weight(.semibold))
-                                .multilineTextAlignment(.center)
-                                .onSubmit {
-                                    editingName = false
-                                }
-                                .textFieldStyle(.roundedBorder)
-                                .overlay(alignment: .trailing) {
-                                    Button("Done") {
-                                        withAnimation {
-                                            editingTrip = false
-                                        }
+                    } label: {
+                        PhotoView(asset: viewModel.trip.photo, content: CircleImage.init)
+                            .frame(width: 150, height: 150)
+                            .padding(.top, -130)
+                            .accessibilityAddTraits(.isButton)
+                            .overlay {
+                                if editingTrip {
+                                    PhotoPickerLink(idSelection: $newID) {
+                                        Image(systemName: "photo.fill.on.rectangle.fill")
+                                            .font(.largeTitle)
+                                            .contentShape(Rectangle())
                                     }
-                                    .font(.title3.weight(.bold))
                                     .padding()
+                                    .background()
+                                    .cornerRadius(10)
+                                    .transition(.scale)
+                                    .padding(.top, -70)
                                 }
-                        }
-                        .frame(maxWidth: 364)
+                            }
                     }
+                    .buttonStyle(.noPressEffect)
                     
-                    HStack(spacing: 5) {
+                    VStack {
                         if !editingTrip {
-                            Text(trip.startDate, format: .dateTime.day().month())
+                            Text(viewModel.trip.name)
+                                .font(.largeTitle.weight(.semibold))
                         } else {
-                            DatePicker(
-                                "Start date",
-                                selection: $trip.startDate,
-                                displayedComponents: .date
-                            )
-                            .labelsHidden()
+                            HStack {
+                                TextField("Enter trip name", text: $viewModel.trip.name)
+                                    .focused($editingName)
+                                    .font(.largeTitle.weight(.semibold))
+                                    .multilineTextAlignment(.center)
+                                    .onSubmit {
+                                        editingName = false
+                                    }
+                                    .textFieldStyle(.roundedBorder)
+                                    .overlay(alignment: .trailing) {
+                                        Button("Done") {
+                                            withAnimation {
+                                                editingTrip = false
+                                            }
+                                        }
+                                        .font(.title3.weight(.bold))
+                                        .padding()
+                                    }
+                            }
+                            .frame(maxWidth: 364)
                         }
                         
-                        Image(systemName: "arrow.right")
-                            .font(.caption.weight(.heavy))
-                        
-                        if !editingTrip {
-                            Text(trip.endDate, format: .dateTime.day().month())
-                        } else {
-                            DatePicker(
-                                "End date",
-                                selection: $trip.endDate,
-                                in: trip.startDate...,
-                                displayedComponents: .date
-                            )
-                            .labelsHidden()
+                        HStack(spacing: 5) {
+                            if !editingTrip {
+                                Text(viewModel.trip.startDate, format: .dateTime.day().month())
+                            } else {
+                                DatePicker(
+                                    "Start date",
+                                    selection: $viewModel.trip.startDate,
+                                    displayedComponents: .date
+                                )
+                                .labelsHidden()
+                            }
+                            
+                            Image(systemName: "arrow.right")
+                                .font(.caption.weight(.heavy))
+                            
+                            if !editingTrip {
+                                Text(viewModel.trip.endDate, format: .dateTime.day().month())
+                            } else {
+                                DatePicker(
+                                    "End date",
+                                    selection: $viewModel.trip.endDate,
+                                    in: viewModel.trip.startDate...,
+                                    displayedComponents: .date
+                                )
+                                .labelsHidden()
+                            }
                         }
+                        .padding(editingTrip ? 8 : 0)
                     }
-                    .padding(editingTrip ? 8 : 0)
                 }
                 
-                ForEach($trip.locations) {
-                    LocationView(location: $0, trip: trip)
+                ForEach($viewModel.trip.locations) {
+                    LocationView(location: $0, trip: viewModel.trip)
                 }
                 
                 Color.clear
@@ -121,75 +145,120 @@ struct TripView: View {
                 Spacer()
             }
         }
-        .locationPicker(isPresented: $showingLocationPicker, selection: $newLocation)
+        .locationPicker(isPresented: $showingLocationPicker, selection: $viewModel.newLocation)
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarHidden(showingFullscreenMap)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                HStack {
-                    Menu {
-                        Button {
-                            withAnimation {
-                                editingTrip = true
-                                editingName = true
-                            }
-                        } label: {
-                            Label("Edit Trip", systemImage: "pencil")
-                        }
-                        
-                        Button(role: .destructive) {
-                            dataController.delete(trip)
-                            dismiss()
-                        } label: {
-                            Label("Remove Trip", systemImage: "trash")
-                        }
+                Menu {
+                    Button(role: .destructive) {
+                        dataController.delete(viewModel.trip)
+                        dismiss()
                     } label: {
-                        Image(systemName: "ellipsis")
-                            .font(.headline)
-                            .padding(14)
-                            .background {
-                                Circle()
-                                    .opacity(0.2)
-                            }
+                        Label("Remove Trip", systemImage: "trash")
                     }
                     
-                    CircleButton(systemImage: "doc.badge.plus") {
-                        showingLocationPicker.toggle()
+                    Divider()
+                    
+                    Button {
+                        withAnimation {
+                            editingTrip = true
+                            editingName = true
+                        }
+                    } label: {
+                        Label("Edit Trip", systemImage: "pencil")
                     }
+                    
+                    if !viewModel.trip.locations.isEmpty {
+                        Button {
+                            showingPhotosGrid.toggle()
+                        } label: {
+                            Label("Show All Photos", systemImage: "square.grid.2x2")
+                        }
+                    }
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .font(.headline)
+                        .padding(14)
+                        .background {
+                            Circle()
+                                .opacity(0.2)
+                        }
+                }
+                .disabled(showingTripPhoto || editingTrip)
+            }
+            
+            ToolbarItem(placement: .primaryAction) {
+                CircleButton(systemImage: "doc.badge.plus") {
+                    showingLocationPicker.toggle()
+                }
+                .disabled(showingTripPhoto || editingTrip)
+            }
+        }
+        .background {
+            NavigationLink(isActive: $showingPhotosGrid) {
+                PhotosView(photos: viewModel.trip.allPhotos)
+                    .navigationTitle(viewModel.trip.name)
+            } label: {
+                EmptyView()
+            }
+        }
+        .overlay {
+            if showingTripPhoto {
+                PhotosTabView(photo: viewModel.trip.photo) {
+                    withAnimation {
+                        showingTripPhoto = false
+                    }
+                }
+                .transition(.move(edge: .bottom))
+                .background(.ultraThinMaterial)
+            }
+            
+            if showingFullscreenMap {
+                Map(coordinateRegion: $viewModel.region, annotationItems: viewModel.trip.locations) { location in
+                    MapMarker(coordinate: location.locationCoordinates, tint: Color("AccentColor"))
+                }
+                .ignoresSafeArea()
+                .matchedGeometryEffect(id: "map", in: namespace)
+                .overlay(alignment: .topTrailing) {
+                    Button {
+                        withAnimation {
+                            showingFullscreenMap.toggle()
+                            viewModel.setRegion()
+                        }
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.body.weight(.semibold))
+                            .foregroundColor(.secondary)
+                            .padding()
+                            .background(.regularMaterial)
+                            .cornerRadius(10)
+                    }
+                    .padding()
                 }
             }
         }
-        .onChange(of: trip.locations) { _ in
-            setRegion()
-        }
-        .onChange(of: newImage) { image in
-            guard let image = image else { return }
+        .onChange(of: newID) { id in
+            guard let id = id else { return }
             
             withAnimation {
-                trip.image = image
+                viewModel.trip.photo = PhotoAsset(identifier: id)
             }
         }
-        .onChange(of: newLocation) { location in
+        .onChange(of: viewModel.newLocation) { location in
             guard let location =  location else { return }
             
             withAnimation {
-                trip.append(location)
+                viewModel.trip.append(location)
+                viewModel.setRegion()
             }
         }
         .onAppear {
-            dataController.startCaching(trip.allPhotos, targetSize: CGSize(width: 550, height: 550))
+            dataController.startCaching(viewModel.trip.allPhotos, targetSize: CGSize(width: 550, height: 550))
+            viewModel.setRegion()
         }
         .onDisappear {
             dataController.stopCaching()
-        }
-    }
-    
-    @Sendable private func setRegion() {
-        withAnimation {
-            region = MKCoordinateRegion(
-                center: trip.locations.map(\.locationCoordinates).center,
-                latitudinalMeters: 20_000,
-                longitudinalMeters: 20_000
-            )
         }
     }
 }

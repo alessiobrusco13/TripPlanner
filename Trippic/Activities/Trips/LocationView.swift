@@ -12,17 +12,19 @@ struct LocationView: View {
     @Binding var location: Location
     @ObservedObject var trip: Trip
 
-    @State private var changingLocation = false
     @State private var newLocation: Location?
 
+    @State private var changingLocation = false
     @State private var showingDeleteConfirmation = false
     @State private var showingImageGrid = false
+    @State private var gridNavigationLink = false
 
+    @State private var editMode = EditMode.inactive
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            LocationRowView(location: $location)
+            LocationRowView(location: $location, navigationLinkActive: $gridNavigationLink)
                 .padding(.horizontal)
             
             PhotosRowView(location: $location) {
@@ -38,12 +40,6 @@ struct LocationView: View {
                     changingLocation.toggle()
                 } label: {
                     Label("Change Location", systemImage: "mappin.and.ellipse")
-                }
-                
-                NavigationLink {
-                    PhotosGridView(photos: $location.photos)
-                } label: {
-                    Label("Edit Photos", systemImage: "pencil")
                 }
             }
         }

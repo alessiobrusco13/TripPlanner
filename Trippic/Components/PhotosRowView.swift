@@ -15,6 +15,7 @@ struct PhotosRowView<Content: View>: View {
     
     @State private var showingDeleteConfirmation = false
     @State private var newIdentifier: String?
+    @Environment(\.editMode) private var editMode
     
     var region: MKCoordinateRegion {
         MKCoordinateRegion(
@@ -29,43 +30,42 @@ struct PhotosRowView<Content: View>: View {
     }
     
     var body: some View {
-        ScrollViewReader { proxy in
-            ScrollView(.horizontal, showsIndicators: false) {
-                LazyHGrid(rows: rows, pinnedViews: .sectionFooters) {
-                    Section {
-                        HStack {
-                            Map(coordinateRegion: .constant(region), annotationItems: [location]) {
-                                MapMarker(coordinate: $0.locationCoordinates, tint: Color("AccentColor"))
-                            }
-                            .disabled(true)
-                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                            .frame(width: 225, height: 225)
-                            .padding(.leading)
-                            
-                            Divider()
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHGrid(rows: rows, pinnedViews: .sectionFooters) {
+                Section {
+                    HStack {
+                        Map(coordinateRegion: .constant(region), annotationItems: [location]) {
+                            MapMarker(coordinate: $0.locationCoordinates, tint: Color("AccentColor"))
                         }
+                        .disabled(true)
+                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                        .frame(width: 225, height: 225)
+                        .padding(.leading)
                         
-                        ForEach($location.photos) { $photo in
-                            PhotoView(asset: photo) { image in
-                                image
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 225, height: 225)
-                                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                                    .overlay(alignment: .topTrailing) {
-                                        FavoriteButton(photo: $photo)
-                                            .padding(5)
-                                            .transition(.scale)
-                                    }
-                            }
-                            .id(photo.id)
-                        }
-                    } footer: {
-                        buttons(proxy: proxy)
+                        Divider()
                     }
+                    
+                    ForEach($location.photos) { $photo in
+                        PhotoView(asset: photo) { image in
+                            image
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 225, height: 225)
+                                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                .overlay(alignment: .topTrailing) {
+                                    FavoriteButton(photo: $photo)
+                                        .padding(5)
+                                        .transition(.scale)
+                                }
+                        }
+                        .id(photo.id)
+                    }
+                } footer: {
+                    buttons
                 }
             }
         }
+        .ignoresSafeArea()
         .animation(.default, value: location.photos)
         .onChange(of: newIdentifier) { identifier in
             guard let identifier =  identifier else { return }
@@ -73,10 +73,10 @@ struct PhotosRowView<Content: View>: View {
         }
     }
     
-    func buttons(proxy: ScrollViewProxy) -> some View {
+    var buttons: some View {
         VStack {
             addPhotoButton
-            ellipsisButton(proxy: proxy)
+            ellipsisButton
         }
         .padding(8)
     }
@@ -91,7 +91,7 @@ struct PhotosRowView<Content: View>: View {
         .buttonBackground()
     }
     
-    func ellipsisButton(proxy: ScrollViewProxy) -> some View {
+    var ellipsisButton: some View {
         Menu {
             ellipseMenuContent()
         } label: {

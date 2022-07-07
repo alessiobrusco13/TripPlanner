@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct CircleImage: View {
-    let uiImage: UIImage
+    let image: Image
 
     var body: some View {
-        Image(uiImage: uiImage)
+        image
             .resizable()
             .scaledToFill()
             .clipShape(Circle())
@@ -19,12 +19,11 @@ struct CircleImage: View {
                 Circle()
                     .stroke(.white, lineWidth: 4)
             }
-            .shadow(radius: 7)
     }
 }
 
 struct CircleImage_Previews: PreviewProvider {
     static var previews: some View {
-        CircleImage(uiImage: [UIImage].example[0])
+        CircleImage(image: Image(uiImage: [UIImage].example[0]))
     }
 }
