@@ -32,8 +32,8 @@ extension LocationPicker {
             request.naturalLanguageQuery = searchText
             
             let search = MKLocalSearch(request: request)
-            search.start { [weak self] response, error in
-                guard let response else { return }
+            search.start { [weak self] response, _ in
+                guard let response = response else { return }
                 self?.locations = response.mapItems.map(Location.init)
             }
         }
