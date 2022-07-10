@@ -15,30 +15,28 @@ struct LocationPicker: View {
     
     var body: some View {
         NavigationView {
-            GeometryReader { geo in
-                List {
-                    if viewModel.locations.isEmpty {
-                        placeholderView(size: geo.size)
-                    } else {
-                        ForEach(viewModel.locations) { location in
-                            Button {
-                                selection = location
-                                dismiss()
-                            } label: {
-                                VStack(alignment: .leading) {
-                                    Text(location.name)
-                                        .font(.title2.weight(.semibold))
-                                    
-                                    Text(location.extendedName)
-                                        .fontWeight(.medium)
-                                        .foregroundStyle(.secondary)
-                                }
+            List {
+                if viewModel.locations.isEmpty {
+                    placeholderView
+                } else {
+                    ForEach(viewModel.locations) { location in
+                        Button {
+                            selection = location
+                            dismiss()
+                        } label: {
+                            VStack(alignment: .leading) {
+                                Text(location.name)
+                                    .font(.title2.weight(.semibold))
+                                
+                                Text(location.extendedName)
+                                    .fontWeight(.medium)
+                                    .foregroundStyle(.secondary)
                             }
                         }
                     }
                 }
-                .searchable(text: $viewModel.searchText)
             }
+            .searchable(text: $viewModel.searchText)
             .navigationTitle("Select your location")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -49,8 +47,9 @@ struct LocationPicker: View {
         }
     }
     
-    func placeholderView(size: CGSize) -> some View {
-        Group {
+    var placeholderView: some View {
+        HStack {
+            Spacer()
             if viewModel.isLoading {
                 VStack {
                     ProgressView()
@@ -59,19 +58,13 @@ struct LocationPicker: View {
                         .foregroundColor(.secondary)
                 }
             } else {
-                HStack {
-                    Spacer()
-                    
-                    Text("Type to find a location.")
-                        .font(.title2)
-                        .foregroundStyle(.secondary)
-                    
-                    Spacer()
-                }
+                Text("Type to find a location.")
+                    .font(.title2)
+                    .foregroundStyle(.secondary)
             }
+            Spacer()
         }
         .listRowBackground(EmptyView())
-        .frame(width: size.width, height: size.height * 0.8)
     }
 }
 
