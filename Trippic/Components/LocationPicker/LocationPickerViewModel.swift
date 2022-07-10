@@ -21,21 +21,18 @@ extension LocationPicker {
             didSet {
                 Task {
                     try await Task.sleep(nanoseconds: 1_000_000)
-                    search()
+                    locations = try await results()
                 }
             }
         }
         
-        private func search() {
+        private func results() async throws -> [Location] {
             let request = MKLocalSearch.Request()
             request.pointOfInterestFilter = .includingAll
             request.naturalLanguageQuery = searchText
             
             let search = MKLocalSearch(request: request)
-            search.start { [weak self] response, _ in
-                guard let response = response else { return }
-                self?.locations = response.mapItems.map(Location.init)
-            }
+            return try await search.start().mapItems.map(Location.init)
         }
         
         var isLoading: Bool {

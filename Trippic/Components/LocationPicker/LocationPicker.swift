@@ -59,13 +59,19 @@ struct LocationPicker: View {
                         .foregroundColor(.secondary)
                 }
             } else {
-                Text("Type to find a location.")
-                    .font(.title2)
-                    .foregroundStyle(.secondary)
+                HStack {
+                    Spacer()
+                    
+                    Text("Type to find a location.")
+                        .font(.title2)
+                        .foregroundStyle(.secondary)
+                    
+                    Spacer()
+                }
             }
         }
         .listRowBackground(EmptyView())
-        .frame(width: size.width, height: size.height * 0.8)
+        .frame(width: size.width, height: size.height * 0.8, alignment: .center)
     }
 }
 
