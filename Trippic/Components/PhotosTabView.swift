@@ -11,9 +11,9 @@ struct PhotosTabView: View {
     @Binding var photos: [PhotoAsset]
     let editingEnabled: Bool
     let dismiss: () -> Void
-
+    
     @State private var selection: PhotoAsset
-
+    
     init(photos: Binding<[PhotoAsset]>, initialSelection: PhotoAsset, editingEnabled: Bool, dismiss: @escaping () -> Void) {
         _photos = photos
         _selection = State(initialValue: initialSelection)
@@ -27,7 +27,7 @@ struct PhotosTabView: View {
         editingEnabled = false
         self.dismiss = dismiss
     }
-
+    
     var body: some View {
         TabView(selection: $selection) {
             ForEach($photos) { $photo in
@@ -41,17 +41,15 @@ struct PhotosTabView: View {
         .safeAreaInset(edge: .bottom) {
             VStack(spacing: 15) {
                 if photos.count > 1 {
-                    VStack {
-                        HStack {
-                            ForEach(photos.indices, id: \.self) { index in
-                                Circle()
-                                    .fill((photos[index] == selection) ? .primary : .secondary)
-                                    .frame(width: 8)
-                            }
+                    HStack {
+                        ForEach(photos.indices, id: \.self) { index in
+                            Circle()
+                                .fill((photos[index] == selection) ? .primary : .secondary)
+                                .frame(width: 8)
                         }
-                        .padding(8)
-                        .background(.regularMaterial, in: Capsule(style: .continuous))
                     }
+                    .padding(8)
+                    .background(.regularMaterial, in: Capsule())
                 }
                 
                 buttons
@@ -62,7 +60,7 @@ struct PhotosTabView: View {
             .ignoresSafeArea()
         }
     }
-
+    
     @ViewBuilder
     var buttons: some View {
         if let index = photos.firstIndex(of: selection) {
