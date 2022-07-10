@@ -41,15 +41,17 @@ struct PhotosTabView: View {
         .safeAreaInset(edge: .bottom) {
             VStack(spacing: 15) {
                 if photos.count > 1 {
-                    HStack {
-                        ForEach(photos.indices, id: \.self) { index in
-                            Circle()
-                                .fill((photos[index] == selection) ? .primary : .secondary)
-                                .frame(width: 8)
+                    VStack {
+                        HStack {
+                            ForEach(photos.indices, id: \.self) { index in
+                                Circle()
+                                    .fill((photos[index] == selection) ? .primary : .secondary)
+                                    .frame(width: 8)
+                            }
                         }
+                        .padding(8)
+                        .background(.regularMaterial, in: Capsule(style: .continuous))
                     }
-                    .padding(8)
-                    .background(.regularMaterial, in: Capsule(style: .continuous))
                 }
                 
                 buttons
