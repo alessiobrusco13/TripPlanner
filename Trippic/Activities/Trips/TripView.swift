@@ -143,46 +143,47 @@ struct TripView: View {
         .accessibilityHidden(showingTripPhoto)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItemGroup(placement: .primaryAction) {
-                Menu {
-                    Button(role: .destructive) {
-                        dataController.delete(viewModel.trip)
-                        dismiss()
-                    } label: {
-                        Label("Remove Trip", systemImage: "trash")
+            ToolbarItem(placement: .primaryAction) {
+                HStack {
+                    CircleButton(systemImage: "doc.badge.plus") {
+                        showingLocationPicker.toggle()
                     }
                     
-                    Divider()
-                    
-                    Button {
-                        withAnimation {
-                            editingTrip = true
-                            editingName = true
-                        }
-                    } label: {
-                        Label("Edit Trip", systemImage: "pencil")
-                    }
-                    
-                    if !viewModel.trip.locations.isEmpty {
-                        Button {
-                            showingPhotosGrid.toggle()
+                    Menu {
+                        Button(role: .destructive) {
+                            dataController.delete(viewModel.trip)
+                            dismiss()
                         } label: {
-                            Label("Show All Photos", systemImage: "square.grid.2x2")
+                            Label("Remove Trip", systemImage: "trash")
                         }
+                        
+                        Divider()
+                        
+                        Button {
+                            withAnimation {
+                                editingTrip = true
+                                editingName = true
+                            }
+                        } label: {
+                            Label("Edit Trip", systemImage: "pencil")
+                        }
+                        
+                        if !viewModel.trip.locations.isEmpty {
+                            Button {
+                                showingPhotosGrid.toggle()
+                            } label: {
+                                Label("Show All Photos", systemImage: "square.grid.2x2")
+                            }
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .font(.headline)
+                            .padding(14)
+                            .background {
+                                Circle()
+                                    .opacity(0.2)
+                            }
                     }
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .font(.headline)
-                        .padding(14)
-                        .background {
-                            Circle()
-                                .opacity(0.2)
-                        }
-                }
-                .disabled(showingTripPhoto || editingTrip)
-                
-                CircleButton(systemImage: "doc.badge.plus") {
-                    showingLocationPicker.toggle()
                 }
                 .disabled(showingTripPhoto || editingTrip)
             }
