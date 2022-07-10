@@ -37,14 +37,6 @@ extension TripView {
             }
         }
         
-        private func zoomedIn(_ region: MKCoordinateRegion) -> MKCoordinateRegion {
-            var result = region
-            result.span.latitudeDelta /= 2
-            result.span.longitudeDelta /= 2
-            
-            return result
-        }
-        
         private func guessedRegion(meters: Double) async throws -> MKCoordinateRegion {
             guard let center = try await CLGeocoder().geocodeAddressString(trip.name).first?.location?.coordinate else {
                 throw CLError(.geocodeFoundNoResult)
@@ -58,7 +50,9 @@ extension TripView {
         }
         
         private func updateRegions() {
-            showingFullscreenMap ? (fullscreenMapRegion = miniMapRegion) : (miniMapRegion = zoomedIn(fullscreenMapRegion))
+            if showingFullscreenMap {
+                fullscreenMapRegion = miniMapRegion
+            }
         }
     }
 }

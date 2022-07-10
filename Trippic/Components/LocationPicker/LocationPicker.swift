@@ -71,7 +71,7 @@ struct LocationPicker: View {
             }
         }
         .listRowBackground(EmptyView())
-        .frame(width: size.width, height: size.height * 0.8, alignment: .center)
+        .frame(width: size.width, height: size.height * 0.8)
     }
 }
 
