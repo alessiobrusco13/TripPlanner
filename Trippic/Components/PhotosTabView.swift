@@ -48,7 +48,8 @@ struct PhotosTabView: View {
                                 .frame(width: 8)
                         }
                     }
-                    .padding(8)
+                    .padding(.horizontal, 8)
+                    .frame(height: 20)
                     .background(.regularMaterial, in: Capsule())
                 }
                 
