@@ -9,7 +9,13 @@ import MapKit
 
 extension TripView {
     class ViewModel: ObservableObject {
-        @Published var region = MKCoordinateRegion()
+        @Published var miniMapRegion = MKCoordinateRegion()
+        @Published var fullscreenMapRegion = MKCoordinateRegion()
+        
+        @Published var showingFullscreenMap = false {
+            didSet { updateRegions() }
+        }
+        
         @Published var trip: Trip
         @Published var newLocation: Location?
         
@@ -20,10 +26,10 @@ extension TripView {
         func setRegion() {
             if trip.locations.isEmpty {
                 Task { @MainActor in
-                    region = try await guessedRegion(meters: 30_000)
+                    miniMapRegion = try await guessedRegion(meters: 30_000)
                 }
             } else {
-                region = MKCoordinateRegion(
+                miniMapRegion = MKCoordinateRegion(
                     center: trip.locations.map(\.locationCoordinates).center,
                     latitudinalMeters: 20_000,
                     longitudinalMeters: 20_000
@@ -31,9 +37,12 @@ extension TripView {
             }
         }
         
-        func scaleUpRegion() {
-            region.span.latitudeDelta /= 2
-            region.span.longitudeDelta /= 2
+        private func zoomedIn(_ region: MKCoordinateRegion) -> MKCoordinateRegion {
+            var result = region
+            result.span.latitudeDelta /= 2
+            result.span.longitudeDelta /= 2
+            
+            return result
         }
         
         private func guessedRegion(meters: Double) async throws -> MKCoordinateRegion {
@@ -46,7 +55,10 @@ extension TripView {
                 latitudinalMeters: meters,
                 longitudinalMeters: meters
             )
-            
+        }
+        
+        private func updateRegions() {
+            showingFullscreenMap ? (fullscreenMapRegion = miniMapRegion) : (miniMapRegion = zoomedIn(fullscreenMapRegion))
         }
     }
 }

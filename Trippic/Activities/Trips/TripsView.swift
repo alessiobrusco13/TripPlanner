@@ -82,8 +82,8 @@ struct TripsView: View {
 }
 
 struct TripsView_Previews: PreviewProvider {
-    static var previews: some View {
-        TripsView()
-            .environmentObject(DataController())
-    }
+        static var previews: some View {
+            TripsView()
+                .environmentObject(DataController())
+        }
 }

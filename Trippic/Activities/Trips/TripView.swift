@@ -21,9 +21,6 @@ struct TripView: View {
     
     @State private var showingPhotosGrid = false
     @State private var showingTripPhoto = false
-    @State private var showingFullscreenMap = false
-    
-    @Namespace private var namespace
     
     init(trip: Trip) {
         _viewModel = StateObject(wrappedValue: ViewModel(trip: trip))
@@ -34,19 +31,18 @@ struct TripView: View {
             VStack(spacing: 20) {
                 Button {
                     withAnimation {
-                        showingFullscreenMap.toggle()
-                        viewModel.scaleUpRegion()
+                        viewModel.showingFullscreenMap.toggle()
                     }
                 } label: {
-                    Map(coordinateRegion: $viewModel.region, annotationItems: viewModel.trip.locations) { location in
+                    Map(coordinateRegion: $viewModel.miniMapRegion, annotationItems: viewModel.trip.locations) { location in
                         MapMarker(coordinate: location.locationCoordinates, tint: Color("AccentColor"))
                     }
-                    .matchedGeometryEffect(id: "map", in: namespace)
                     .disabled(true)
                     .frame(height: 300)
                     .cornerRadius(15)
                     .padding([.horizontal, .top])
                 }
+                .disabled(editingTrip)
                 
                 VStack(spacing: 8) {
                     Button {
@@ -56,7 +52,7 @@ struct TripView: View {
                             }
                         }
                     } label: {
-                        PhotoView(asset: viewModel.trip.photo, content: CircleImage.init)
+                        PhotoView(asset: $viewModel.trip.photo, content: CircleImage.init)
                             .frame(width: 150, height: 150)
                             .padding(.top, -130)
                             .accessibilityAddTraits(.isButton)
@@ -91,15 +87,13 @@ struct TripView: View {
                                         editingName = false
                                     }
                                     .textFieldStyle(.roundedBorder)
-                                    .overlay(alignment: .trailing) {
-                                        Button("Done") {
-                                            withAnimation {
-                                                editingTrip = false
-                                            }
-                                        }
-                                        .font(.title3.weight(.bold))
-                                        .padding()
+                                
+                                Button("Done") {
+                                    withAnimation {
+                                        editingTrip = false
                                     }
+                                }
+                                .font(.title3.weight(.bold))
                             }
                             .frame(maxWidth: 364)
                         }
@@ -146,11 +140,10 @@ struct TripView: View {
             }
         }
         .locationPicker(isPresented: $showingLocationPicker, selection: $viewModel.newLocation)
-        .accessibilityHidden(showingTripPhoto || showingFullscreenMap)
+        .accessibilityHidden(showingTripPhoto)
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarHidden(showingFullscreenMap)
         .toolbar {
-            ToolbarItem(placement: .primaryAction) {
+            ToolbarItemGroup(placement: .primaryAction) {
                 Menu {
                     Button(role: .destructive) {
                         dataController.delete(viewModel.trip)
@@ -187,9 +180,7 @@ struct TripView: View {
                         }
                 }
                 .disabled(showingTripPhoto || editingTrip)
-            }
-            
-            ToolbarItem(placement: .primaryAction) {
+                
                 CircleButton(systemImage: "doc.badge.plus") {
                     showingLocationPicker.toggle()
                 }
@@ -214,29 +205,26 @@ struct TripView: View {
                 .transition(.move(edge: .bottom))
                 .background(.ultraThinMaterial)
             }
-            
-            if showingFullscreenMap {
-                Map(coordinateRegion: $viewModel.region, annotationItems: viewModel.trip.locations) { location in
-                    MapMarker(coordinate: location.locationCoordinates, tint: Color("AccentColor"))
-                }
-                .ignoresSafeArea()
-                .matchedGeometryEffect(id: "map", in: namespace)
-                .overlay(alignment: .topTrailing) {
-                    Button {
-                        withAnimation {
-                            showingFullscreenMap.toggle()
-                            viewModel.setRegion()
-                        }
-                    } label: {
-                        Image(systemName: "xmark")
-                            .font(.body.weight(.semibold))
-                            .foregroundColor(.secondary)
-                            .padding()
-                            .background(.regularMaterial)
-                            .cornerRadius(10)
+        }
+        .fullScreenCover(isPresented: $viewModel.showingFullscreenMap) {
+            Map(coordinateRegion: $viewModel.fullscreenMapRegion, annotationItems: viewModel.trip.locations) { location in
+                MapMarker(coordinate: location.locationCoordinates, tint: Color("AccentColor"))
+            }
+            .ignoresSafeArea()
+            .overlay(alignment: .topTrailing) {
+                Button {
+                    withAnimation {
+                        viewModel.showingFullscreenMap.toggle()
                     }
-                    .padding()
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(.body.weight(.semibold))
+                        .foregroundColor(.secondary)
+                        .padding()
+                        .background(.regularMaterial)
+                        .cornerRadius(10)
                 }
+                .padding()
             }
         }
         .onChange(of: newID) { id in
@@ -251,6 +239,12 @@ struct TripView: View {
             
             withAnimation {
                 viewModel.trip.append(location)
+                viewModel.setRegion()
+            }
+        }
+        .onChange(of: editingName) { _ in
+            withAnimation {
+                guard viewModel.trip.locations.isEmpty else { return }
                 viewModel.setRegion()
             }
         }
