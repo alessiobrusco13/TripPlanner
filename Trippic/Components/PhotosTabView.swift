@@ -13,6 +13,7 @@ struct PhotosTabView: View {
     let dismiss: () -> Void
     
     @State private var selection: PhotoAsset
+    @State private var yOffset = 0.0
     
     init(photos: Binding<[PhotoAsset]>, initialSelection: PhotoAsset, editingEnabled: Bool, dismiss: @escaping () -> Void) {
         _photos = photos
@@ -28,11 +29,31 @@ struct PhotosTabView: View {
         self.dismiss = dismiss
     }
     
+    var dragGesture: some Gesture {
+        DragGesture(minimumDistance: 150)
+            .onChanged { value in
+                withAnimation {
+                    yOffset = value.translation.height
+                }
+            }
+            .onEnded { _ in
+                if yOffset >= 200 {
+                    dismiss()
+                } else {
+                    withAnimation(.spring()) {
+                        yOffset = 0
+                    }
+                }
+            }
+    }
+    
     var body: some View {
         TabView(selection: $selection) {
             ForEach($photos) { $photo in
                 PhotoPageView(photo: $photo, editingEnabled: editingEnabled)
                     .tag(photo)
+                    .offset(y: yOffset)
+                    .gesture(dragGesture)
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
