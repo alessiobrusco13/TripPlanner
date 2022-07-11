@@ -15,40 +15,46 @@ struct TripRowView: View {
     }
 
     var body: some View {
-        VStack {
-            HStack {
-                VStack(alignment: .leading) {
-                    HStack(spacing: 5) {
-                        Text(trip.startDate, format: dateFormat)
-
-                        Image(systemName: "arrow.right")
-                            .font(.caption.weight(.heavy))
-
-                        Text(trip.endDate, format: dateFormat)
+        NavigationLink {
+            TripView(trip: trip)
+        } label: {
+            VStack {
+                HStack {
+                    VStack(alignment: .leading) {
+                        HStack(spacing: 5) {
+                            Text(trip.startDate, format: dateFormat)
+                            
+                            Image(systemName: "arrow.right")
+                                .font(.caption.weight(.heavy))
+                            
+                            Text(trip.endDate, format: dateFormat)
+                        }
+                        .font(.headline)
+                        
+                        Text(trip.name)
+                            .font(.title.bold())
                     }
-                    .font(.headline)
-
-                    Text(trip.name)
-                        .font(.title.bold())
+                    
+                    Spacer()
                 }
-
+                .padding(20)
+                
                 Spacer()
             }
-            .padding(20)
-
-            Spacer()
-        }
-        .frame(maxWidth: .infinity)
-        .frame(height: 150)
-        .foregroundStyle(.white)
-        .background {
-            PhotoView(asset: $trip.photo) { image in
-                image
-                    .resizable()
-                    .scaledToFill()
+            .frame(maxWidth: .infinity)
+            .frame(height: 150)
+            .foregroundStyle(.white)
+            .background {
+                PhotoView(asset: $trip.photo) { image in
+                    image
+                        .resizable()
+                        .scaledToFill()
+                }
             }
+            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         }
-        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .listRowSeparator(.hidden, edges: .all)
+        .tag(trip)
     }
 }
 

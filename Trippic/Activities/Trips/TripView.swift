@@ -144,9 +144,11 @@ struct TripView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                HStack {
-                    CircleButton(systemImage: "doc.badge.plus") {
+                HStack(spacing: 20) {
+                    Button {
                         showingLocationPicker.toggle()
+                    } label: {
+                        Image(systemName: "doc.badge.plus")
                     }
                     
                     Menu {
@@ -176,13 +178,7 @@ struct TripView: View {
                             }
                         }
                     } label: {
-                        Image(systemName: "ellipsis")
-                            .font(.headline)
-                            .padding(14)
-                            .background {
-                                Circle()
-                                    .opacity(0.2)
-                            }
+                        Image(systemName: "ellipsis.circle")
                     }
                 }
                 .disabled(showingTripPhoto || editingTrip)
@@ -208,25 +204,7 @@ struct TripView: View {
             }
         }
         .fullScreenCover(isPresented: $viewModel.showingFullscreenMap) {
-            Map(coordinateRegion: $viewModel.fullscreenMapRegion, annotationItems: viewModel.trip.locations) { location in
-                MapMarker(coordinate: location.locationCoordinates, tint: Color("AccentColor"))
-            }
-            .ignoresSafeArea()
-            .overlay(alignment: .topTrailing) {
-                Button {
-                    withAnimation {
-                        viewModel.showingFullscreenMap.toggle()
-                    }
-                } label: {
-                    Image(systemName: "xmark")
-                        .font(.body.weight(.semibold))
-                        .foregroundColor(.secondary)
-                        .padding()
-                        .background(.regularMaterial)
-                        .cornerRadius(10)
-                }
-                .padding()
-            }
+            FullscreenMapView(region: $viewModel.fullscreenMapRegion, locations: viewModel.trip.locations)
         }
         .onChange(of: newID) { id in
             guard let id = id else { return }

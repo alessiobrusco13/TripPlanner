@@ -16,28 +16,8 @@ struct PhotosListView: View {
     
     var body: some View {
         List(selection: $selectedPhotos) {
-            ForEach($photos) { $photo in
-                HStack {
-                    PhotoView(asset: photo) { image in
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 100, height: 100)
-                            .cornerRadius(15)
-                    }
-                    
-                    Spacer()
-                    
-                    DatePicker("Cration Date", selection: $photo.creationDate)
-                        .labelsHidden()
-                    
-                    Spacer()
-                }
-                .tag(photo)
-            }
-            .onDelete {
-                delete($0)
-            }
+            ForEach($photos, content: PhotoRowView.init)
+            .onDelete(perform: delete)
         }
         .listStyle(.plain)
         .toolbar {

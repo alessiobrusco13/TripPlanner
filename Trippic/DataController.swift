@@ -10,7 +10,6 @@ import Foundation
 import Photos
 import SwiftUI
 
-@MainActor
 class DataController: ObservableObject {
     enum PhotoError: LocalizedError {
         case assetNotFound

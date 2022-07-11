@@ -18,18 +18,9 @@ struct TripsView: View {
         NavigationView {
             List(selection: $selectedTrips) {
                 ForEach(dataController.trips) { trip in
-                    NavigationLink {
-                        TripView(trip: trip)
-                            .environmentObject(dataController)
-                    } label: {
-                        TripRowView(trip: trip)
-                    }
-                    .listRowSeparator(.hidden, edges: .all)
-                    .tag(trip)
+                    TripRowView(trip: trip)
                 }
-                .onDelete {
-                    dataController.delete($0)
-                }
+                .onDelete(perform: dataController.delete)
                 .listRowInsets(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 10))
             }
             .listStyle(.plain)
@@ -42,15 +33,15 @@ struct TripsView: View {
                 }
             }
             .navigationTitle("Trips")
-            .sheet(isPresented: $showingAdd) {
-                NewTripView()
-            }
+            .sheet(isPresented: $showingAdd, content: NewTripView.init)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading, content: EditButton.init)
 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    CircleButton(systemImage: "plus") {
+                    Button {
                         showingAdd.toggle()
+                    } label: {
+                        Image(systemName: "plus")
                     }
                 }
 

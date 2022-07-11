@@ -34,15 +34,17 @@ struct PhotosRowView<Content: View>: View {
             LazyHGrid(rows: rows, pinnedViews: .sectionFooters) {
                 Section {
                     HStack {
-                        Map(coordinateRegion: .constant(region), annotationItems: [location]) {
-                            MapMarker(coordinate: $0.locationCoordinates, tint: Color("AccentColor"))
+                        Button(action: openInMaps) {
+                            Map(coordinateRegion: .constant(region), annotationItems: [location]) {
+                                MapMarker(coordinate: $0.locationCoordinates, tint: Color("AccentColor"))
+                            }
+                            .disabled(true)
+                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                            .frame(width: 225, height: 225)
+                            .padding(.leading)
+                            
+                            Divider()
                         }
-                        .disabled(true)
-                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                        .frame(width: 225, height: 225)
-                        .padding(.leading)
-                        
-                        Divider()
                     }
                     
                     ForEach($location.photos) { $photo in
@@ -102,6 +104,11 @@ struct PhotosRowView<Content: View>: View {
                 .frame(width: 64, height: 64)
         }
         .buttonBackground()
+    }
+    
+    func openInMaps() {
+        let mapItem = MKMapItem(location: location)
+        mapItem.openInMaps()
     }
 }
 
