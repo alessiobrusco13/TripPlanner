@@ -106,18 +106,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		895D780B282D000500EE846F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				8964BAC82821668800922BCC /* Trip.swift */,
-				8964BACA2821676400922BCC /* Location.swift */,
-				899AA1B7284284800080CD11 /* PhotoAsset.swift */,
-				8964BACC2821677400922BCC /* Coordinates.swift */,
-				89FA5FB62853EED60083EE75 /* PhotoLibrary.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		895D780C282D002D00EE846F /* LocationPicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,15 +119,6 @@
 			isa = PBXGroup;
 			children = (
 				892A756C28468B970002DB4B /* FavouriteButton.swift */,
-				892B9F28283A9B3F00235819 /* PhotosRowView.swift */,
-				892CE2E0287634A9006D7415 /* PhotosView.swift */,
-				8923EC26283F6A21000557C0 /* PhotosGridView.swift */,
-				89F67AFB287CA4FA0095DD21 /* PhotoItemView.swift */,
-				892CE2E2287635E1006D7415 /* PhotosListView.swift */,
-				89F67AF7287C9FE50095DD21 /* PhotoRowView.swift */,
-				89B0A16E28480686008CEACF /* PhotosTabView.swift */,
-				899AA1B1284274670080CD11 /* PhotoPageView.swift */,
-				89FA5FB42853E9C00083EE75 /* PhotoView.swift */,
 				89E1627C287494BA006047D3 /* PinchToZoom.swift */,
 				891AF91228218B8400BD691F /* PhotoPicker.swift */,
 				891ABB032864E839003D20A5 /* PhotoPickerLink.swift */,
@@ -155,6 +134,8 @@
 			isa = PBXGroup;
 			children = (
 				895D7810282D007500EE846F /* Trips */,
+				89D3D32B287D8522004C2370 /* Locations */,
+				89D3D32C287D853D004C2370 /* Photos */,
 			);
 			path = Activities;
 			sourceTree = "<group>";
@@ -167,8 +148,7 @@
 				89E1627A28747695006047D3 /* TripViewModel.swift */,
 				891AF910282184FC00BD691F /* NewTripView.swift */,
 				899049352821A94500E2BD9F /* TripRowView.swift */,
-				895D12B5282831750071DC98 /* LocationView.swift */,
-				892768AC282B9EC400FBAEA0 /* LocationRowView.swift */,
+				8964BAC82821668800922BCC /* Trip.swift */,
 			);
 			path = Trips;
 			sourceTree = "<group>";
@@ -199,7 +179,6 @@
 				8964BAD5282173C100922BCC /* DataController.swift */,
 				895D780F282D006F00EE846F /* Activities */,
 				895D780D282D003500EE846F /* Components */,
-				895D780B282D000500EE846F /* Model */,
 				8964BAD42821735F00922BCC /* Extensions */,
 				8964BABE2821666C00922BCC /* Assets.xcassets */,
 				8964BAC02821666C00922BCC /* PreviewContent */,
@@ -225,6 +204,35 @@
 				89F67AF9287CA0850095DD21 /* MKMapItem-Location.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		89D3D32B287D8522004C2370 /* Locations */ = {
+			isa = PBXGroup;
+			children = (
+				895D12B5282831750071DC98 /* LocationView.swift */,
+				892768AC282B9EC400FBAEA0 /* LocationRowView.swift */,
+				8964BACA2821676400922BCC /* Location.swift */,
+				8964BACC2821677400922BCC /* Coordinates.swift */,
+			);
+			path = Locations;
+			sourceTree = "<group>";
+		};
+		89D3D32C287D853D004C2370 /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				892B9F28283A9B3F00235819 /* PhotosRowView.swift */,
+				892CE2E0287634A9006D7415 /* PhotosView.swift */,
+				8923EC26283F6A21000557C0 /* PhotosGridView.swift */,
+				89F67AFB287CA4FA0095DD21 /* PhotoItemView.swift */,
+				892CE2E2287635E1006D7415 /* PhotosListView.swift */,
+				89F67AF7287C9FE50095DD21 /* PhotoRowView.swift */,
+				89B0A16E28480686008CEACF /* PhotosTabView.swift */,
+				899AA1B1284274670080CD11 /* PhotoPageView.swift */,
+				89FA5FB42853E9C00083EE75 /* PhotoView.swift */,
+				899AA1B7284284800080CD11 /* PhotoAsset.swift */,
+				89FA5FB62853EED60083EE75 /* PhotoLibrary.swift */,
+			);
+			path = Photos;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
