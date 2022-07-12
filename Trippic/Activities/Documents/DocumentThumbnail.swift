@@ -26,6 +26,7 @@ struct DocumentThumbnail: View {
             }
         }
         .shadow(color: .black.opacity(0.3), radius: 10)
+        .alert(String(describing: generator.error), isPresented: $generator.showingError) { }
     }
 }
 

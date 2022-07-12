@@ -15,6 +15,16 @@ extension DocumentThumbnail {
         @Environment(\.displayScale) var displayScale
         @Published var image: Image?
         
+        @Published var error: Error? {
+            didSet {
+                if error != nil {
+                    showingError = true
+                }
+            }
+        }
+        
+        @Published var showingError = false
+        
         init(document: Document) {
             self.document = document
         }
@@ -23,13 +33,17 @@ extension DocumentThumbnail {
             let size = CGSize(width: 68, height: 88)
             let request = QLThumbnailGenerator.Request(fileAt: document.url, size: size, scale: displayScale, representationTypes: .thumbnail)
             
-            guard let representation = try? await QLThumbnailGenerator.shared.generateBestRepresentation(for: request) else {
-                return
+            do {
+                let representation = try await QLThumbnailGenerator.shared.generateBestRepresentation(for: request)
+                
+                Task { @MainActor in
+                    image = Image(representation.cgImage, scale: displayScale, label: Text("Document"))
+                }
+            } catch  {
+                self.error = error
             }
             
-            Task { @MainActor in
-                image = Image(representation.cgImage, scale: displayScale, label: Text("Document"))
-            }
+            
         }
     }
 }
