@@ -9,7 +9,7 @@ import SwiftUI
 
 class Trip: ObservableObject, Identifiable, Codable, Hashable {
     enum CodingKeys: CodingKey {
-        case name, startDate, endDate, photo, locations
+        case name, startDate, endDate, photo, locations, notes
     }
 
     let id = UUID()
@@ -19,6 +19,7 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable {
     @Published var endDate = Date.now.addingTimeInterval(1*60*60*24)
     @Published var photo = PhotoAsset.example
     @Published var locations = [Location]()
+    @Published var notes = [Note()]
     
     var allPhotos: [PhotoAsset] {
         Array(
@@ -50,7 +51,7 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable {
         hasher.combine(id)
     }
 
-     func encode(to encoder: Encoder) throws {
+    func encode(to encoder: Encoder) throws {
          var container = encoder.container(keyedBy: CodingKeys.self)
          try encodeData(container: &container)
     }
@@ -61,6 +62,7 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable {
         try container.encode(endDate, forKey: .endDate)
         try container.encode(photo, forKey: .photo)
         try container.encode(locations, forKey: .locations)
+        try container.encode(notes, forKey: .notes)
     }
     
     private func decodeData(container: KeyedDecodingContainer<Trip.CodingKeys>) throws {
@@ -69,15 +71,14 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable {
         startDate = try container.decode(Date.self, forKey: .startDate)
         endDate = try container.decode(Date.self, forKey: .endDate)
         locations = try container.decode([Location].self, forKey: .locations)
+        notes = try container.decode([Note].self, forKey: .notes)
     }
 
-    @MainActor
     func delete(_ location: Location) {
         guard let index = locations.firstIndex(of: location) else { return }
         locations.remove(at: index)
     }
     
-    @MainActor
     func append(_ location: Location) {
         locations.append(location)
     }

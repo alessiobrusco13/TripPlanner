@@ -183,6 +183,14 @@ struct TripView: View {
                 }
                 .disabled(showingTripPhoto || editingTrip)
             }
+            
+            ToolbarItem(placement: .bottomBar) {
+                NavigationLink {
+                    NotesView(notes: $viewModel.trip.notes)
+                } label: {
+                    Text("1")
+                }
+            }
         }
         .background {
             NavigationLink(isActive: $showingPhotosGrid) {

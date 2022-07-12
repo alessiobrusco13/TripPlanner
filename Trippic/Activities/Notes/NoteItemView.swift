@@ -1,0 +1,37 @@
+//
+//  NoteItemView.swift
+//  Trippic
+//
+//  Created by Alessio Garzia Marotta Brusco on 12/07/22.
+//
+
+import SwiftUI
+
+struct NoteItemView: View {
+    @Binding var note: Note
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("\(note.lastUpdate.formatted())")
+                .font(.footnote.weight(.semibold))
+                .foregroundStyle(.tertiary)
+            
+            PlaceholderTextEditor(text: $note.text, placeholder: "Type to edit note...")
+                .onChange(of: note.text) { _ in
+                    note.lastUpdate = .now
+                }
+        }
+        .padding()
+        .overlay {
+            RoundedRectangle(cornerRadius: 15)
+                .stroke(.quaternary)
+        }
+        .frame(width: 200, height: 200)
+    }
+}
+
+struct NoteItemView_Previews: PreviewProvider {
+    static var previews: some View {
+        NoteItemView(note: .constant(.example))
+    }
+}
