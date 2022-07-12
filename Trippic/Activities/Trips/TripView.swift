@@ -172,7 +172,7 @@ struct TripView: View {
                             Label("Edit Trip", systemImage: "pencil")
                         }
                         
-                        if !viewModel.trip.locations.isEmpty {
+                        if !viewModel.trip.allPhotos.isEmpty {
                             Button {
                                 showingPhotosGrid.toggle()
                             } label: {

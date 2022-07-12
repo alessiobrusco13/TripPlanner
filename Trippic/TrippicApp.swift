@@ -10,7 +10,9 @@ import SwiftUI
 @main
 struct TrippicApp: App {
     @StateObject var dataController = DataController()
-    @Environment(\.scenePhase) var scenePhase 
+    @Environment(\.scenePhase) var scenePhase
+    
+    @State private var documents = [Document]()
     
     var body: some Scene {
         WindowGroup {
