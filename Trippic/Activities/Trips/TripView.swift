@@ -126,6 +126,8 @@ struct TripView: View {
                             }
                         }
                         .padding(editingTrip ? 8 : 0)
+                        
+                        NotesRowView(notes: $viewModel.trip.notes)
                     }
                 }
                 
@@ -182,14 +184,6 @@ struct TripView: View {
                     }
                 }
                 .disabled(showingTripPhoto || editingTrip)
-            }
-            
-            ToolbarItem(placement: .bottomBar) {
-                NavigationLink {
-                    NotesView(notes: $viewModel.trip.notes)
-                } label: {
-                    Text("1")
-                }
             }
         }
         .background {

@@ -30,15 +30,6 @@ struct PlaceholderTextEditor: View {
                 }
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .keyboard) {
-                if focused {
-                    Button("Done") {
-                        focused = false
-                    }
-                }
-            }
-        }
     }
 }
 

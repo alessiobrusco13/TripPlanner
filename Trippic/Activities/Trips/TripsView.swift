@@ -27,15 +27,19 @@ struct TripsView: View {
             .animation(.default, value: dataController.trips)
             .overlay {
                 if dataController.trips.isEmpty {
-                    Text("Create a trip tapping the + button.")
-                        .font(.title3.italic())
+                    Text("There aren't any trips.")
+                        .font(.title3)
                         .foregroundStyle(.secondary)
                 }
             }
             .navigationTitle("Trips")
             .sheet(isPresented: $showingAdd, content: NewTripView.init)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading, content: EditButton.init)
+                ToolbarItem(placement: .navigationBarLeading) {
+                    if !dataController.trips.isEmpty {
+                        EditButton()
+                    }
+                }
 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {

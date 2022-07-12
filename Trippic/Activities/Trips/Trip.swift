@@ -19,7 +19,7 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable {
     @Published var endDate = Date.now.addingTimeInterval(1*60*60*24)
     @Published var photo = PhotoAsset.example
     @Published var locations = [Location]()
-    @Published var notes = [Note()]
+    @Published var notes = [Note]()
     
     var allPhotos: [PhotoAsset] {
         Array(

@@ -27,6 +27,7 @@ struct NoteItemView: View {
                 .stroke(.quaternary)
         }
         .frame(width: 200, height: 200)
+        .contentShape(Rectangle())
     }
 }
 
