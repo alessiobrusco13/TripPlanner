@@ -18,7 +18,9 @@ extension DocumentThumbnail {
         @Published var error: Error? {
             didSet {
                 if error != nil {
-                    showingError = true
+                    Task { @MainActor in
+                        showingError = true
+                    }
                 }
             }
         }
@@ -30,6 +32,9 @@ extension DocumentThumbnail {
         }
         
         func generateThumbnail() async {
+            guard document.url.startAccessingSecurityScopedResource() else { return }
+            defer { document.url.stopAccessingSecurityScopedResource() }
+            
             let size = CGSize(width: 68, height: 88)
             let request = QLThumbnailGenerator.Request(fileAt: document.url, size: size, scale: displayScale, representationTypes: .thumbnail)
             
@@ -39,8 +44,11 @@ extension DocumentThumbnail {
                 Task { @MainActor in
                     image = Image(representation.cgImage, scale: displayScale, label: Text("Document"))
                 }
-            } catch  {
-                self.error = error
+            } catch {
+                Task { @MainActor in
+                    guard self.error == nil else { return }
+                    self.error = error
+                }
             }
             
             

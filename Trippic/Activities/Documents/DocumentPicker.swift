@@ -11,11 +11,23 @@ struct DocumentPicker: UIViewControllerRepresentable {
     class Coordinator: NSObject, UIDocumentPickerDelegate {
         var parent: DocumentPicker
         
+        private let savePath = FileManager.documentsDirectory.appendingPathComponent("documents")
+        
         init(_ parent: DocumentPicker) {
             self.parent = parent
         }
         
         func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+            for url in urls {
+                guard url.startAccessingSecurityScopedResource() else { return }
+            }
+            
+            defer {
+                Task { @MainActor in
+                    urls.forEach { $0.stopAccessingSecurityScopedResource() }
+                }
+            }
+            
             let documents = urls.map(Document.init)
             parent.selection.append(contentsOf: documents)
             controller.dismiss(animated: true)

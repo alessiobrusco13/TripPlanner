@@ -9,7 +9,7 @@ import QuickLook
 import SwiftUI
 
 struct DocumentPreview: UIViewControllerRepresentable {
-    class Coordinator: NSObject, QLPreviewControllerDataSource {
+    class Coordinator: NSObject, QLPreviewControllerDataSource, QLPreviewControllerDelegate {
         let parent: DocumentPreview
         
         init(_ parent: DocumentPreview) {
@@ -22,6 +22,14 @@ struct DocumentPreview: UIViewControllerRepresentable {
         
         func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
             parent.document.url as NSURL
+        }
+        
+        func previewControllerDidDismiss(_ controller: QLPreviewController) {
+            parent.document.url.stopAccessingSecurityScopedResource()
+        }
+        
+        func previewController(_ controller: QLPreviewController, shouldOpen url: URL, for item: QLPreviewItem) -> Bool {
+            parent.document.url.startAccessingSecurityScopedResource()
         }
     }
     
