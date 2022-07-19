@@ -13,7 +13,7 @@ struct NoteItemView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("\(note.lastUpdate.formatted())")
+            Text(verbatim: "\(note.lastUpdate.formatted())")
                 .font(.footnote.weight(.semibold))
                 .foregroundStyle(.tertiary)
             

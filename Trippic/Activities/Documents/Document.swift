@@ -17,4 +17,9 @@ struct Document: Identifiable, Hashable, Codable {
         self.url = url
         id = UUID()
     }
+    
+    init(id: UUID, url: URL) {
+        self.id = UUID()
+        self.url = url
+    }
 }

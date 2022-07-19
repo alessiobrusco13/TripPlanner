@@ -11,33 +11,44 @@ struct DocumentPicker: UIViewControllerRepresentable {
     class Coordinator: NSObject, UIDocumentPickerDelegate {
         var parent: DocumentPicker
         
-        private let savePath = FileManager.documentsDirectory.appendingPathComponent("documents")
+        private let savePath: URL = {
+            let path = FileManager.documentsDirectory.appendingPathComponent("documents")
+            try? FileManager.default.createDirectory(at: path, withIntermediateDirectories: false)
+            return path
+        }()
         
         init(_ parent: DocumentPicker) {
             self.parent = parent
         }
         
         func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-            for url in urls {
-                guard url.startAccessingSecurityScopedResource() else { return }
-            }
             
-            defer {
-                Task { @MainActor in
-                    urls.forEach { $0.stopAccessingSecurityScopedResource() }
+            do {
+                var documents = [Document]()
+                
+                for url in urls {
+                    guard url.startAccessingSecurityScopedResource() else { throw URLError(.noPermissionsToReadFile) }
+                    
+                    let documentURL = savePath.appendingPathComponent(url.lastPathComponent)
+                    try FileManager.default.copyItem(at: url, to: documentURL)
+                    documents.append(Document(url: documentURL))
+                    
+                    url.stopAccessingSecurityScopedResource()
                 }
+                
+                parent.selection.append(contentsOf: documents)
+                controller.dismiss(animated: true)
+            } catch {
+                print(error.localizedDescription)
+                print(urls)
             }
-            
-            let documents = urls.map(Document.init)
-            parent.selection.append(contentsOf: documents)
-            controller.dismiss(animated: true)
         }
     }
     
     @Binding var selection: [Document]
     
     func makeUIViewController(context: Context) -> UIDocumentPickerViewController {
-        let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.text, .pdf, .rtf, .rtfd, .png, .jpeg])
+        let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.text, .pdf, .rtf, .rtfd, .png, .jpeg], asCopy: true)
         picker.delegate = context.coordinator
         picker.allowsMultipleSelection = true
         picker.shouldShowFileExtensions = true

@@ -23,14 +23,6 @@ struct DocumentPreview: UIViewControllerRepresentable {
         func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
             parent.document.url as NSURL
         }
-        
-        func previewControllerDidDismiss(_ controller: QLPreviewController) {
-            parent.document.url.stopAccessingSecurityScopedResource()
-        }
-        
-        func previewController(_ controller: QLPreviewController, shouldOpen url: URL, for item: QLPreviewItem) -> Bool {
-            parent.document.url.startAccessingSecurityScopedResource()
-        }
     }
     
     let document: Document

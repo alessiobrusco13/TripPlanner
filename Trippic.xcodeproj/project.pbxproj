@@ -136,6 +136,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		891C0884287F62DD00E7D0CB /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
 		895D780C282D002D00EE846F /* LocationPicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +233,7 @@
 				895D780F282D006F00EE846F /* Activities */,
 				895D780D282D003500EE846F /* Components */,
 				8964BAD42821735F00922BCC /* Extensions */,
+				891C0884287F62DD00E7D0CB /* Localization */,
 				8964BABE2821666C00922BCC /* Assets.xcassets */,
 				895DC491287DFF5000E4C0B3 /* TestDocument.rtf */,
 				8964BAC02821666C00922BCC /* PreviewContent */,
@@ -338,6 +346,7 @@
 			knownRegions = (
 				en,
 				Base,
+				it,
 			);
 			mainGroup = 8964BAAE2821666B00922BCC;
 			productRefGroup = 8964BAB82821666B00922BCC /* Products */;
@@ -555,14 +564,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Trippic/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Trippic;
-				INFOPLIST_KEY_NSCameraUsageDescription = "We want to let you take photos for your itineraries.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need to use your data";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need to use your photo library to load photos.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = "15 .0";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -593,14 +601,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Trippic/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Trippic;
-				INFOPLIST_KEY_NSCameraUsageDescription = "We want to let you take photos for your itineraries.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need to use your data";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need to use your photo library to load photos.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = "15 .0";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

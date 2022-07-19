@@ -158,7 +158,7 @@ struct TripView: View {
                             dataController.delete(viewModel.trip)
                             dismiss()
                         } label: {
-                            Label("Remove Trip", systemImage: "trash")
+                            Label("Delete Trip", systemImage: "trash")
                         }
                         
                         Divider()

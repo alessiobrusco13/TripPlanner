@@ -19,9 +19,10 @@ struct DocumentPickerLink<Content: View>: View {
         } label: {
             label()
         }
-        .sheet(isPresented: $showingPicker) {
-            DocumentPicker(selection: $selection)
-        }
+//        .sheet(isPresented: $showingPicker) {
+//            DocumentPicker(selection: $selection)
+//        }
+        .alert("Adding attachments is disabled at the moment.", isPresented: $showingPicker) { }
     }
 }
 

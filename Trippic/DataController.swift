@@ -6,7 +6,6 @@
 //
 
 import Combine
-import Foundation
 import Photos
 import SwiftUI
 
@@ -53,6 +52,8 @@ class DataController: ObservableObject {
             .sink { _ in
                 self.save()
             }
+        
+        imageManager.allowsCachingHighQualityImages = true
     }
     
     func save() {

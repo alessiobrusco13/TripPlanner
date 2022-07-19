@@ -35,6 +35,10 @@ struct DocumentsRowView: View {
             }
             .padding()
         }
+        .onAppear {
+            print("FUCK")
+            print(_documents.wrappedValue.map(\.url.absoluteString).formatted(.list(type: .and)))
+        }
     }
 }
 

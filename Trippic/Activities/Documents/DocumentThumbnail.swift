@@ -21,7 +21,8 @@ struct DocumentThumbnail: View {
             } else {
                 Image(systemName: "doc")
                     .task {
-                        await generator.generateThumbnail()
+//                        await generator.generateThumbnail()
+                        print("NOT GENERATING THUMBNAIL YOU IDIOT")
                     }
             }
         }
