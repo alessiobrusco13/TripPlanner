@@ -62,12 +62,20 @@ struct PhotosGridView: View {
             }
         }
         .toolbar {
-            Button {
-                withAnimation(.spring()) {
-                    showingFavorites.toggle()
+            ToolbarItem(placement: .primaryAction) {
+                HStack(spacing: 20) {
+                    Button {
+                        withAnimation(.spring()) {
+                            showingFavorites.toggle()
+                        }
+                    } label: {
+                        Image(systemName: showingFavorites ? "heart.slash" : "heart")
+                    }
+                    
+                    if editingEnabled {
+                        EditButton()
+                    }
                 }
-            } label: {
-                Image(systemName: showingFavorites ? "heart.slash" : "heart")
             }
         }
         .onChange(of: showingFavorites) { _ in
