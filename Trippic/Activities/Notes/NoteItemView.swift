@@ -9,7 +9,6 @@ import SwiftUI
 
 struct NoteItemView: View {
     @Binding var note: Note
-    @State private var showingDocuments = false
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -21,11 +20,6 @@ struct NoteItemView: View {
                 .onChange(of: note.text) { _ in
                     note.lastUpdate = .now
                 }
-            
-            DisclosureGroup("Attachments") {
-                DocumentsRowView(documents: $note.documents)
-                    .frame(maxWidth: .infinity)
-            }
         }
         .padding()
         .overlay {
