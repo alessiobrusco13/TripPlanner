@@ -48,17 +48,21 @@ struct PhotosRowView<Content: View>: View {
                     }
                     
                     ForEach($location.photos) { $photo in
-                        PhotoView(asset: photo) { image in
-                            image
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 225, height: 225)
-                                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                                .overlay(alignment: .topTrailing) {
-                                    FavoriteButton(photo: $photo)
-                                        .padding(5)
-                                        .transition(.scale)
-                                }
+                        NavigationLink {
+                            PhotosView(photos: $location.photos, selectedPhoto: photo)
+                        } label: {
+                            PhotoView(asset: photo) { image in
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 225, height: 225)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                    .overlay(alignment: .topTrailing) {
+                                        FavoriteButton(photo: $photo)
+                                            .padding(5)
+                                            .transition(.scale)
+                                    }
+                            }
                         }
                         .id(photo.id)
                     }

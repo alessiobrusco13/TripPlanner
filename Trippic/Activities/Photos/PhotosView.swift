@@ -27,6 +27,13 @@ struct PhotosView: View {
         editingEnabled = true
     }
     
+    init(photos: Binding<[PhotoAsset]>, selectedPhoto: PhotoAsset) {
+        _photos = photos
+        editingEnabled = true
+        
+        self.selectedPhoto = selectedPhoto
+    }
+    
     var body: some View {
         Group {
             if let editMode = editMode, editMode.wrappedValue == .active {

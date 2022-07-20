@@ -34,12 +34,6 @@ struct PhotosListView: View {
                     .disabled(selectedPhotos.isEmpty)
                 }
             }
-            
-            ToolbarItem(placement: .primaryAction) {
-                if editingEnabled {
-                    EditButton()
-                }
-            }
         }
     }
     
