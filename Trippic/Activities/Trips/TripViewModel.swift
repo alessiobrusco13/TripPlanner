@@ -38,13 +38,13 @@ extension TripView {
         }
         
         func zoomInMiniMap() {
-            miniMapRegion.span.longitudeDelta *= 0.7
-            miniMapRegion.span.latitudeDelta *= 0.7
+            miniMapRegion.span.longitudeDelta *= 0.8
+            miniMapRegion.span.latitudeDelta *= 0.8
         }
         
         func zoomOutMiniMap() {
-            miniMapRegion.span.longitudeDelta *= 1.7
-            miniMapRegion.span.latitudeDelta *= 1.7
+            miniMapRegion.span.longitudeDelta *= 1.8
+            miniMapRegion.span.latitudeDelta *= 1.8
         }
         
         private func guessedRegion(meters: Double) async throws -> MKCoordinateRegion {

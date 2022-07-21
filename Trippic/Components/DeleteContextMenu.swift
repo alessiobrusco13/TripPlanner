@@ -38,7 +38,7 @@ extension View {
 
 struct DeleteContextMenu_Previews: PreviewProvider {
     static var previews: some View {
-        Text("Hello, world!")
+        Text(verbatim: "Hello, world!")
             .modifier(DeleteContextMenu(contentShape: Rectangle()) { } )
     }
 }

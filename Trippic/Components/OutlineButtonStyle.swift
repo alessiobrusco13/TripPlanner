@@ -48,7 +48,7 @@ struct GridItemButtonStyle_Previews: PreviewProvider {
         Button {
             print("Pressed")
         } label: {
-            Label("Press Me", systemImage: "star")
+            Label(String("Press Me"), systemImage: "star")
         }
         .buttonStyle(.outline(selected: true))
     }

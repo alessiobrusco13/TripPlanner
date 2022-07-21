@@ -43,7 +43,7 @@ struct TripView: View {
                     .padding([.horizontal, .top])
                 }
                 .overlay(alignment: .topTrailing) {
-                    VStack(spacing: 8) {
+                    VStack(spacing: 10) {
                         Button {
                             withAnimation {
                                 viewModel.zoomInMiniMap()
@@ -61,14 +61,14 @@ struct TripView: View {
                                 viewModel.zoomOutMiniMap()
                             }
                         } label: {
-                            Label("Zoom in", systemImage: "minus.magnifyingglass")
+                            Label("Zoom out", systemImage: "minus.magnifyingglass")
                                 .labelStyle(.iconOnly)
                         }
                     }
                     .foregroundStyle(.secondary)
-                    .font(.title3)
-                    .padding(5)
-                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 8))
+                    .font(.title2)
+                    .padding(7)
+                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
                     .padding(25)
                 }
                 .disabled(editingTrip)

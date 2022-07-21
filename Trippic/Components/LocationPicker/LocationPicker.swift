@@ -100,7 +100,7 @@ extension LocationPickerView_Previews {
                         LocationRowView(location: .constant(selection), navigationLinkActive: .constant(false))
                     }
                     
-                    Button("Pick Location") {
+                    Button(String("Pick Location")) {
                         showingPicker.toggle()
                     }
                 }

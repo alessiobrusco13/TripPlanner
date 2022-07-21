@@ -102,7 +102,7 @@ struct PhotosGridView: View {
                     
                     if editingEnabled && !photos.isEmpty {
                         EditButton()
-                            .frame(width: 32)
+                            .frame(width: 66)
                             .disabled(selectedPhoto != nil)
                     }
                 }

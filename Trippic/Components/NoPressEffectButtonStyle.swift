@@ -22,7 +22,7 @@ extension ButtonStyle where Self == NoPressEffectButtonStyle {
 struct PassthroughButtonStyle_Previews: PreviewProvider {
     static var previews: some View {
         Button(action: { print("Pressed") }) {
-            Label("Press Me", systemImage: "star")
+            Label(String("Press Me"), systemImage: "star")
         }
         .buttonStyle(NoPressEffectButtonStyle())
     }

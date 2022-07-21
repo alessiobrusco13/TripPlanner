@@ -70,7 +70,7 @@ struct NewTripView: View {
                 }
             }
             .background(Color(.systemGroupedBackground))
-            .navigationTitle(newTrip.name.isEmpty ? "New Trip" : newTrip.name)
+            .navigationTitle(newTrip.name.isEmpty ? String(localized: "New Trip") : newTrip.name)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
