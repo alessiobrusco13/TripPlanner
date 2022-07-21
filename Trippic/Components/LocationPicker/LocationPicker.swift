@@ -50,6 +50,7 @@ struct LocationPicker: View {
     var placeholderView: some View {
         HStack {
             Spacer()
+            
             if viewModel.isLoading {
                 VStack {
                     ProgressView()
@@ -58,10 +59,11 @@ struct LocationPicker: View {
                         .foregroundColor(.secondary)
                 }
             } else {
-                Text("Swipe to search locations.")
+                Text("Swipe to search locations")
                     .font(.title2)
                     .foregroundStyle(.secondary)
             }
+            
             Spacer()
         }
         .listRowBackground(EmptyView())

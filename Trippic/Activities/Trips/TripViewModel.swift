@@ -37,6 +37,16 @@ extension TripView {
             }
         }
         
+        func zoomInMiniMap() {
+            miniMapRegion.span.longitudeDelta *= 0.7
+            miniMapRegion.span.latitudeDelta *= 0.7
+        }
+        
+        func zoomOutMiniMap() {
+            miniMapRegion.span.longitudeDelta *= 1.7
+            miniMapRegion.span.latitudeDelta *= 1.7
+        }
+        
         private func guessedRegion(meters: Double) async throws -> MKCoordinateRegion {
             guard let center = try await CLGeocoder().geocodeAddressString(trip.name).first?.location?.coordinate else {
                 throw CLError(.geocodeFoundNoResult)
