@@ -23,7 +23,7 @@ struct NewTripView: View {
                         
                         PhotoPickerLink(assetSelection: $newTrip.photo) {
                             if newTrip.photo != .example {
-                                PhotoView(asset: newTrip.photo) { image in
+                                PhotoView(asset: $newTrip.photo) { image in
                                     image
                                         .resizable()
                                         .scaledToFill()
