@@ -19,6 +19,10 @@ struct DeleteButton<Item: Hashable>: View {
             Label("Delete Selection", systemImage: "trash")
         }
         .disabled(selection.isEmpty)
+        .onChange(of: editMode?.wrappedValue) { _ in
+            guard selection.isEmpty == false else { return }
+            selection.removeAll()
+        }
     }
     
     func delete() {

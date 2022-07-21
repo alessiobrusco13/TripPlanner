@@ -18,7 +18,11 @@ struct DeleteContextMenu<S: Shape>: ViewModifier {
             .contentShape(contentShape)
             .contextMenu {
                 if !(editMode?.wrappedValue.isEditing ?? false) {
-                    Button(role: .destructive, action: deleteAction) {
+                    Button(role: .destructive) {
+                        withAnimation {
+                            deleteAction()
+                        }
+                    } label: {
                         Label("Delete", systemImage: "trash")
                     }
                 }

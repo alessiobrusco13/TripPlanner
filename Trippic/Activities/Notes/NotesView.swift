@@ -57,6 +57,7 @@ struct NotesView: View {
                     HStack(spacing: 20) {
                         Button {
                             notes.append(Note())
+                            editMode?.wrappedValue = .inactive
                         } label: {
                             Label("New Note", systemImage: "square.and.pencil")
                         }

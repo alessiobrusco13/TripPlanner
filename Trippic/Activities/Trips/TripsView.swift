@@ -62,10 +62,6 @@ struct TripsView: View {
                 }
             }
             .environment(\.editMode, $editMode)
-            .onChange(of: editMode) { _ in
-                guard selectedTrips.isEmpty == false else { return }
-                selectedTrips.removeAll()
-            }
         }
         .navigationViewStyle(.stack)
     }

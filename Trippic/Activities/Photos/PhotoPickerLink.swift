@@ -44,6 +44,7 @@ struct PhotoPickerLink<Content: View>: View {
         }
         .sheet(isPresented: $showingSheet) {
             PhotoPicker(image: $image, identifier: $imageID, asset: $photoAsset)
+                .edgesIgnoringSafeArea(.bottom)
         }
     }
 }

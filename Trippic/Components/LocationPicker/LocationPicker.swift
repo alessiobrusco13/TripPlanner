@@ -58,7 +58,7 @@ struct LocationPicker: View {
                         .foregroundColor(.secondary)
                 }
             } else {
-                Text("Type to find a location.")
+                Text("Swipe to search locations.")
                     .font(.title2)
                     .foregroundStyle(.secondary)
             }

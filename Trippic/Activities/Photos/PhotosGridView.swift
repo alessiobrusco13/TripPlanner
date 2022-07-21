@@ -123,10 +123,6 @@ struct PhotosGridView: View {
                 selectedPhoto = nil
             }
         }
-        .onChange(of: editMode?.wrappedValue) { _ in
-            guard !editingSelection.isEmpty else { return }
-            editingSelection.removeAll()
-        }
         .onChange(of: photos) { newValue in
             if newValue.isEmpty {
                 dismiss()
