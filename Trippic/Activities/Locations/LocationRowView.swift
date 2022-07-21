@@ -13,7 +13,7 @@ struct LocationRowView: View {
     
     var body: some View {
         NavigationLink(isActive: $navigationLinkActive) {
-            PhotosView(photos: $location.photos)
+            PhotosGridView(photos: $location.photos)
                 .navigationTitle(location.name)
         } label: {
             VStack(alignment: .leading) {

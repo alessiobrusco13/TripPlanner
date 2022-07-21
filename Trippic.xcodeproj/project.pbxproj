@@ -17,8 +17,6 @@
 		892A756D28468B970002DB4B /* FavouriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892A756C28468B970002DB4B /* FavouriteButton.swift */; };
 		892B9F29283A9B3F00235819 /* PhotosRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B9F28283A9B3F00235819 /* PhotosRowView.swift */; };
 		892B9F2D283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B9F2C283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift */; };
-		892CE2E1287634A9006D7415 /* PhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892CE2E0287634A9006D7415 /* PhotosView.swift */; };
-		892CE2E3287635E1006D7415 /* PhotosListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892CE2E2287635E1006D7415 /* PhotosListView.swift */; };
 		895D12B6282831750071DC98 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D12B5282831750071DC98 /* LocationView.swift */; };
 		895DC48B287DF75800E4C0B3 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895DC48A287DF75800E4C0B3 /* Document.swift */; };
 		895DC48E287DFB4200E4C0B3 /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895DC48D287DFB4200E4C0B3 /* DocumentPicker.swift */; };
@@ -43,6 +41,7 @@
 		8965A876284353F30065ED88 /* TripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8965A875284353F30065ED88 /* TripsView.swift */; };
 		899049362821A94500E2BD9F /* TripRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899049352821A94500E2BD9F /* TripRowView.swift */; };
 		8990493C2822644B00E2BD9F /* TripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8990493B2822644B00E2BD9F /* TripView.swift */; };
+		8997476028880D8800E74EBB /* OutlineButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8997475F28880D8800E74EBB /* OutlineButtonStyle.swift */; };
 		899AA1B2284274670080CD11 /* PhotoPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899AA1B1284274670080CD11 /* PhotoPageView.swift */; };
 		899AA1B8284284800080CD11 /* PhotoAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899AA1B7284284800080CD11 /* PhotoAsset.swift */; };
 		89B0A16F28480686008CEACF /* PhotosTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B0A16E28480686008CEACF /* PhotosTabView.swift */; };
@@ -55,13 +54,13 @@
 		89DCCB13283B809500030B89 /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DCCB12283B809500030B89 /* CircleImage.swift */; };
 		89E1627B28747695006047D3 /* TripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E1627A28747695006047D3 /* TripViewModel.swift */; };
 		89E1627D287494BA006047D3 /* PinchToZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E1627C287494BA006047D3 /* PinchToZoom.swift */; };
-		89F67AF8287C9FE50095DD21 /* PhotoRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F67AF7287C9FE50095DD21 /* PhotoRowView.swift */; };
 		89F67AFA287CA0850095DD21 /* MKMapItem-Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F67AF9287CA0850095DD21 /* MKMapItem-Location.swift */; };
 		89F67AFC287CA4FA0095DD21 /* PhotoItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F67AFB287CA4FA0095DD21 /* PhotoItemView.swift */; };
 		89F67AFE287CA8480095DD21 /* FullscreenMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F67AFD287CA8480095DD21 /* FullscreenMapView.swift */; };
 		89FA5FB52853E9C00083EE75 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FA5FB42853E9C00083EE75 /* PhotoView.swift */; };
 		89FA5FB72853EED60083EE75 /* PhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FA5FB62853EED60083EE75 /* PhotoLibrary.swift */; };
 		89FF84A02853AF5F000CBD55 /* NoPressEffectButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FF849F2853AF5F000CBD55 /* NoPressEffectButtonStyle.swift */; };
+		89FFDDC32888946600146312 /* DeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FFDDC22888946600146312 /* DeleteButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,8 +76,6 @@
 		892A756C28468B970002DB4B /* FavouriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteButton.swift; sourceTree = "<group>"; };
 		892B9F28283A9B3F00235819 /* PhotosRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosRowView.swift; sourceTree = "<group>"; };
 		892B9F2C283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "[CLLocationCoordinate2D]-centerCoordinate.swift"; sourceTree = "<group>"; };
-		892CE2E0287634A9006D7415 /* PhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosView.swift; sourceTree = "<group>"; };
-		892CE2E2287635E1006D7415 /* PhotosListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosListView.swift; sourceTree = "<group>"; };
 		895D12B5282831750071DC98 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		895DC48A287DF75800E4C0B3 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		895DC48D287DFB4200E4C0B3 /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
@@ -104,6 +101,7 @@
 		8965A875284353F30065ED88 /* TripsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsView.swift; sourceTree = "<group>"; };
 		899049352821A94500E2BD9F /* TripRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRowView.swift; sourceTree = "<group>"; };
 		8990493B2822644B00E2BD9F /* TripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripView.swift; sourceTree = "<group>"; };
+		8997475F28880D8800E74EBB /* OutlineButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineButtonStyle.swift; sourceTree = "<group>"; };
 		899AA1B1284274670080CD11 /* PhotoPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPageView.swift; sourceTree = "<group>"; };
 		899AA1B7284284800080CD11 /* PhotoAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAsset.swift; sourceTree = "<group>"; };
 		89B0A16E28480686008CEACF /* PhotosTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTabView.swift; sourceTree = "<group>"; };
@@ -116,13 +114,13 @@
 		89DCCB12283B809500030B89 /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		89E1627A28747695006047D3 /* TripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewModel.swift; sourceTree = "<group>"; };
 		89E1627C287494BA006047D3 /* PinchToZoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinchToZoom.swift; sourceTree = "<group>"; };
-		89F67AF7287C9FE50095DD21 /* PhotoRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoRowView.swift; sourceTree = "<group>"; };
 		89F67AF9287CA0850095DD21 /* MKMapItem-Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapItem-Location.swift"; sourceTree = "<group>"; };
 		89F67AFB287CA4FA0095DD21 /* PhotoItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoItemView.swift; sourceTree = "<group>"; };
 		89F67AFD287CA8480095DD21 /* FullscreenMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullscreenMapView.swift; sourceTree = "<group>"; };
 		89FA5FB42853E9C00083EE75 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		89FA5FB62853EED60083EE75 /* PhotoLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibrary.swift; sourceTree = "<group>"; };
 		89FF849F2853AF5F000CBD55 /* NoPressEffectButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPressEffectButtonStyle.swift; sourceTree = "<group>"; };
+		89FFDDC22888946600146312 /* DeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,9 +157,11 @@
 				892A756C28468B970002DB4B /* FavouriteButton.swift */,
 				89F67AFD287CA8480095DD21 /* FullscreenMapView.swift */,
 				89FF849F2853AF5F000CBD55 /* NoPressEffectButtonStyle.swift */,
+				89FFDDC22888946600146312 /* DeleteButton.swift */,
 				89E1627C287494BA006047D3 /* PinchToZoom.swift */,
 				895D780C282D002D00EE846F /* LocationPicker */,
 				89D3D332287D8C2F004C2370 /* PlaceholderTextEditor.swift */,
+				8997475F28880D8800E74EBB /* OutlineButtonStyle.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -276,14 +276,11 @@
 		89D3D32C287D853D004C2370 /* Photos */ = {
 			isa = PBXGroup;
 			children = (
-				89F67AFB287CA4FA0095DD21 /* PhotoItemView.swift */,
 				899AA1B1284274670080CD11 /* PhotoPageView.swift */,
-				89F67AF7287C9FE50095DD21 /* PhotoRowView.swift */,
+				89F67AFB287CA4FA0095DD21 /* PhotoItemView.swift */,
 				8923EC26283F6A21000557C0 /* PhotosGridView.swift */,
-				892CE2E2287635E1006D7415 /* PhotosListView.swift */,
 				892B9F28283A9B3F00235819 /* PhotosRowView.swift */,
 				89B0A16E28480686008CEACF /* PhotosTabView.swift */,
-				892CE2E0287634A9006D7415 /* PhotosView.swift */,
 				89FA5FB42853E9C00083EE75 /* PhotoView.swift */,
 				891AF91228218B8400BD691F /* PhotoPicker.swift */,
 				891ABB032864E839003D20A5 /* PhotoPickerLink.swift */,
@@ -386,7 +383,6 @@
 				89D3D32F287D8740004C2370 /* Note.swift in Sources */,
 				892A756D28468B970002DB4B /* FavouriteButton.swift in Sources */,
 				89E1627D287494BA006047D3 /* PinchToZoom.swift in Sources */,
-				89F67AF8287C9FE50095DD21 /* PhotoRowView.swift in Sources */,
 				89FA5FB72853EED60083EE75 /* PhotoLibrary.swift in Sources */,
 				8923EC27283F6A21000557C0 /* PhotosGridView.swift in Sources */,
 				8964BABD2821666B00922BCC /* ContentView.swift in Sources */,
@@ -404,10 +400,10 @@
 				891AF911282184FC00BD691F /* NewTripView.swift in Sources */,
 				89F67AFC287CA4FA0095DD21 /* PhotoItemView.swift in Sources */,
 				899AA1B8284284800080CD11 /* PhotoAsset.swift in Sources */,
-				892CE2E3287635E1006D7415 /* PhotosListView.swift in Sources */,
 				895DC490287DFE5F00E4C0B3 /* DocumentPickerLink.swift in Sources */,
 				8964BABB2821666B00922BCC /* TrippicApp.swift in Sources */,
 				8964BAD32821733F00922BCC /* FileManager-documentsDirectory.swift in Sources */,
+				8997476028880D8800E74EBB /* OutlineButtonStyle.swift in Sources */,
 				89F67AFE287CA8480095DD21 /* FullscreenMapView.swift in Sources */,
 				89DCCB13283B809500030B89 /* CircleImage.swift in Sources */,
 				895DC494287DFF6C00E4C0B3 /* URL-exampleDocument.swift in Sources */,
@@ -418,6 +414,7 @@
 				89D3D331287D87EA004C2370 /* NoteItemView.swift in Sources */,
 				8964BACD2821677400922BCC /* Coordinates.swift in Sources */,
 				895D12B6282831750071DC98 /* LocationView.swift in Sources */,
+				89FFDDC32888946600146312 /* DeleteButton.swift in Sources */,
 				89E1627B28747695006047D3 /* TripViewModel.swift in Sources */,
 				895DC49A287E02F600E4C0B3 /* DocumentThumbnailGenerator.swift in Sources */,
 				891AF91328218B8400BD691F /* PhotoPicker.swift in Sources */,
@@ -427,7 +424,6 @@
 				892B9F2D283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift in Sources */,
 				89B0A16F28480686008CEACF /* PhotosTabView.swift in Sources */,
 				895DC49C287E0D0000E4C0B3 /* DocumentView.swift in Sources */,
-				892CE2E1287634A9006D7415 /* PhotosView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

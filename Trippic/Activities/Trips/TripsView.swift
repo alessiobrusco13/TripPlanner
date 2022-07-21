@@ -19,6 +19,7 @@ struct TripsView: View {
             List(selection: $selectedTrips) {
                 ForEach(dataController.trips) { trip in
                     TripRowView(trip: trip)
+                        .tag(trip)
                 }
                 .onDelete(perform: dataController.delete)
                 .listRowInsets(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 10))
@@ -54,14 +55,7 @@ struct TripsView: View {
                         HStack {
                             Spacer()
 
-                            Button(role: .destructive) {
-                                dataController.delete(selectedTrips)
-                                selectedTrips.removeAll()
-                                editMode = .inactive
-                            } label: {
-                                Label("Delete selected", systemImage: "trash")
-                            }
-                            .disabled(selectedTrips.isEmpty)
+                            DeleteButton(data: $dataController.trips, selection: $selectedTrips)
                         }
                     }
                 }

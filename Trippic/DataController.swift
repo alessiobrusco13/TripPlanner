@@ -74,10 +74,6 @@ class DataController: ObservableObject {
         trips.remove(atOffsets: offsets)
     }
     
-    func delete(_ selected: Set<Trip>) {
-        trips.removeAll(where: selected.contains)
-    }
-    
     func delete(_ trip: Trip) {
         guard let index = trips.firstIndex(of: trip) else { return }
         trips.remove(at: index)

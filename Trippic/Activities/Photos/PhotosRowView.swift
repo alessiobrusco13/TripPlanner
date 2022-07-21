@@ -39,24 +39,24 @@ struct PhotosRowView<Content: View>: View {
                                 MapMarker(coordinate: $0.locationCoordinates, tint: Color("AccentColor"))
                             }
                             .disabled(true)
-                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                            .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
                             .frame(width: 225, height: 225)
                             .padding(.leading)
-                            
-                            Divider()
                         }
+                        
+                        Divider()
                     }
                     
                     ForEach($location.photos) { $photo in
                         NavigationLink {
-                            PhotosView(photos: $location.photos, selectedPhoto: photo)
+                            PhotosGridView(photos: $location.photos)
                         } label: {
                             PhotoView(asset: photo) { image in
                                 image
                                     .resizable()
                                     .scaledToFill()
                                     .frame(width: 225, height: 225)
-                                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                                    .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
                                     .overlay(alignment: .topTrailing) {
                                         FavoriteButton(photo: $photo)
                                             .padding(5)
@@ -64,12 +64,15 @@ struct PhotosRowView<Content: View>: View {
                                     }
                             }
                         }
+                        .buttonStyle(.outline)
                         .id(photo.id)
                     }
                 } footer: {
                     buttons
                 }
             }
+            .padding(.vertical, 2)
+
         }
         .ignoresSafeArea()
         .animation(.default, value: location.photos)

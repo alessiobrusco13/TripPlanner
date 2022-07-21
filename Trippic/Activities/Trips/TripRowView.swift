@@ -54,7 +54,6 @@ struct TripRowView: View {
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         }
         .listRowSeparator(.hidden, edges: .all)
-        .tag(trip)
     }
 }
 

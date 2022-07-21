@@ -9,14 +9,36 @@ import SwiftUI
 
 struct PhotosGridView: View {
     @Binding var photos: [PhotoAsset]
-    @Binding var selectedPhoto: PhotoAsset?
     let editingEnabled: Bool
     
-    @EnvironmentObject private var dataController: DataController
+    @State private var selectedPhoto: PhotoAsset?
+    @State private var editingSelection = Set<PhotoAsset>()
     @State private var showingFavorites = false
     
-    private var columns: [GridItem] {
+    @EnvironmentObject private var dataController: DataController
+    @Environment(\.editMode) private var editMode
+    @Environment(\.displayScale) private var displayScale
+    @Environment(\.dismiss) private var dismiss
+    
+    var imageSize: CGSize {
+        CGSize(
+            width: 400 * min(displayScale, 2),
+            height: 400 * min(displayScale, 2)
+        )
+    }
+    
+    var columns: [GridItem] {
         [GridItem(.adaptive(minimum: PhotoItemView.itemWidth, maximum: PhotoItemView.itemWidth))]
+    }
+    
+    init(photos: [PhotoAsset]) {
+        _photos = .constant(photos)
+        editingEnabled = false
+    }
+    
+    init(photos: Binding<[PhotoAsset]>) {
+        _photos = photos
+        editingEnabled = true
     }
     
     var filteredPhotos: Binding<[PhotoAsset]> {
@@ -39,7 +61,7 @@ struct PhotosGridView: View {
         ScrollView {
             LazyVGrid(columns: columns) {
                 ForEach(filteredPhotos) { $photo in
-                    PhotoItemView(asset: $photo) {
+                    PhotoItemView(asset: $photo, editingSelection: $editingSelection) {
                         withAnimation(.spring()) {
                             selectedPhoto = photo
                         }
@@ -74,6 +96,17 @@ struct PhotosGridView: View {
                     
                     if editingEnabled {
                         EditButton()
+                            .disabled(photos.isEmpty)
+                    }
+                }
+            }
+            
+            ToolbarItem(placement: .bottomBar) {
+                if editMode?.wrappedValue.isEditing ?? false {
+                    HStack {
+                        Spacer()
+
+                        DeleteButton(data: $photos, selection: $editingSelection)
                     }
                 }
             }
@@ -83,12 +116,21 @@ struct PhotosGridView: View {
                 selectedPhoto = nil
             }
         }
+        .onChange(of: editMode?.wrappedValue) { _ in
+            guard !editingSelection.isEmpty else { return }
+            editingSelection.removeAll()
+        }
+        .onChange(of: photos) { newValue in
+            if newValue.isEmpty {
+                dismiss()
+            }
+        }
     }
 }
 
 struct PhotosGridView_Previews: PreviewProvider {
     static var previews: some View {
-        PhotosGridView(photos: .constant(.example), selectedPhoto: .constant(.example), editingEnabled: false)
+        PhotosGridView(photos: .constant(.example))
             .environmentObject(DataController())
     }
 }

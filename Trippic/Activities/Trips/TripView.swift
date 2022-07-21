@@ -53,25 +53,24 @@ struct TripView: View {
                         }
                     } label: {
                         PhotoView(asset: $viewModel.trip.photo, content: CircleImage.init)
-                            .frame(width: 150, height: 150)
-                            .padding(.top, -130)
-                            .accessibilityAddTraits(.isButton)
-                            .overlay {
-                                if editingTrip {
-                                    PhotoPickerLink(idSelection: $newID) {
-                                        Image(systemName: "photo.fill.on.rectangle.fill")
-                                            .font(.largeTitle)
-                                            .contentShape(Rectangle())
-                                    }
-                                    .padding()
-                                    .background()
-                                    .cornerRadius(10)
-                                    .transition(.scale)
-                                    .padding(.top, -70)
-                                }
-                            }
                     }
                     .buttonStyle(.noPressEffect)
+                    .frame(width: 150, height: 150)
+                    .padding(.top, -130)
+                    .overlay {
+                        if editingTrip {
+                            PhotoPickerLink(idSelection: $newID) {
+                                Image(systemName: "photo.fill.on.rectangle.fill")
+                                    .font(.largeTitle)
+                                    .contentShape(Rectangle())
+                            }
+                            .padding()
+                            .background()
+                            .cornerRadius(10)
+                            .transition(.scale)
+                            .padding(.top, -70)
+                        }
+                    }
                     
                     VStack {
                         if !editingTrip {
@@ -188,7 +187,7 @@ struct TripView: View {
         }
         .background {
             NavigationLink(isActive: $showingPhotosGrid) {
-                PhotosView(photos: viewModel.trip.allPhotos)
+                PhotosGridView(photos: viewModel.trip.allPhotos)
                     .navigationTitle(viewModel.trip.name)
             } label: {
                 EmptyView()

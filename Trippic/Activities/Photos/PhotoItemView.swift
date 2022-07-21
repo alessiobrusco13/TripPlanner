@@ -9,10 +9,16 @@ import SwiftUI
 
 struct PhotoItemView: View {
     @Binding var asset: PhotoAsset
+    @Binding var editingSelection: Set<PhotoAsset>
     let action: () -> Void
     
     @EnvironmentObject var dataController: DataController
     @Environment(\.displayScale) private var displayScale
+    @Environment(\.editMode) private var editMode
+    
+    var selected: Bool {
+        editingSelection.contains(asset)
+    }
     
     static let itemWidth = 180.0
     
@@ -24,7 +30,13 @@ struct PhotoItemView: View {
     }
     
     var body: some View {
-        Button(action: action) {
+        Button {
+            if editMode?.wrappedValue != .active {
+                action()
+            } else {
+                toggleSelection()
+            }
+        } label: {
             PhotoView(asset: asset) { image in
                 image
                     .resizable()
@@ -34,17 +46,23 @@ struct PhotoItemView: View {
                     .onAppear {
                         dataController.startCaching([asset], targetSize: imageSize)
                     }
-                    .onDisappear {
-                        dataController.stopCaching([asset], targetSize: imageSize)
-                    }
             }
+        }
+        .buttonStyle(.outline(selected: selected))
+    }
+    
+    func toggleSelection() {
+        if selected {
+            editingSelection.remove(asset)
+        } else {
+            editingSelection.insert(asset)
         }
     }
 }
 
 struct PhotoItemView_Previews: PreviewProvider {
     static var previews: some View {
-        PhotoItemView(asset: .constant(.example)) { }
+        PhotoItemView(asset: .constant(.example), editingSelection: .constant(Set())) { }
             .environmentObject(DataController())
     }
 }
