@@ -39,6 +39,7 @@ struct TripsView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     if !dataController.trips.isEmpty {
                         EditButton()
+                            .frame(width: 32)
                     }
                 }
 

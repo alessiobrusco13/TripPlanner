@@ -10,6 +10,7 @@ import SwiftUI
 struct PhotosGridView: View {
     @Binding var photos: [PhotoAsset]
     let editingEnabled: Bool
+    let startingSelection: PhotoAsset?
     
     @State private var selectedPhoto: PhotoAsset?
     @State private var editingSelection = Set<PhotoAsset>()
@@ -34,11 +35,13 @@ struct PhotosGridView: View {
     init(photos: [PhotoAsset]) {
         _photos = .constant(photos)
         editingEnabled = false
+        startingSelection = nil
     }
     
-    init(photos: Binding<[PhotoAsset]>) {
+    init(photos: Binding<[PhotoAsset]>, startingSelection: PhotoAsset? = nil) {
         _photos = photos
         editingEnabled = true
+        self.startingSelection = startingSelection
     }
     
     var filteredPhotos: Binding<[PhotoAsset]> {
@@ -65,6 +68,9 @@ struct PhotosGridView: View {
                         withAnimation(.spring()) {
                             selectedPhoto = photo
                         }
+                    }
+                    .deleteContextMenu(contentShape: Rectangle()) {
+                        delete(photo)
                     }
                 }
                 .accessibilityHidden(selectedPhoto != nil)
@@ -94,9 +100,10 @@ struct PhotosGridView: View {
                         Image(systemName: showingFavorites ? "heart.slash" : "heart")
                     }
                     
-                    if editingEnabled {
+                    if editingEnabled && !photos.isEmpty {
                         EditButton()
-                            .disabled(photos.isEmpty)
+                            .frame(width: 32)
+                            .disabled(selectedPhoto != nil)
                     }
                 }
             }
@@ -125,6 +132,20 @@ struct PhotosGridView: View {
                 dismiss()
             }
         }
+        .task {
+            if let startingSelection = startingSelection {
+                try? await Task.sleep(nanoseconds: 100_000_000)
+                
+                withAnimation(.spring()) {
+                    selectedPhoto = startingSelection
+                }
+            }
+        }
+    }
+    
+    func delete(_ photo: PhotoAsset) {
+        guard let index = photos.firstIndex(of: photo) else { return }
+        photos.remove(at: index)
     }
 }
 

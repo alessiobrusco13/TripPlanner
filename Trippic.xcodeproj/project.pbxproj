@@ -61,6 +61,7 @@
 		89FA5FB72853EED60083EE75 /* PhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FA5FB62853EED60083EE75 /* PhotoLibrary.swift */; };
 		89FF84A02853AF5F000CBD55 /* NoPressEffectButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FF849F2853AF5F000CBD55 /* NoPressEffectButtonStyle.swift */; };
 		89FFDDC32888946600146312 /* DeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FFDDC22888946600146312 /* DeleteButton.swift */; };
+		89FFDDC528893F6D00146312 /* DeleteContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FFDDC428893F6D00146312 /* DeleteContextMenu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -121,6 +122,7 @@
 		89FA5FB62853EED60083EE75 /* PhotoLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibrary.swift; sourceTree = "<group>"; };
 		89FF849F2853AF5F000CBD55 /* NoPressEffectButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPressEffectButtonStyle.swift; sourceTree = "<group>"; };
 		89FFDDC22888946600146312 /* DeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButton.swift; sourceTree = "<group>"; };
+		89FFDDC428893F6D00146312 /* DeleteContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteContextMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +163,7 @@
 				89E1627C287494BA006047D3 /* PinchToZoom.swift */,
 				895D780C282D002D00EE846F /* LocationPicker */,
 				89D3D332287D8C2F004C2370 /* PlaceholderTextEditor.swift */,
+				89FFDDC428893F6D00146312 /* DeleteContextMenu.swift */,
 				8997475F28880D8800E74EBB /* OutlineButtonStyle.swift */,
 			);
 			path = Components;
@@ -388,6 +391,7 @@
 				8964BABD2821666B00922BCC /* ContentView.swift in Sources */,
 				895DC48E287DFB4200E4C0B3 /* DocumentPicker.swift in Sources */,
 				892768B3282C257900FBAEA0 /* LocationPickerViewModel.swift in Sources */,
+				89FFDDC528893F6D00146312 /* DeleteContextMenu.swift in Sources */,
 				8964BAC92821668800922BCC /* Trip.swift in Sources */,
 				89D3D335287D91E6004C2370 /* NotesView.swift in Sources */,
 				895DC496287E014200E4C0B3 /* DocumentPreview.swift in Sources */,

@@ -11,21 +11,20 @@ struct NotesView: View {
     @Binding var notes: [Note]
     @FocusState private var focusedNoteID: UUID?
     
+    @State private var editingSelection = Set<Note>()
+    @Environment(\.editMode) var editMode
+    
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView {
                 LazyVGrid(columns: [.init(.adaptive(minimum: 200, maximum: 200))]) {
                     ForEach($notes) { $note in
-                        NoteItemView(note: $note)
+                        NoteItemView(note: $note, editingSelection: $editingSelection)
                             .id(note.id)
                             .focused($focusedNoteID, equals: note.id)
                             .transition(.slide)
-                            .contextMenu {
-                                Button(role: .destructive) {
-                                    remove(note)
-                                } label: {
-                                    Label("Delete", systemImage: "trash")
-                                }
+                            .deleteContextMenu(contentShape: Rectangle()) {
+                                delete(note)
                             }
                     }
                 }
@@ -55,10 +54,27 @@ struct NotesView: View {
                 }
                 
                 ToolbarItem(placement: .primaryAction) {
-                    Button {
-                        notes.append(Note())
-                    } label: {
-                        Label("New Note", systemImage: "square.and.pencil")
+                    HStack(spacing: 20) {
+                        Button {
+                            notes.append(Note())
+                        } label: {
+                            Label("New Note", systemImage: "square.and.pencil")
+                        }
+                        
+                        if !notes.isEmpty {
+                            EditButton()
+                                .frame(width: 32)
+                        }
+                    }
+                }
+                
+                ToolbarItem(placement: .bottomBar) {
+                    if editMode?.wrappedValue.isEditing ?? false {
+                        HStack {
+                            Spacer()
+                            
+                            DeleteButton(data: $notes, selection: $editingSelection)
+                        }
                     }
                 }
             }
@@ -69,7 +85,7 @@ struct NotesView: View {
         }
     }
     
-    func remove(_ note: Note) {
+    func delete(_ note: Note) {
         guard let index = notes.firstIndex(of: note) else { return }
         notes.remove(at: index)
     }

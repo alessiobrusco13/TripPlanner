@@ -37,6 +37,7 @@ struct NewTripView: View {
                                     .foregroundStyle(.selection)
                             }
                         }
+                        .frame(height: 200)
 
                         Spacer()
                     }

@@ -29,6 +29,7 @@ struct OutlineButtonStyle: ButtonStyle {
                         .padding(.bottom, 5)
                 }
             }
+            .contentShape(Rectangle())
     }
 }
 

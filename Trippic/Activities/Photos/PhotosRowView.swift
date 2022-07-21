@@ -49,7 +49,7 @@ struct PhotosRowView<Content: View>: View {
                     
                     ForEach($location.photos) { $photo in
                         NavigationLink {
-                            PhotosGridView(photos: $location.photos)
+                            PhotosGridView(photos: $location.photos, startingSelection: photo)
                         } label: {
                             PhotoView(asset: photo) { image in
                                 image
