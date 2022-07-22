@@ -11,11 +11,11 @@
 		891AF911282184FC00BD691F /* NewTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891AF910282184FC00BD691F /* NewTripView.swift */; };
 		891AF91328218B8400BD691F /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891AF91228218B8400BD691F /* PhotoPicker.swift */; };
 		8923EC27283F6A21000557C0 /* PhotosGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8923EC26283F6A21000557C0 /* PhotosGridView.swift */; };
-		892768AD282B9EC400FBAEA0 /* LocationRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892768AC282B9EC400FBAEA0 /* LocationRowView.swift */; };
+		892768AD282B9EC400FBAEA0 /* LocationInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892768AC282B9EC400FBAEA0 /* LocationInfoView.swift */; };
 		892768B1282C255D00FBAEA0 /* LocationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892768B0282C255D00FBAEA0 /* LocationPicker.swift */; };
 		892768B3282C257900FBAEA0 /* LocationPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892768B2282C257900FBAEA0 /* LocationPickerViewModel.swift */; };
 		892A756D28468B970002DB4B /* FavouriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892A756C28468B970002DB4B /* FavouriteButton.swift */; };
-		892B9F29283A9B3F00235819 /* PhotosRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B9F28283A9B3F00235819 /* PhotosRowView.swift */; };
+		892B9F29283A9B3F00235819 /* LocationRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B9F28283A9B3F00235819 /* LocationRowView.swift */; };
 		892B9F2D283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B9F2C283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift */; };
 		895D12B6282831750071DC98 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D12B5282831750071DC98 /* LocationView.swift */; };
 		895DC48B287DF75800E4C0B3 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895DC48A287DF75800E4C0B3 /* Document.swift */; };
@@ -73,12 +73,12 @@
 		891AF91228218B8400BD691F /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		891AF91628218F1700BD691F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8923EC26283F6A21000557C0 /* PhotosGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosGridView.swift; sourceTree = "<group>"; };
-		892768AC282B9EC400FBAEA0 /* LocationRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRowView.swift; sourceTree = "<group>"; };
+		892768AC282B9EC400FBAEA0 /* LocationInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInfoView.swift; sourceTree = "<group>"; };
 		892768B0282C255D00FBAEA0 /* LocationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPicker.swift; sourceTree = "<group>"; };
 		892768B2282C257900FBAEA0 /* LocationPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerViewModel.swift; sourceTree = "<group>"; };
 		892768B6282CF90C00FBAEA0 /* Trippic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Trippic.entitlements; sourceTree = "<group>"; };
 		892A756C28468B970002DB4B /* FavouriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteButton.swift; sourceTree = "<group>"; };
-		892B9F28283A9B3F00235819 /* PhotosRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosRowView.swift; sourceTree = "<group>"; };
+		892B9F28283A9B3F00235819 /* LocationRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRowView.swift; sourceTree = "<group>"; };
 		892B9F2C283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "[CLLocationCoordinate2D]-centerCoordinate.swift"; sourceTree = "<group>"; };
 		895D12B5282831750071DC98 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		895DC48A287DF75800E4C0B3 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -280,7 +280,8 @@
 			isa = PBXGroup;
 			children = (
 				895D12B5282831750071DC98 /* LocationView.swift */,
-				892768AC282B9EC400FBAEA0 /* LocationRowView.swift */,
+				892B9F28283A9B3F00235819 /* LocationRowView.swift */,
+				892768AC282B9EC400FBAEA0 /* LocationInfoView.swift */,
 				8964BACA2821676400922BCC /* Location.swift */,
 				8964BACC2821677400922BCC /* Coordinates.swift */,
 			);
@@ -293,7 +294,6 @@
 				899AA1B1284274670080CD11 /* PhotoPageView.swift */,
 				89F67AFB287CA4FA0095DD21 /* PhotoItemView.swift */,
 				8923EC26283F6A21000557C0 /* PhotosGridView.swift */,
-				892B9F28283A9B3F00235819 /* PhotosRowView.swift */,
 				89B0A16E28480686008CEACF /* PhotosTabView.swift */,
 				89FA5FB42853E9C00083EE75 /* PhotoView.swift */,
 				891AF91228218B8400BD691F /* PhotoPicker.swift */,
@@ -392,7 +392,7 @@
 				89C7CA8D283564EC008E3F72 /* UIImage-example.swift in Sources */,
 				89F67AFA287CA0850095DD21 /* MKMapItem-Location.swift in Sources */,
 				895DC49E287E0E8200E4C0B3 /* DocumentsRowView.swift in Sources */,
-				892B9F29283A9B3F00235819 /* PhotosRowView.swift in Sources */,
+				892B9F29283A9B3F00235819 /* LocationRowView.swift in Sources */,
 				892768B1282C255D00FBAEA0 /* LocationPicker.swift in Sources */,
 				895DC48B287DF75800E4C0B3 /* Document.swift in Sources */,
 				89FA5FB52853E9C00083EE75 /* PhotoView.swift in Sources */,
@@ -410,7 +410,7 @@
 				895DC496287E014200E4C0B3 /* DocumentPreview.swift in Sources */,
 				895DC498287E023900E4C0B3 /* DocumentThumbnail.swift in Sources */,
 				8965A876284353F30065ED88 /* TripsView.swift in Sources */,
-				892768AD282B9EC400FBAEA0 /* LocationRowView.swift in Sources */,
+				892768AD282B9EC400FBAEA0 /* LocationInfoView.swift in Sources */,
 				89D3D333287D8C2F004C2370 /* PlaceholderTextEditor.swift in Sources */,
 				899049362821A94500E2BD9F /* TripRowView.swift in Sources */,
 				8964BACB2821676400922BCC /* Location.swift in Sources */,

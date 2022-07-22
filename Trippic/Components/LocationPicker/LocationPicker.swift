@@ -97,7 +97,7 @@ extension LocationPickerView_Previews {
             NavigationView {
                 VStack {
                     if let selection = selection {
-                        LocationRowView(location: .constant(selection), navigationLinkActive: .constant(false))
+                        LocationInfoView(location: .constant(selection), navigationLinkActive: .constant(false))
                     }
                     
                     Button(String("Pick Location")) {

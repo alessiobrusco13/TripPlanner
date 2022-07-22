@@ -12,15 +12,15 @@ struct TripView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject private var dataController: DataController
     
+    @State private var showingTripPhoto = false
+    @State private var showingPhotosGrid = false
+    @State private var gridNavigationLink = false
     @State private var showingLocationPicker = false
     @StateObject private var viewModel: ViewModel
     
     @FocusState private var editingName: Bool
     @State private var editingTrip = false
     @State private var newID: String?
-    
-    @State private var showingPhotosGrid = false
-    @State private var showingTripPhoto = false
     
     init(trip: Trip) {
         _viewModel = StateObject(wrappedValue: ViewModel(trip: trip))
@@ -42,6 +42,7 @@ struct TripView: View {
                     .cornerRadius(15)
                     .padding([.horizontal, .top])
                 }
+                .accessibilityLabel("Map")
                 .overlay(alignment: .topTrailing) {
                     VStack(spacing: 10) {
                         Button {

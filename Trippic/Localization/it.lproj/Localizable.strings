@@ -79,7 +79,7 @@
 "There aren't any notes for this trip." = "Non ci sono ancora appunti per questo itinierario";
 
 /* No comment provided by engineer. */
-"There aren't any trips." = "Non ci sono itinerari.";
+"There aren't any trips." = "Non ci sono itinerari";
 
 /* No comment provided by engineer. */
 "Trip Name" = "Nome Itinerario";
@@ -113,3 +113,6 @@
 
 /* No comment provided by engineer. */
 "%@. Start: %@; End: %@." = "%@. Inizio: %@; Fine: %@.";
+
+/* No comment provided by engineer. */
+"Map" = "Mappa";

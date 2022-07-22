@@ -65,7 +65,7 @@ struct NotesView: View {
                         
                         if !notes.isEmpty {
                             EditButton()
-                                .frame(width: 66)
+                                .frame(width: 44)
                         }
                     }
                 }

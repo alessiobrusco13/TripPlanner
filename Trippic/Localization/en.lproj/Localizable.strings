@@ -113,3 +113,6 @@
 
 /* No comment provided by engineer. */
 "%@. Start: %@; End: %@." = "%@. Inizio: %@; Fine: %@.";
+
+/* No comment provided by engineer. */
+"Map" = "Map";

@@ -69,7 +69,7 @@ struct PhotosGridView: View {
                             selectedPhoto = photo
                         }
                     }
-                    .deleteContextMenu(contentShape: Rectangle()) {
+                    .deleteContextMenu(contentShape: Rectangle(), enabled: editingEnabled) {
                         delete(photo)
                     }
                 }
@@ -103,7 +103,7 @@ struct PhotosGridView: View {
                     
                     if editingEnabled && !photos.isEmpty {
                         EditButton()
-                            .frame(width: 66)
+                            .frame(width: 44)
                             .disabled(selectedPhoto != nil)
                     }
                 }
