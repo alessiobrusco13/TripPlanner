@@ -5,7 +5,6 @@
 //  Created by Alessio Garzia Marotta Brusco on 11/05/22.
 //
 
-import Combine
 import Foundation
 import MapKit
 
@@ -26,6 +25,10 @@ extension LocationPicker {
             }
         }
         
+        var isLoading: Bool {
+            locations.isEmpty && !searchText.isEmpty
+        }
+        
         private func results() async throws -> [Location] {
             let request = MKLocalSearch.Request()
             request.pointOfInterestFilter = .includingAll
@@ -33,10 +36,6 @@ extension LocationPicker {
             
             let search = MKLocalSearch(request: request)
             return try await search.start().mapItems.map(Location.init)
-        }
-        
-        var isLoading: Bool {
-            locations.isEmpty && !searchText.isEmpty
         }
     }
 }

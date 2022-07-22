@@ -37,7 +37,7 @@
 "Done" = "Fatto";
 
 /* No comment provided by engineer. */
-"Edit Trip" = "Modifica Viaggio";
+"Edit Trip" = "Modifica Itinerario";
 
 /* No comment provided by engineer. */
 "End date" = "Data di fine";
@@ -46,7 +46,7 @@
 "End date:" = "Data di fine:";
 
 /* No comment provided by engineer. */
-"Enter trip name" = "Inserire nome del viaggio";
+"Enter trip name" = "Inserire nome del Itinerario";
 
 /* No comment provided by engineer. */
 "Name:" = "Nome:";
@@ -76,28 +76,28 @@
 "Start date:" = "Data di' inizio:";
 
 /* No comment provided by engineer. */
-"There aren't any notes for this trip." = "Questo viaggio non ha appunti.";
+"There aren't any notes for this trip." = "Non ci sono ancora appunti per questo itinierario";
 
 /* No comment provided by engineer. */
-"There aren't any trips." = "Non ci sono viaggio.";
+"There aren't any trips." = "Non ci sono Itinerario.";
 
 /* No comment provided by engineer. */
-"Trip Name" = "Nome Viaggio";
+"Trip Name" = "Nome Itinerario";
 
 /* No comment provided by engineer. */
-"Trips" = "Viaggi";
+"Trips" = "Itinerari";
 
 /* No comment provided by engineer. */
-"New Trip" = "Nuovo viaggio";
+"New Trip" = "Nuovo Itinerario";
 
 /* No comment provided by engineer. */
-"Delete Trip" = "Elimina Viaggio";
+"Delete Trip" = "Elimina Itinerario";
 
 /* No comment provided by engineer. */
 "Type here..." = "Digita qui...";
 
 /* No comment provided by engineer. */
-"Type to edit note..." = "Digita per modificare l'appunto...";
+"Type to edit note..." = "Digita quì modificare l'appunto...";
 
 /* No comment provided by engineer. */
 "Type to find a location." = "Digita per trovare una tappa.";
@@ -107,3 +107,6 @@
 
 /* No comment provided by engineer. */
 "Swipe to search locations" = "Fai uno swipe per cercare tappe";
+
+/* No comment provided by engineer. */
+"Delete Selection" = "Elimina Selezione";
