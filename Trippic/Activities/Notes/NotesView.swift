@@ -17,7 +17,7 @@ struct NotesView: View {
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView {
-                LazyVGrid(columns: [.init(.adaptive(minimum: 200, maximum: 200))]) {
+                LazyVGrid(columns: [.init(.adaptive(minimum: 150, maximum: 200))]) {
                     ForEach($notes) { $note in
                         NoteItemView(note: $note, editingSelection: $editingSelection)
                             .id(note.id)
@@ -36,6 +36,7 @@ struct NotesView: View {
                 if notes.isEmpty {
                     Text("There aren't any notes for this trip.")
                         .font(.title3)
+                        .multilineTextAlignment(.center)
                         .foregroundColor(.secondary)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .transition(.opacity)

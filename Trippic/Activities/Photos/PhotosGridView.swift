@@ -99,6 +99,7 @@ struct PhotosGridView: View {
                     } label: {
                         Image(systemName: showingFavorites ? "heart.slash" : "heart")
                     }
+                    .disabled(selectedPhoto != nil)
                     
                     if editingEnabled && !photos.isEmpty {
                         EditButton()

@@ -110,3 +110,6 @@
 
 /* No comment provided by engineer. */
 "Delete Selection" = "Delete Selection";
+
+/* No comment provided by engineer. */
+"%@. Start: %@; End: %@." = "%@. Inizio: %@; Fine: %@.";

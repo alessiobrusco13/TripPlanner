@@ -80,12 +80,14 @@ struct NewTripView: View {
                     } label: {
                         Label("Done", systemImage: "checkmark")
                             .font(.body.weight(.semibold))
+                            .contentShape(Circle())
                     }
                     .disabled(newTrip.name.isEmpty || (newTrip.photo == .example))
                 }
 
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Dismiss", action: dismiss.callAsFunction)
+                        .contentShape(Rectangle())
                 }
             }
             .onChange(of: newID) { id in

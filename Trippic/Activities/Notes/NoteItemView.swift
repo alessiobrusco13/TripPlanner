@@ -39,7 +39,7 @@ struct NoteItemView: View {
                 RoundedRectangle(cornerRadius: 15)
                     .stroke(.quaternary)
             }
-            .frame(width: 200, height: 200)
+            .frame(height: 200)
         }
         .buttonStyle(.outline(selected: selected))
     }

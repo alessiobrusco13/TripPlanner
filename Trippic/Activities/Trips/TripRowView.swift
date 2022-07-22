@@ -10,10 +10,6 @@ import SwiftUI
 struct TripRowView: View {
     @ObservedObject var trip: Trip
 
-    var dateFormat: Date.FormatStyle {
-        .dateTime.day().month()
-    }
-
     var body: some View {
         NavigationLink {
             TripView(trip: trip)
@@ -22,12 +18,12 @@ struct TripRowView: View {
                 HStack {
                     VStack(alignment: .leading) {
                         HStack(spacing: 5) {
-                            Text(trip.startDate, format: dateFormat)
+                            Text(trip.startDate, format: dateFormat(trip.startDate))
                             
                             Image(systemName: "arrow.right")
                                 .font(.caption.weight(.heavy))
                             
-                            Text(trip.endDate, format: dateFormat)
+                            Text(trip.endDate, format: dateFormat(trip.endDate))
                         }
                         .font(.headline)
                         
@@ -53,7 +49,19 @@ struct TripRowView: View {
             }
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         }
+        .accessibilityLabel("\(trip.name). Start: \(trip.startDate, format: dateFormat(trip.startDate)); End: \(trip.endDate, format: dateFormat(trip.endDate)).")
         .listRowSeparator(.hidden, edges: .all)
+    }
+    
+    func dateFormat(_ date:  Date) -> Date.FormatStyle {
+        let dateYear = Calendar.current.dateComponents([.year], from: date)
+        let currentYear = Calendar.current.dateComponents([.year], from: .now)
+        
+        if dateYear == currentYear {
+            return .dateTime.day().month()
+        } else {
+            return .dateTime.day().month().year()
+        }
     }
 }
 
