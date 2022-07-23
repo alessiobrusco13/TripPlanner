@@ -160,8 +160,8 @@ struct TripView: View {
                     }
                 }
                 
-                ForEach($viewModel.trip.locations) {
-                    LocationView(location: $0, trip: viewModel.trip)
+                ForEach($viewModel.trip.locations) { $location in
+                    LocationView(location: $location, allLocations: $viewModel.trip.locations)
                 }
                 
                 Color.clear
@@ -175,11 +175,11 @@ struct TripView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                HStack(spacing: 20) {
+                HStack(spacing: 10) {
                     Button {
                         showingLocationPicker.toggle()
                     } label: {
-                        Image(systemName: "doc.badge.plus")
+                        Label("New Location", systemImage: "plus.circle")
                     }
                     
                     Menu {

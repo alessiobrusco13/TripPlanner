@@ -40,7 +40,7 @@ struct LocationInfoView: View {
     }
 }
 
-struct LocationRowView_Previews: PreviewProvider {
+struct LocationInfoView_Previews: PreviewProvider {
     static var previews: some View {
         LocationInfoView(location: .constant(Location.example), navigationLinkActive: .constant(false))
     }

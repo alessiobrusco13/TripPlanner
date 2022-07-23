@@ -38,6 +38,7 @@ struct LocationPicker: View {
             }
             .searchable(text: $viewModel.searchText)
             .navigationTitle("Select your location")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel", action: dismiss.callAsFunction)

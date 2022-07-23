@@ -39,6 +39,7 @@ struct NotesView: View {
                         .multilineTextAlignment(.center)
                         .foregroundColor(.secondary)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .padding()
                         .transition(.opacity)
                 }
             }
@@ -56,16 +57,13 @@ struct NotesView: View {
                 
                 ToolbarItem(placement: .primaryAction) {
                     HStack(spacing: 20) {
-                        Button {
-                            notes.append(Note())
-                            editMode?.wrappedValue = .inactive
-                        } label: {
+                        Button(action: appendNote) {
                             Label("New Note", systemImage: "square.and.pencil")
                         }
                         
                         if !notes.isEmpty {
                             EditButton()
-                                .frame(width: 44)
+                                .frame(width: 55)
                         }
                     }
                 }
@@ -84,6 +82,9 @@ struct NotesView: View {
             .onChange(of: focusedNoteID) {
                 scrollTo($0, proxy: proxy)
             }
+            .onChange(of: editMode?.wrappedValue) { _ in
+                focusedNoteID = nil
+            }
         }
     }
     
@@ -96,6 +97,16 @@ struct NotesView: View {
         guard let id = id else { return }
         withAnimation {
             proxy.scrollTo(id, anchor: .bottom)
+        }
+    }
+    
+    func appendNote() {
+        let note = Note()
+        editMode?.wrappedValue = .inactive
+        
+        withAnimation {
+            notes.append(note)
+            focusedNoteID = note.id
         }
     }
 }
