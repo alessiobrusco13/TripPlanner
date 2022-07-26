@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-class Trip: ObservableObject, Identifiable, Codable, Hashable {
+class Trip: ObservableObject, Identifiable, Codable, Hashable, Comparable {
     enum CodingKeys: CodingKey {
-        case name, startDate, endDate, photo, locations, notes
+        case name, startDate, endDate, photo, locations, notes, mapDelta
     }
 
     let id = UUID()
@@ -20,6 +20,7 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable {
     @Published var photo = PhotoAsset.example
     @Published var locations = [Location]()
     @Published var notes = [Note]()
+    @Published var mapDelta: Coordinates?
     
     var allPhotos: [PhotoAsset] {
         Array(
@@ -38,6 +39,10 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable {
 
     static func == (lhs: Trip, rhs: Trip) -> Bool {
         lhs.id == rhs.id
+    }
+    
+    static func < (lhs: Trip, rhs: Trip) -> Bool {
+        lhs.startDate > rhs.startDate
     }
 
     init() { }
@@ -63,6 +68,7 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable {
         try container.encode(photo, forKey: .photo)
         try container.encode(locations, forKey: .locations)
         try container.encode(notes, forKey: .notes)
+        try container.encode(mapDelta, forKey: .mapDelta)
     }
     
     private func decodeData(container: KeyedDecodingContainer<Trip.CodingKeys>) throws {
@@ -72,6 +78,7 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable {
         endDate = try container.decode(Date.self, forKey: .endDate)
         locations = try container.decode([Location].self, forKey: .locations)
         notes = try container.decode([Note].self, forKey: .notes)
+        mapDelta = try container.decode(Coordinates?.self, forKey: .mapDelta)
     }
 
     func delete(_ location: Location) {

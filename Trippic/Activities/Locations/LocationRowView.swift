@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct LocationRowView: View {
-    @EnvironmentObject private var dataController: DataController
     @Binding var location: Location
     @Binding var allLocations: [Location]
     
@@ -16,7 +15,9 @@ struct LocationRowView: View {
     @State private var newLocation: Location?
     @State private var newIdentifier: String?
     @State private var changingLocation = false
+    
     @Environment(\.editMode) private var editMode
+    @EnvironmentObject private var dataController: DataController
     
     var rows: [GridItem] {
         [.init(.flexible(minimum: 200, maximum: 200))]
@@ -26,7 +27,7 @@ struct LocationRowView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHGrid(rows: rows, pinnedViews: .sectionFooters) {
                 Section {
-                    LocationMapView(location: location)
+                    LocationMapView(location: $location)
                     PhotosRowView(photos: $location.photos)
                 } footer: {
                     buttons
@@ -37,7 +38,10 @@ struct LocationRowView: View {
         .ignoresSafeArea()
         .onChange(of: newIdentifier) { identifier in
             guard let identifier =  identifier else { return }
-            location.photos.append(PhotoAsset(identifier: identifier))
+            
+            withAnimation {
+                location.photos.append(PhotoAsset(identifier: identifier))
+            }
         }
         .confirmationDialog(
             "Are you sure you want to permanently delete this location?",
@@ -54,6 +58,9 @@ struct LocationRowView: View {
                 guard let newValue = newValue else { return }
                 location.update(location: newValue)
             }
+        }
+        .onChange(of: location.photos) {
+            dump($0)
         }
     }
     

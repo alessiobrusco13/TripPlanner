@@ -18,7 +18,8 @@ struct TripsView: View {
     var body: some View {
         NavigationView {
             List(selection: $selectedTrips) {
-                ForEach(dataController.trips) { trip in
+                ForEach(dataController.trips.sorted(
+                )) { trip in
                     TripRowView(trip: trip)
                         .tag(trip)
                 }

@@ -46,6 +46,7 @@ struct PhotoView<Content: View>: View {
                 switch result {
                 case .success(let image):
                     self.image = image
+                    
                 case .failure(let error):
                     print(error)
                     

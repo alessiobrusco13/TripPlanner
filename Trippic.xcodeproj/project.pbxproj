@@ -16,6 +16,7 @@
 		892768AD282B9EC400FBAEA0 /* LocationInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892768AC282B9EC400FBAEA0 /* LocationInfoView.swift */; };
 		892768B1282C255D00FBAEA0 /* LocationPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892768B0282C255D00FBAEA0 /* LocationPicker.swift */; };
 		892768B3282C257900FBAEA0 /* LocationPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892768B2282C257900FBAEA0 /* LocationPickerViewModel.swift */; };
+		892919D5288E86F9002D4E35 /* UIImage-toSRGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892919D4288E86F9002D4E35 /* UIImage-toSRGB.swift */; };
 		892A756D28468B970002DB4B /* FavouriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892A756C28468B970002DB4B /* FavouriteButton.swift */; };
 		892B9F29283A9B3F00235819 /* LocationRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B9F28283A9B3F00235819 /* LocationRowView.swift */; };
 		892B9F2D283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B9F2C283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift */; };
@@ -48,6 +49,7 @@
 		899AA1B8284284800080CD11 /* PhotoAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899AA1B7284284800080CD11 /* PhotoAsset.swift */; };
 		89B0A16F28480686008CEACF /* PhotosTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B0A16E28480686008CEACF /* PhotosTabView.swift */; };
 		89C7CA8D283564EC008E3F72 /* UIImage-example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C7CA8C283564EC008E3F72 /* UIImage-example.swift */; };
+		89CFAC55288EA5DE007D80BF /* Date.FormatStyle-tripFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CFAC54288EA5DE007D80BF /* Date.FormatStyle-tripFormat.swift */; };
 		89D3D32F287D8740004C2370 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D3D32E287D8740004C2370 /* Note.swift */; };
 		89D3D331287D87EA004C2370 /* NoteItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D3D330287D87EA004C2370 /* NoteItemView.swift */; };
 		89D3D333287D8C2F004C2370 /* PlaceholderTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D3D332287D8C2F004C2370 /* PlaceholderTextEditor.swift */; };
@@ -81,6 +83,7 @@
 		892768B0282C255D00FBAEA0 /* LocationPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPicker.swift; sourceTree = "<group>"; };
 		892768B2282C257900FBAEA0 /* LocationPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerViewModel.swift; sourceTree = "<group>"; };
 		892768B6282CF90C00FBAEA0 /* Trippic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Trippic.entitlements; sourceTree = "<group>"; };
+		892919D4288E86F9002D4E35 /* UIImage-toSRGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage-toSRGB.swift"; sourceTree = "<group>"; };
 		892A756C28468B970002DB4B /* FavouriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteButton.swift; sourceTree = "<group>"; };
 		892B9F28283A9B3F00235819 /* LocationRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRowView.swift; sourceTree = "<group>"; };
 		892B9F2C283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "[CLLocationCoordinate2D]-centerCoordinate.swift"; sourceTree = "<group>"; };
@@ -114,6 +117,7 @@
 		899AA1B7284284800080CD11 /* PhotoAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAsset.swift; sourceTree = "<group>"; };
 		89B0A16E28480686008CEACF /* PhotosTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTabView.swift; sourceTree = "<group>"; };
 		89C7CA8C283564EC008E3F72 /* UIImage-example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage-example.swift"; sourceTree = "<group>"; };
+		89CFAC54288EA5DE007D80BF /* Date.FormatStyle-tripFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date.FormatStyle-tripFormat.swift"; sourceTree = "<group>"; };
 		89D3D32E287D8740004C2370 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		89D3D330287D87EA004C2370 /* NoteItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteItemView.swift; sourceTree = "<group>"; };
 		89D3D332287D8C2F004C2370 /* PlaceholderTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTextEditor.swift; sourceTree = "<group>"; };
@@ -271,11 +275,13 @@
 			isa = PBXGroup;
 			children = (
 				8964BAD028216E2600922BCC /* KeyedEncodingContainer-UIImage.swift */,
+				892919D4288E86F9002D4E35 /* UIImage-toSRGB.swift */,
 				892B9F2C283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift */,
 				8964BAD22821733F00922BCC /* FileManager-documentsDirectory.swift */,
 				89C7CA8C283564EC008E3F72 /* UIImage-example.swift */,
 				89F67AF9287CA0850095DD21 /* MKMapItem-Location.swift */,
 				895DC493287DFF6C00E4C0B3 /* URL-exampleDocument.swift */,
+				89CFAC54288EA5DE007D80BF /* Date.FormatStyle-tripFormat.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -426,6 +432,7 @@
 				899AA1B8284284800080CD11 /* PhotoAsset.swift in Sources */,
 				895DC490287DFE5F00E4C0B3 /* DocumentPickerLink.swift in Sources */,
 				8964BABB2821666B00922BCC /* TrippicApp.swift in Sources */,
+				89CFAC55288EA5DE007D80BF /* Date.FormatStyle-tripFormat.swift in Sources */,
 				8964BAD32821733F00922BCC /* FileManager-documentsDirectory.swift in Sources */,
 				8997476028880D8800E74EBB /* OutlineButtonStyle.swift in Sources */,
 				89F67AFE287CA8480095DD21 /* FullscreenMapView.swift in Sources */,
@@ -433,6 +440,7 @@
 				895DC494287DFF6C00E4C0B3 /* URL-exampleDocument.swift in Sources */,
 				89D3D337287DA927004C2370 /* NotesRowView.swift in Sources */,
 				8964BAD6282173C100922BCC /* DataController.swift in Sources */,
+				892919D5288E86F9002D4E35 /* UIImage-toSRGB.swift in Sources */,
 				891ABB042864E839003D20A5 /* PhotoPickerLink.swift in Sources */,
 				8990493C2822644B00E2BD9F /* TripView.swift in Sources */,
 				89D3D331287D87EA004C2370 /* NoteItemView.swift in Sources */,

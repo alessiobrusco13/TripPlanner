@@ -10,10 +10,10 @@ import SwiftUI
 
 struct PhotoAsset: Identifiable, Hashable, Codable {
     enum CodingKeys: CodingKey {
-        case identifier, isFavorite
+        case id, identifier, isFavorite
     }
     
-    let id = UUID()
+    let id: UUID
     
     var identifier: String
     var isFavorite: Bool
@@ -35,6 +35,7 @@ struct PhotoAsset: Identifiable, Hashable, Codable {
 
     init(image: UIImage) {
         identifier = UUID().uuidString
+        id = UUID()
         self.isFavorite = false
         self.phAsset = Self.loadPHAsset(withIdentifier: identifier)
     }
@@ -44,12 +45,14 @@ struct PhotoAsset: Identifiable, Hashable, Codable {
         self.index = index
         self.identifier = phAsset.localIdentifier
         self.isFavorite = false
+        id = UUID()
     }
     
     init(identifier: String) {
         self.identifier = identifier
         self.phAsset = Self.loadPHAsset(withIdentifier: identifier)
         self.isFavorite = false
+        id = UUID()
     }
 
     init(from decoder: Decoder) throws {
@@ -57,6 +60,7 @@ struct PhotoAsset: Identifiable, Hashable, Codable {
 
         self.identifier = try container.decode(String.self, forKey: .identifier)
         self.isFavorite = try container.decode(Bool.self, forKey: .isFavorite)
+        self.id = try container.decode(UUID.self, forKey: .id)
     
         self.phAsset = Self.loadPHAsset(withIdentifier: identifier)
     }
@@ -66,6 +70,7 @@ struct PhotoAsset: Identifiable, Hashable, Codable {
 
         try container.encode(identifier, forKey: .identifier)
         try container.encode(isFavorite, forKey: .isFavorite)
+        try container.encode(id, forKey: .id)
     }
 
     func hash(into hasher: inout Hasher) {

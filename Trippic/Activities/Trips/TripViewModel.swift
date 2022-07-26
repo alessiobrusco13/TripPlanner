@@ -19,8 +19,13 @@ extension TripView {
         @Published var trip: Trip
         @Published var newLocation: Location?
         
+        @Published var startDate: Date
+        @Published var endDate: Date
+        
         init(trip: Trip) {
             self.trip = trip
+            startDate = trip.startDate
+            endDate = trip.endDate
         }
         
         func setRegion() {
@@ -29,12 +34,35 @@ extension TripView {
                     miniMapRegion = try await guessedRegion(meters: 30_000)
                 }
             } else {
-                miniMapRegion = MKCoordinateRegion(
-                    center: trip.locations.map(\.locationCoordinates).center,
-                    latitudinalMeters: 20_000,
-                    longitudinalMeters: 20_000
-                )
+                if let delta = trip.mapDelta {
+                    miniMapRegion = MKCoordinateRegion(
+                        center: trip.locations.map(\.locationCoordinates).center,
+                        span: MKCoordinateSpan(latitudeDelta: delta.latitude, longitudeDelta: delta.longitude)
+                    )
+                    
+                } else {
+                    miniMapRegion = MKCoordinateRegion(
+                        center: trip.locations.map(\.locationCoordinates).center,
+                        latitudinalMeters: 20_000,
+                        longitudinalMeters: 20_000
+                    )
+                }
             }
+        }
+        
+        private func updateDelta() {
+            let span = miniMapRegion.span
+            trip.mapDelta = Coordinates(longitude: span.longitudeDelta, latitude: span.latitudeDelta)
+        }
+        
+        private func updateDates() {
+            trip.startDate = startDate
+            trip.endDate = endDate
+        }
+        
+        func updateTrip() {
+            updateDates()
+            updateDelta()
         }
         
         func zoomInMiniMap() {
@@ -52,11 +80,18 @@ extension TripView {
                 throw CLError(.geocodeFoundNoResult)
             }
             
-            return MKCoordinateRegion(
-                center: center,
-                latitudinalMeters: meters,
-                longitudinalMeters: meters
-            )
+            if let delta = trip.mapDelta {
+                return MKCoordinateRegion(
+                    center: center,
+                    span: MKCoordinateSpan(latitudeDelta: delta.latitude, longitudeDelta: delta.longitude)
+                )
+            } else {
+                return MKCoordinateRegion(
+                    center: center,
+                    latitudinalMeters: meters,
+                    longitudinalMeters: meters
+                )
+            }
         }
         
         private func updateRegions() {

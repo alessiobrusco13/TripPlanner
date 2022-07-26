@@ -143,6 +143,7 @@ struct PhotosGridView: View {
     func delete(_ photo: PhotoAsset) {
         guard let index = photos.firstIndex(of: photo) else { return }
         photos.remove(at: index)
+        dataController.stopCaching([photo], targetSize: imageSize)
     }
 }
 

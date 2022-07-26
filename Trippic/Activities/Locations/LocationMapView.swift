@@ -9,7 +9,7 @@ import MapKit
 import SwiftUI
 
 struct LocationMapView: View {
-    let location: Location
+    @Binding var location: Location
     
     var region: MKCoordinateRegion {
         MKCoordinateRegion(
@@ -43,6 +43,6 @@ struct LocationMapView: View {
 
 struct LocationMapView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationMapView(location: .example)
+        LocationMapView(location: .constant(.example))
     }
 }

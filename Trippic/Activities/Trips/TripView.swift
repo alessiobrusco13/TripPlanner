@@ -26,6 +26,14 @@ struct TripView: View {
         _viewModel = StateObject(wrappedValue: ViewModel(trip: trip))
     }
     
+    var formattedStartDate: String {
+        viewModel.startDate.formatted(Trip.dateFormat(viewModel.startDate))
+    }
+    
+    var formattedEndDate: String {
+        viewModel.endDate.formatted(Trip.dateFormat(viewModel.endDate))
+    }
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
@@ -44,7 +52,7 @@ struct TripView: View {
                 }
                 .accessibilityLabel("Map")
                 .overlay(alignment: .topTrailing) {
-                    VStack(spacing: 10) {
+                    VStack {
                         Button {
                             withAnimation {
                                 viewModel.zoomInMiniMap()
@@ -52,10 +60,11 @@ struct TripView: View {
                         } label: {
                             Label("Zoom in", systemImage: "plus.magnifyingglass")
                                 .labelStyle(.iconOnly)
+                                .padding(5)
                         }
                         
                         Divider()
-                            .frame(width: 15)
+                            .frame(width: 20)
                         
                         Button {
                             withAnimation {
@@ -64,6 +73,7 @@ struct TripView: View {
                         } label: {
                             Label("Zoom out", systemImage: "minus.magnifyingglass")
                                 .labelStyle(.iconOnly)
+                                .padding(5)
                         }
                     }
                     .foregroundStyle(.secondary)
@@ -82,25 +92,25 @@ struct TripView: View {
                             }
                         }
                     } label: {
-                        PhotoView(asset: $viewModel.trip.photo, content: CircleImage.init)
+                        if !editingTrip {
+                            PhotoView(asset: $viewModel.trip.photo, content: CircleImage.init)
+                        } else {
+                            PhotoPickerLink(idSelection: $newID) {
+                                PhotoView(asset: $viewModel.trip.photo, content: CircleImage.init)
+                                    .overlay {
+                                        Image(systemName: "photo.fill.on.rectangle.fill")
+                                            .font(.largeTitle)
+                                            .foregroundStyle(.selection)
+                                            .padding()
+                                            .background()
+                                            .cornerRadius(15)
+                                    }
+                            }
+                        }
                     }
                     .buttonStyle(.noPressEffect)
                     .frame(width: 150, height: 150)
                     .padding(.top, -130)
-                    .overlay {
-                        if editingTrip {
-                            PhotoPickerLink(idSelection: $newID) {
-                                Image(systemName: "photo.fill.on.rectangle.fill")
-                                    .font(.largeTitle)
-                                    .contentShape(Rectangle())
-                            }
-                            .padding()
-                            .background()
-                            .cornerRadius(10)
-                            .transition(.scale)
-                            .padding(.top, -70)
-                        }
-                    }
                     
                     VStack {
                         if !editingTrip {
@@ -125,15 +135,16 @@ struct TripView: View {
                                 .font(.title3.weight(.bold))
                             }
                             .frame(maxWidth: 364)
+                            .padding(.horizontal)
                         }
                         
                         HStack(spacing: 5) {
                             if !editingTrip {
-                                Text(viewModel.trip.startDate, format: .dateTime.day().month())
+                                Text(formattedStartDate)
                             } else {
                                 DatePicker(
                                     "Start date",
-                                    selection: $viewModel.trip.startDate,
+                                    selection: $viewModel.startDate,
                                     displayedComponents: .date
                                 )
                                 .labelsHidden()
@@ -143,12 +154,12 @@ struct TripView: View {
                                 .font(.caption.weight(.heavy))
                             
                             if !editingTrip {
-                                Text(viewModel.trip.endDate, format: .dateTime.day().month())
+                                Text(formattedEndDate)
                             } else {
                                 DatePicker(
                                     "End date",
-                                    selection: $viewModel.trip.endDate,
-                                    in: viewModel.trip.startDate...,
+                                    selection: $viewModel.endDate,
+                                    in: viewModel.startDate...,
                                     displayedComponents: .date
                                 )
                                 .labelsHidden()
@@ -245,7 +256,7 @@ struct TripView: View {
             }
         }
         .onChange(of: viewModel.newLocation) { location in
-            guard let location =  location else { return }
+            guard let location = location else { return }
             
             withAnimation {
                 viewModel.trip.append(location)
@@ -264,6 +275,7 @@ struct TripView: View {
         }
         .onDisappear {
             dataController.stopCaching()
+            viewModel.updateTrip()
         }
     }
 }
