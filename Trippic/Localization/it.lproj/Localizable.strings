@@ -106,7 +106,7 @@
 "About" = "Info";
 
 /* No comment provided by engineer. */
-"Swipe to search locations" = "Fai uno swipe per cercare tappe";
+"Swipe to search locations" = "Fai uno swipe per cercare località";
 
 /* No comment provided by engineer. */
 "Delete Selection" = "Elimina Selezione";
@@ -134,3 +134,6 @@ L’app nasce da un’idea sviluppata dagli studenti della classe terza del Lice
 La finalizzazione del progetto con lo sviluppo dell’app e le fasi successive di testing, perfezionamento dell’esperienza utente e pubblicazione sull’App Store, è stata curata dallo studente Alessio Garzia Marotta Brusco con il coordinamento del prof. Domenico Caggiano ed il supporto operativo degli studenti del corso “App Development with Swift”.
 
 L’app, basata sui framework SwiftUI e MapKit per la localizzazione degli itinerari e delle tappe, è stata resa conforme alle linee guida Apple per lo sviluppo delle interfacce utente, completamente localizzata nelle lingue italiano ed inglese con il supporto al VoiceOver.";
+
+/* No comment provided by engineer. */
+"There aren't any locations for this trip." = "Non ci sono tappe per questo itinerario";

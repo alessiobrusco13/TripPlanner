@@ -19,7 +19,14 @@ extension TripView {
         @Published var trip: Trip
         @Published var newLocation: Location?
         
-        @Published var startDate: Date
+        @Published var startDate: Date {
+            didSet {
+                if startDate > endDate {
+                    endDate = startDate.addingTimeInterval(1*60*60*24)
+                }
+            }
+        }
+        
         @Published var endDate: Date
         
         init(trip: Trip) {

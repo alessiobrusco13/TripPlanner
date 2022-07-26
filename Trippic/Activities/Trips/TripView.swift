@@ -171,8 +171,19 @@ struct TripView: View {
                     }
                 }
                 
-                ForEach($viewModel.trip.locations) { $location in
-                    LocationView(location: $location, allLocations: $viewModel.trip.locations)
+                if viewModel.trip.locations.isEmpty {
+                    Text("There aren't any locations for this trip.")
+                        .font(.title3)
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.secondary)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .padding()
+                        .transition(.opacity)
+                } else {
+                    ForEach($viewModel.trip.locations) { $location in
+                        LocationView(location: $location, allLocations: $viewModel.trip.locations)
+                    }
+                    .transition(.opacity)
                 }
                 
                 Color.clear

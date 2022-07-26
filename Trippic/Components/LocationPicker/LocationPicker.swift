@@ -61,8 +61,9 @@ struct LocationPicker: View {
                 }
             } else {
                 Text("Swipe to search locations")
-                    .font(.title2)
+                    .font(.title3)
                     .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
             }
             
             Spacer()

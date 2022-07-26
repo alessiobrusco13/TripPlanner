@@ -14,12 +14,12 @@ struct TripsView: View {
     @State private var editMode = EditMode.inactive
     @State private var showingAdd = false
     @State private var showingInfo = false
+    @State private var showingDeleteConfermation = false
 
     var body: some View {
         NavigationView {
             List(selection: $selectedTrips) {
-                ForEach(dataController.trips.sorted(
-                )) { trip in
+                ForEach(dataController.trips.sorted()) { trip in
                     TripRowView(trip: trip)
                         .tag(trip)
                 }
@@ -58,7 +58,12 @@ struct TripsView: View {
                         HStack {
                             Spacer()
 
-                            DeleteButton(data: $dataController.trips, selection: $selectedTrips)
+                            Button {
+                                showingDeleteConfermation.toggle()
+                            } label: {
+                                Label("Delete Selection", systemImage: "trash")
+                            }
+                            .disabled(selectedTrips.isEmpty)
                         }
                     } else {
                         HStack {
@@ -75,6 +80,18 @@ struct TripsView: View {
                 }
             }
             .environment(\.editMode, $editMode)
+            .confirmationDialog("Are you sure you want to permanently delete this trip?", isPresented: $showingDeleteConfermation) {
+                Button("Delete", role: .destructive) {
+                    withAnimation {
+                        dataController.trips.removeAll(where: selectedTrips.contains)
+                        selectedTrips.removeAll()
+                        editMode = .inactive
+                    }
+                }
+            }
+            .onChange(of: editMode) { _ in
+                selectedTrips.removeAll()
+            }
         }
         .navigationViewStyle(.stack)
     }
