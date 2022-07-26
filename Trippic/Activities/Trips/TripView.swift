@@ -16,6 +16,7 @@ struct TripView: View {
     @State private var showingPhotosGrid = false
     @State private var gridNavigationLink = false
     @State private var showingLocationPicker = false
+    @State private var showingDeleteConfirmation = false
     @StateObject private var viewModel: ViewModel
     
     @FocusState private var editingName: Bool
@@ -206,8 +207,7 @@ struct TripView: View {
                     
                     Menu {
                         Button(role: .destructive) {
-                            dataController.delete(viewModel.trip)
-                            dismiss()
+                            showingDeleteConfirmation.toggle()
                         } label: {
                             Label("Delete Trip", systemImage: "trash")
                         }
@@ -259,6 +259,18 @@ struct TripView: View {
         .fullScreenCover(isPresented: $viewModel.showingFullscreenMap) {
             FullscreenMapView(region: $viewModel.fullscreenMapRegion, locations: viewModel.trip.locations)
         }
+        .confirmationDialog(
+            "Are you sure you want to permanently delete this trip?",
+            isPresented: $showingDeleteConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button("Delete", role: .destructive) {
+                withAnimation {
+                    dataController.delete(viewModel.trip)
+                    dismiss()
+                }
+            }
+        }
         .onChange(of: newID) { id in
             guard let id = id else { return }
             
@@ -278,6 +290,11 @@ struct TripView: View {
             withAnimation {
                 guard viewModel.trip.locations.isEmpty else { return }
                 viewModel.setRegion()
+            }
+        }
+        .onChange(of: viewModel.trip.locations) { _ in
+            withAnimation {
+                viewModel.updateRegions()
             }
         }
         .onAppear {

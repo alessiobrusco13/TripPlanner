@@ -14,7 +14,7 @@ struct TripsView: View {
     @State private var editMode = EditMode.inactive
     @State private var showingAdd = false
     @State private var showingInfo = false
-    @State private var showingDeleteConfermation = false
+    @State private var showingDeleteConfirmation = false
 
     var body: some View {
         NavigationView {
@@ -59,7 +59,7 @@ struct TripsView: View {
                             Spacer()
 
                             Button {
-                                showingDeleteConfermation.toggle()
+                                showingDeleteConfirmation.toggle()
                             } label: {
                                 Label("Delete Selection", systemImage: "trash")
                             }
@@ -80,7 +80,11 @@ struct TripsView: View {
                 }
             }
             .environment(\.editMode, $editMode)
-            .confirmationDialog("Are you sure you want to permanently delete this trip?", isPresented: $showingDeleteConfermation) {
+            .confirmationDialog(
+                "Are you sure you want to permanently delete this trip?",
+                isPresented: $showingDeleteConfirmation,
+                titleVisibility: .visible
+            ) {
                 Button("Delete", role: .destructive) {
                     withAnimation {
                         dataController.trips.removeAll(where: selectedTrips.contains)

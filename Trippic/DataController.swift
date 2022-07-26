@@ -71,7 +71,12 @@ class DataController: ObservableObject {
     }
     
     func delete(_ offsets: IndexSet) {
-        trips.remove(atOffsets: offsets)
+        let sorted = offsets.map { trips.sorted()[$0] }
+        
+        for trip in sorted {
+            guard let index = trips.firstIndex(of: trip) else { continue }
+            trips.remove(at: index)
+        }
     }
     
     func delete(_ trip: Trip) {
