@@ -142,28 +142,49 @@ struct TripView: View {
                         HStack(spacing: 5) {
                             if !editingTrip {
                                 Text(formattedStartDate)
+                                    .accessibilityLabel("Start: \(formattedStartDate)")
+                                    
                             } else {
-                                DatePicker(
-                                    "Start date",
-                                    selection: $viewModel.startDate,
-                                    displayedComponents: .date
-                                )
-                                .labelsHidden()
+                                if UIAccessibility.isVoiceOverRunning {
+                                    DatePicker(
+                                        "Start date",
+                                        selection: $viewModel.startDate,
+                                        displayedComponents: .date
+                                    )
+                                } else {
+                                    DatePicker(
+                                        "Start date",
+                                        selection: $viewModel.startDate,
+                                        displayedComponents: .date
+                                    )
+                                    .labelsHidden()
+                                }
                             }
                             
                             Image(systemName: "arrow.right")
                                 .font(.caption.weight(.heavy))
+                                .accessibilityHidden(true)
                             
                             if !editingTrip {
                                 Text(formattedEndDate)
+                                    .accessibilityLabel("End: \(formattedStartDate)")
                             } else {
-                                DatePicker(
-                                    "End date",
-                                    selection: $viewModel.endDate,
-                                    in: viewModel.startDate...,
-                                    displayedComponents: .date
-                                )
-                                .labelsHidden()
+                                if UIAccessibility.isVoiceOverRunning {
+                                    DatePicker(
+                                        "End date",
+                                        selection: $viewModel.endDate,
+                                        in: viewModel.startDate...,
+                                        displayedComponents: .date
+                                    )
+                                } else {
+                                    DatePicker(
+                                        "End date",
+                                        selection: $viewModel.endDate,
+                                        in: viewModel.startDate...,
+                                        displayedComponents: .date
+                                    )
+                                    .labelsHidden()
+                                }
                             }
                         }
                         .padding(editingTrip ? 8 : 0)
@@ -182,7 +203,11 @@ struct TripView: View {
                         .transition(.opacity)
                 } else {
                     ForEach($viewModel.trip.locations) { $location in
-                        LocationView(location: $location, allLocations: $viewModel.trip.locations)
+                        LocationView(location: $location, allLocations: $viewModel.trip.locations) {
+                            withAnimation {
+                                viewModel.setRegion()
+                            }
+                        }
                     }
                     .transition(.opacity)
                 }
@@ -294,7 +319,7 @@ struct TripView: View {
         }
         .onChange(of: viewModel.trip.locations) { _ in
             withAnimation {
-                viewModel.updateRegions()
+                viewModel.setRegion()
             }
         }
         .onAppear {

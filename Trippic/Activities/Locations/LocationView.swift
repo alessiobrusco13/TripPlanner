@@ -11,10 +11,11 @@ import SwiftUI
 struct LocationView: View {
     @Binding var location: Location
     @Binding var allLocations: [Location]
-
+    let onUpdate: () -> Void
+    
     @State private var showingImageGrid = false
     @State private var gridNavigationLink = false
-
+    
     @State private var editMode = EditMode.inactive
     @Environment(\.dismiss) private var dismiss
     
@@ -23,7 +24,7 @@ struct LocationView: View {
             LocationInfoView(location: $location, navigationLinkActive: $gridNavigationLink)
                 .padding(.horizontal)
             
-            LocationRowView(location: $location, allLocations: $allLocations)
+            LocationRowView(location: $location, allLocations: $allLocations, onUpdate: onUpdate)
         }
         .transition(.slide)
     }
@@ -31,7 +32,9 @@ struct LocationView: View {
 
 struct LocationView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationView(location: .constant(.example), allLocations: .constant([.example]))
-            .environmentObject(DataController())
+        LocationView(location: .constant(.example), allLocations: .constant([.example])) {
+            
+        }
+        .environmentObject(DataController())
     }
 }

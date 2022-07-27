@@ -101,7 +101,7 @@ extension TripView {
             }
         }
         
-        func updateRegions() {
+        private func updateRegions() {
             if showingFullscreenMap {
                 fullscreenMapRegion = miniMapRegion
             }

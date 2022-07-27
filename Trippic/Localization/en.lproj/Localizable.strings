@@ -140,3 +140,9 @@ The app, made with the SwiftUI and MapKit frameworks for locating trips, has bee
 
 /* No comment provided by engineer. */
 "Are you sure you want to permanently delete this trip?" = "Are you sure you want to permanently delete this trip?";
+
+/* No comment provided by engineer. */
+"Start: %@" = "Start: %@";
+
+/* No comment provided by engineer. */
+"End: %@" = "End: %@";

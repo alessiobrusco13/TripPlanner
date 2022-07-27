@@ -140,3 +140,9 @@ L’app, basata sui framework SwiftUI e MapKit per la localizzazione degli itine
 
 /* No comment provided by engineer. */
 "Are you sure you want to permanently delete this trip?" = "Sei sicuro di voler eliminare permanentemente il viaggio?";
+
+/* No comment provided by engineer. */
+"Start: %@" = "Inizio: %@";
+
+/* No comment provided by engineer. */
+"End: %@" = "Fine: %@";

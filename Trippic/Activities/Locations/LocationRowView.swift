@@ -10,6 +10,7 @@ import SwiftUI
 struct LocationRowView: View {
     @Binding var location: Location
     @Binding var allLocations: [Location]
+    let onUpdate: () -> Void
     
     @State private var showingDeleteConfirmation = false
     @State private var newLocation: Location?
@@ -57,6 +58,7 @@ struct LocationRowView: View {
             withAnimation {
                 guard let newValue = newValue else { return }
                 location.update(location: newValue)
+                onUpdate()
             }
         }
         .onChange(of: location.photos) {
@@ -129,8 +131,10 @@ private extension View {
 
 struct LocationRowView_Previews: PreviewProvider {
     static var previews: some View {
-        LocationRowView(location: .constant(.example), allLocations: .constant([.example]))
-            .ignoresSafeArea()
-            .environmentObject(DataController())
+        LocationRowView(location: .constant(.example), allLocations: .constant([.example])) {
+            
+        }
+        .ignoresSafeArea()
+        .environmentObject(DataController())
     }
 }
