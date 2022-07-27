@@ -9,6 +9,7 @@ import SwiftUI
 
 struct InfoView: View {
     @Environment(\.dismiss) var dismiss
+    let gitHubURL = URL(string: "https://www.github.com/alessiobrusco13/Trippic")!
     
     var body: some View {
         NavigationView {
@@ -45,6 +46,26 @@ struct InfoView: View {
                         Text(sections[3])
                     }
                     .padding()
+                }
+                
+                Section {
+                    VStack {
+                        Spacer()
+                        
+                        Link(destination: gitHubURL) {
+                            Label {
+                                Text(verbatim: "GitHub Repository")
+                            } icon: {
+                                Image("GitHub")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .font(.body)
+                                    .cornerRadius(5)
+                            }
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    .listRowBackground(EmptyView())
                 }
             }
             .navigationTitle("About")
