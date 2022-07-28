@@ -21,22 +21,22 @@ struct NewTripView: View {
                     HStack {
                         Spacer()
 
-                        PhotoPickerLink(idSelection: $newID) {
-                            if newID != nil {
-                                PhotoView(asset: $newTrip.photo) { image in
-                                    image
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(height: 200)
-                                        .cornerRadius(10)
-                                        .foregroundColor(.clear)
-                                }
-                            } else {
-                                Label("Add Photo", systemImage: "camera.fill")
-                                    .font(.headline)
-                                    .foregroundStyle(.selection)
-                            }
-                        }
+//                        PhotoPickerLink(idSelection: $newID) {
+//                            if newID != nil {
+//                                PhotoView(asset: $newTrip.photo) { image in
+//                                    image
+//                                        .resizable()
+//                                        .scaledToFill()
+//                                        .frame(height: 200)
+//                                        .cornerRadius(10)
+//                                        .foregroundColor(.clear)
+//                                }
+//                            } else {
+//                                Label("Add Photo", systemImage: "camera.fill")
+//                                    .font(.headline)
+//                                    .foregroundStyle(.selection)
+//                            }
+//                        }
 
                         Spacer()
                     }
