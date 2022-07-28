@@ -20,22 +20,22 @@ struct NewTripView: View {
                     HStack {
                         Spacer()
                         
-//                        PhotoPickerLink(assetSelection: $newTrip.photo) {
-//                            if newTrip.photo != .example {
-//                                PhotoView(asset: $newTrip.photo) { image in
-//                                    image
-//                                        .resizable()
-//                                        .scaledToFill()
-//                                        .frame(height: 200)
-//                                        .cornerRadius(10)
-//                                        .foregroundColor(.clear)
-//                                }
-//                            } else {
-//                                Label("Add Photo", systemImage: "camera.fill")
-//                                    .font(.headline)
-//                                    .foregroundStyle(.selection)
-//                            }
-//                        }
+                        PhotoPickerLink(assetSelection: $newTrip.photo) {
+                            if newTrip.photo != .example {
+                                PhotoView(asset: $newTrip.photo) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(height: 200)
+                                        .cornerRadius(10)
+                                        .foregroundColor(.clear)
+                                }
+                            } else {
+                                Label("Add Photo", systemImage: "camera.fill")
+                                    .font(.headline)
+                                    .foregroundStyle(.selection)
+                            }
+                        }
                         
                         Spacer()
                     }
@@ -84,7 +84,7 @@ struct NewTripView: View {
                     .disabled(newTrip.name.isEmpty || (newTrip.photo == .example))
                 }
 
-                ToolbarItem(placement: .cancellationAction) {
+                ToolbarItem(placement: .navigationBarLeading) {
                     Button("Dismiss", action: dismiss.callAsFunction)
                         .contentShape(Rectangle())
                 }
