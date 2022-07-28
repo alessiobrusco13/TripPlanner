@@ -68,7 +68,7 @@ struct NewTripView: View {
                     .font(.headline)
                 }
             }
-            .navigationTitle(newTrip.name.isEmpty ? String(localized: "New Trip", defaultValue: "") : newTrip.name)
+            .navigationTitle(newTrip.name.isEmpty ? LocalizedStringKey("New Trip") : LocalizedStringKey(newTrip.name))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {

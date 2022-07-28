@@ -93,8 +93,7 @@ struct InfoView: View {
         The final phase of the project, consisting in the development of the app and the subsequent stages of testing, improvement of the user experience and publication on the App Store, was handled by the student Alessio Garzia Marotta Brusco with the coordination of teacher Domenico Caggiano and the help of the students of the “App Development with Swift” course.
         
         The app, made with the SwiftUI and MapKit frameworks for locating trips, has been made compliant with Apple's Human Interface Guidelines, and fully localized in Italian and English with support for VoiceOver.
-        """,
-            defaultValue: ""
+        """
         )
     }
 }
