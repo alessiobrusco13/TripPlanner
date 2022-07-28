@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct NewTripView: View {
-    @EnvironmentObject var dataController: DataController
+//    @EnvironmentObject var dataController: DataController
     @Environment(\.dismiss) var dismiss
-
-    @StateObject private var newTrip = Trip()
+//
+//    @StateObject private var newTrip = Trip()
 
     var body: some View {
         NavigationView {
             Form {
+                Text("sdafsd")
 //                Section {
 //                    HStack {
 //                        Spacer()
@@ -68,19 +69,19 @@ struct NewTripView: View {
 //                    .font(.headline)
 //                }
             }
-            .navigationTitle(newTrip.name.isEmpty ? LocalizedStringKey("New Trip") : LocalizedStringKey(newTrip.name))
+//            .navigationTitle(newTrip.name.isEmpty ? LocalizedStringKey("New Trip") : LocalizedStringKey(newTrip.name))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
-                        dataController.add(newTrip)
+//                        dataController.add(newTrip)
                         dismiss()
                     } label: {
                         Label("Done", systemImage: "checkmark")
                             .font(.body.weight(.semibold))
                             .contentShape(Circle())
                     }
-                    .disabled(newTrip.name.isEmpty || (newTrip.photo == .example))
+//                    .disabled(newTrip.name.isEmpty || (newTrip.photo == .example))
                 }
 
                 ToolbarItem(placement: .navigationBarLeading) {
