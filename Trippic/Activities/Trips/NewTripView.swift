@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewTripView: View {
-    @EnvironmentObject private var dataController: DataController
+    @ObservedObject var dataController: DataController
     @Environment(\.dismiss) var dismiss
 
     @StateObject private var newTrip = Trip()
@@ -100,7 +100,6 @@ struct NewTripView: View {
 
 struct NewTripView_Previews: PreviewProvider {
     static var previews: some View {
-        NewTripView()
-            .environmentObject(DataController())
+        NewTripView(dataController: .init())
     }
 }
