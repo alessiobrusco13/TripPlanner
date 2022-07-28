@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct NewTripView: View {
-    @EnvironmentObject private var dataController: DataController
+//    @EnvironmentObject private var dataController: DataController
     @Environment(\.dismiss) var dismiss
 
     @StateObject private var newTrip = Trip()
-    @State private var newID: String?
 
     var body: some View {
         NavigationView {
@@ -75,7 +74,7 @@ struct NewTripView: View {
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
-                        dataController.add(newTrip)
+//                        dataController.add(newTrip)
                         dismiss()
                     } label: {
                         Label("Done", systemImage: "checkmark")
@@ -89,10 +88,6 @@ struct NewTripView: View {
                     Button("Dismiss", action: dismiss.callAsFunction)
                         .contentShape(Rectangle())
                 }
-            }
-            .onChange(of: newID) { id in
-                guard let id = id else { return }
-                newTrip.photo = PhotoAsset(identifier: id)
             }
         }
     }
