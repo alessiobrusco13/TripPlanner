@@ -14,7 +14,7 @@ struct TrippicApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TripsView()
                 .environmentObject(dataController)
                 .onChange(of: scenePhase) { phase in
                     if phase == .background {

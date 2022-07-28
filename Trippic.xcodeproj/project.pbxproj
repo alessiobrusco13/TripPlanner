@@ -32,7 +32,6 @@
 		895DC49C287E0D0000E4C0B3 /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895DC49B287E0D0000E4C0B3 /* DocumentView.swift */; };
 		895DC49E287E0E8200E4C0B3 /* DocumentsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895DC49D287E0E8200E4C0B3 /* DocumentsRowView.swift */; };
 		8964BABB2821666B00922BCC /* TrippicApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8964BABA2821666B00922BCC /* TrippicApp.swift */; };
-		8964BABD2821666B00922BCC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8964BABC2821666B00922BCC /* ContentView.swift */; };
 		8964BABF2821666C00922BCC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8964BABE2821666C00922BCC /* Assets.xcassets */; };
 		8964BAC22821666C00922BCC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8964BAC12821666C00922BCC /* Preview Assets.xcassets */; };
 		8964BAC92821668800922BCC /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8964BAC82821668800922BCC /* Trip.swift */; };
@@ -100,7 +99,6 @@
 		895DC49D287E0E8200E4C0B3 /* DocumentsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsRowView.swift; sourceTree = "<group>"; };
 		8964BAB72821666B00922BCC /* Trippic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trippic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8964BABA2821666B00922BCC /* TrippicApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrippicApp.swift; sourceTree = "<group>"; };
-		8964BABC2821666B00922BCC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8964BABE2821666C00922BCC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8964BAC12821666C00922BCC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8964BAC82821668800922BCC /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
@@ -250,7 +248,6 @@
 				892768B6282CF90C00FBAEA0 /* Trippic.entitlements */,
 				891AF91628218F1700BD691F /* Info.plist */,
 				8964BABA2821666B00922BCC /* TrippicApp.swift */,
-				8964BABC2821666B00922BCC /* ContentView.swift */,
 				8964BAD5282173C100922BCC /* DataController.swift */,
 				895D780F282D006F00EE846F /* Activities */,
 				895D780D282D003500EE846F /* Components */,
@@ -414,7 +411,6 @@
 				89180316288C0DEA00EB1613 /* LocationMapView.swift in Sources */,
 				89FA5FB72853EED60083EE75 /* PhotoLibrary.swift in Sources */,
 				8923EC27283F6A21000557C0 /* PhotosGridView.swift in Sources */,
-				8964BABD2821666B00922BCC /* ContentView.swift in Sources */,
 				895DC48E287DFB4200E4C0B3 /* DocumentPicker.swift in Sources */,
 				892768B3282C257900FBAEA0 /* LocationPickerViewModel.swift in Sources */,
 				89FFDDC528893F6D00146312 /* DeleteContextMenu.swift in Sources */,

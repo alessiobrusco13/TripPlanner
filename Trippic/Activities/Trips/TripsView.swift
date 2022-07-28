@@ -37,7 +37,7 @@ struct TripsView: View {
             }
             .navigationTitle("Trips")
             .sheet(isPresented: $showingAdd) {
-                NewTripView(dataController: dataController)
+                NewTripView()
             }
             .sheet(isPresented: $showingInfo, content: InfoView.init)
             .toolbar {
