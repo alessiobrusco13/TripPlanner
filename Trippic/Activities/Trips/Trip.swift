@@ -37,11 +37,11 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable, Comparable {
         return trip
     }()
 
-    static func == (lhs: Trip, rhs: Trip) -> Bool {
+    static func ==(lhs: Trip, rhs: Trip) -> Bool {
         lhs.id == rhs.id
     }
     
-    static func < (lhs: Trip, rhs: Trip) -> Bool {
+    static func <(lhs: Trip, rhs: Trip) -> Bool {
         lhs.startDate > rhs.startDate
     }
 
