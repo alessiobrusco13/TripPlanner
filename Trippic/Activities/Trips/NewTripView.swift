@@ -11,8 +11,9 @@ struct NewTripView: View {
     @EnvironmentObject var dataController: DataController
     @Environment(\.dismiss) var dismiss
 
-//    @StateObject var newTrip = Trip()
-
+    @StateObject var newTrip = Trip()
+    @State private var newID: String?
+    
     var body: some View {
         NavigationView {
             Form {
@@ -20,9 +21,9 @@ struct NewTripView: View {
                     HStack {
                         Spacer()
 
-                        PhotoPickerLink(assetSelection: .constant(.example)) {
-                            if false {
-                                PhotoView(asset: .example) { image in
+                        PhotoPickerLink(assetSelection: $newTrip.photo) {
+                            if newID != nil {
+                                PhotoView(asset: $newTrip.photo) { image in
                                     image
                                         .resizable()
                                         .scaledToFill()
@@ -47,40 +48,40 @@ struct NewTripView: View {
                         Text("Name:")
                             .font(.headline)
 
-                        TextField("Trip Name", text: .constant(""))
+                        TextField("Trip Name", text: $newTrip.name)
                     }
                 }
 
                 Section("Dates") {
                     DatePicker(
                         "Start date:",
-                        selection: .constant(.now),
+                        selection: $newTrip.startDate,
                         displayedComponents: .date
                     )
                     .font(.headline)
 
                     DatePicker(
                         "End date:",
-                        selection: .constant(.now),
-//                        in: .,
+                        selection: $newTrip.endDate,
+                        in: newTrip.startDate...,
                         displayedComponents: .date
                     )
                     .font(.headline)
                 }
             }
-            .navigationTitle("newTrip.name.isEmpty ? LocalizedStringKey(\"New Trip\") : LocalizedStringKey(newTrip.name)")
+            .navigationTitle(newTrip.name.isEmpty ? LocalizedStringKey("New Trip") : LocalizedStringKey(newTrip.name))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
-//                        dataController.add(newTrip)
+                        dataController.add(newTrip)
                         dismiss()
                     } label: {
                         Label("Done", systemImage: "checkmark")
                             .font(.body.weight(.semibold))
                             .contentShape(Circle())
                     }
-//                    .disabled(newTrip.name.isEmpty || (newTrip.photo == .example))
+                    .disabled(newTrip.name.isEmpty || (newTrip.photo == .example))
                 }
 
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -88,6 +89,13 @@ struct NewTripView: View {
                         dismiss()
                     }
                     .contentShape(Rectangle())
+                }
+            }
+            .onChange(of: newID) { id in
+                guard let id = id else { return }
+                
+                withAnimation {
+                    newTrip.photo = PhotoAsset(identifier: id)
                 }
             }
         }
