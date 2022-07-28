@@ -16,31 +16,31 @@ struct NewTripView: View {
     var body: some View {
         NavigationView {
             Form {
-                Section {
-                    HStack {
-                        Spacer()
-                        
-                        PhotoPickerLink(assetSelection: $newTrip.photo) {
-                            if newTrip.photo != .example {
-                                PhotoView(asset: $newTrip.photo) { image in
-                                    image
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(height: 200)
-                                        .cornerRadius(10)
-                                        .foregroundColor(.clear)
-                                }
-                            } else {
-                                Label("Add Photo", systemImage: "camera.fill")
-                                    .font(.headline)
-                                    .foregroundStyle(.selection)
-                            }
-                        }
-                        
-                        Spacer()
-                    }
-                    .listRowBackground(EmptyView())
-                }
+//                Section {
+//                    HStack {
+//                        Spacer()
+//                        
+//                        PhotoPickerLink(assetSelection: $newTrip.photo) {
+//                            if newTrip.photo != .example {
+//                                PhotoView(asset: $newTrip.photo) { image in
+//                                    image
+//                                        .resizable()
+//                                        .scaledToFill()
+//                                        .frame(height: 200)
+//                                        .cornerRadius(10)
+//                                        .foregroundColor(.clear)
+//                                }
+//                            } else {
+//                                Label("Add Photo", systemImage: "camera.fill")
+//                                    .font(.headline)
+//                                    .foregroundStyle(.selection)
+//                            }
+//                        }
+//                        
+//                        Spacer()
+//                    }
+//                    .listRowBackground(EmptyView())
+//                }
 
                 Section {
                     HStack {
