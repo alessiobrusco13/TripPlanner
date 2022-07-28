@@ -11,12 +11,11 @@ struct NewTripView: View {
 //    @EnvironmentObject var dataController: DataController
     @Environment(\.dismiss) var dismiss
 //
-//    @StateObject private var newTrip = Trip()
+    @StateObject private var newTrip = Trip()
 
     var body: some View {
         NavigationView {
             Form {
-                Text("sdafsd")
 //                Section {
 //                    HStack {
 //                        Spacer()
