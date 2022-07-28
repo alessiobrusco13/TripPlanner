@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewTripView: View {
-//    @EnvironmentObject private var dataController: DataController
+    @EnvironmentObject var dataController: DataController
     @Environment(\.dismiss) var dismiss
 
     @StateObject private var newTrip = Trip()
@@ -20,22 +20,22 @@ struct NewTripView: View {
                     HStack {
                         Spacer()
                         
-                        PhotoPickerLink(assetSelection: $newTrip.photo) {
-                            if newTrip.photo != .example {
-                                PhotoView(asset: $newTrip.photo) { image in
-                                    image
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(height: 200)
-                                        .cornerRadius(10)
-                                        .foregroundColor(.clear)
-                                }
-                            } else {
-                                Label("Add Photo", systemImage: "camera.fill")
-                                    .font(.headline)
-                                    .foregroundStyle(.selection)
-                            }
-                        }
+//                        PhotoPickerLink(assetSelection: $newTrip.photo) {
+//                            if newTrip.photo != .example {
+//                                PhotoView(asset: $newTrip.photo) { image in
+//                                    image
+//                                        .resizable()
+//                                        .scaledToFill()
+//                                        .frame(height: 200)
+//                                        .cornerRadius(10)
+//                                        .foregroundColor(.clear)
+//                                }
+//                            } else {
+//                                Label("Add Photo", systemImage: "camera.fill")
+//                                    .font(.headline)
+//                                    .foregroundStyle(.selection)
+//                            }
+//                        }
                         
                         Spacer()
                     }
@@ -74,7 +74,7 @@ struct NewTripView: View {
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
-//                        dataController.add(newTrip)
+                        dataController.add(newTrip)
                         dismiss()
                     } label: {
                         Label("Done", systemImage: "checkmark")
