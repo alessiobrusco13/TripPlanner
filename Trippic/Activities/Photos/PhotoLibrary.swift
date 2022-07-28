@@ -16,8 +16,7 @@ enum PhotoLibrary {
             return true
         case .notDetermined:
             print("Photo library access not determined.")
-//            return await checkAuthorization()
-            return false
+            return await checkAuthorization()
         case .denied:
             print("Photo library access denied.")
             return false

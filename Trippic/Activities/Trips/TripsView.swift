@@ -37,8 +37,9 @@ struct TripsView: View {
             }
             .navigationTitle("Trips")
             .sheet(isPresented: $showingAdd) {
-                NewTripView()
-                    .environmentObject(dataController)
+//                NewTripView()
+//                    .environmentObject(dataController)
+                Text("Hello")
             }
             .sheet(isPresented: $showingInfo, content: InfoView.init)
             .toolbar {
@@ -82,7 +83,6 @@ struct TripsView: View {
                     }
                 }
             }
-            .environment(\.editMode, $editMode)
             .confirmationDialog(
                 "Are you sure you want to permanently delete this trip?",
                 isPresented: $showingDeleteConfirmation,
@@ -100,6 +100,7 @@ struct TripsView: View {
                 selectedTrips.removeAll()
             }
         }
+        .environment(\.editMode, $editMode)
         .navigationViewStyle(.stack)
     }
 }
