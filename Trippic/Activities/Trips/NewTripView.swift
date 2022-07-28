@@ -48,40 +48,40 @@ struct NewTripView: View {
                         Text("Name:")
                             .font(.headline)
 
-                        TextField("Trip Name", text: $newTrip.name)
+                        TextField("Trip Name", text: /*$newTrip.name*/ .constant("dsfdfds"))
                     }
                 }
 
                 Section("Dates") {
                     DatePicker(
                         "Start date:",
-                        selection: $newTrip.startDate,
+                        selection: /*$newTrip.startDate*/ .constant(.now),
                         displayedComponents: .date
                     )
                     .font(.headline)
 
                     DatePicker(
                         "End date:",
-                        selection: $newTrip.endDate,
-                        in: newTrip.startDate...,
+                        selection: /*$newTrip.endDate*/ .constant(.now),
+                        //in: newTrip.startDate...,
                         displayedComponents: .date
                     )
                     .font(.headline)
                 }
             }
-            .navigationTitle(newTrip.name.isEmpty ? LocalizedStringKey("New Trip") : LocalizedStringKey(newTrip.name))
+            .navigationTitle("newTrip.name.isEmpty ? LocalizedStringKey(\"New Trip\") : LocalizedStringKey(newTrip.name)")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
-                        dataController.add(newTrip)
+//                        dataController.add(newTrip)
                         dismiss()
                     } label: {
                         Label("Done", systemImage: "checkmark")
                             .font(.body.weight(.semibold))
                             .contentShape(Circle())
                     }
-                    .disabled(newTrip.name.isEmpty || (newTrip.photo == .example))
+//                    .disabled(newTrip.name.isEmpty || (newTrip.photo == .example))
                 }
 
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -95,7 +95,7 @@ struct NewTripView: View {
                 guard let id = id else { return }
                 
                 withAnimation {
-                    newTrip.photo = PhotoAsset(identifier: id)
+//                    newTrip.photo = PhotoAsset(identifier: id)
                 }
             }
         }
