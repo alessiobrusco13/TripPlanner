@@ -19,7 +19,7 @@ struct NewTripView: View {
 //                Section {
 //                    HStack {
 //                        Spacer()
-//                        
+//
 //                        PhotoPickerLink(assetSelection: $newTrip.photo) {
 //                            if newTrip.photo != .example {
 //                                PhotoView(asset: $newTrip.photo) { image in
@@ -36,37 +36,37 @@ struct NewTripView: View {
 //                                    .foregroundStyle(.selection)
 //                            }
 //                        }
-//                        
+//
 //                        Spacer()
 //                    }
 //                    .listRowBackground(EmptyView())
 //                }
 
-                Section {
-                    HStack {
-                        Text("Name:")
-                            .font(.headline)
-
-                        TextField("Trip Name", text: $newTrip.name)
-                    }
-                }
-
-                Section("Dates") {
-                    DatePicker(
-                        "Start date:",
-                        selection: $newTrip.startDate,
-                        displayedComponents: .date
-                    )
-                    .font(.headline)
-
-                    DatePicker(
-                        "End date:",
-                        selection: $newTrip.endDate,
-                        in: newTrip.startDate...,
-                        displayedComponents: .date
-                    )
-                    .font(.headline)
-                }
+//                Section {
+//                    HStack {
+//                        Text("Name:")
+//                            .font(.headline)
+//
+//                        TextField("Trip Name", text: $newTrip.name)
+//                    }
+//                }
+//
+//                Section("Dates") {
+//                    DatePicker(
+//                        "Start date:",
+//                        selection: $newTrip.startDate,
+//                        displayedComponents: .date
+//                    )
+//                    .font(.headline)
+//
+//                    DatePicker(
+//                        "End date:",
+//                        selection: $newTrip.endDate,
+//                        in: newTrip.startDate...,
+//                        displayedComponents: .date
+//                    )
+//                    .font(.headline)
+//                }
             }
             .navigationTitle(newTrip.name.isEmpty ? LocalizedStringKey("New Trip") : LocalizedStringKey(newTrip.name))
             .navigationBarTitleDisplayMode(.inline)
@@ -84,8 +84,10 @@ struct NewTripView: View {
                 }
 
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Dismiss", action: dismiss.callAsFunction)
-                        .contentShape(Rectangle())
+                    Button("Dismiss") {
+                        dismiss()
+                    }
+                    .contentShape(Rectangle())
                 }
             }
         }
