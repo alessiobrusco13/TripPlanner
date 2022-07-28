@@ -11,7 +11,7 @@ struct NewTripView: View {
     @EnvironmentObject var dataController: DataController
     @Environment(\.dismiss) var dismiss
 
-    @StateObject var newTrip = Trip()
+//    @StateObject var newTrip = Trip()
     @State private var newID: String? = nil
     
     var body: some View {
