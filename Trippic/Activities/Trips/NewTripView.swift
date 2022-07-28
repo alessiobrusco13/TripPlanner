@@ -21,7 +21,7 @@ struct NewTripView: View {
                     HStack {
                         Spacer()
 
-                        PhotoPickerLink(assetSelection: $newTrip.photo) {
+                        PhotoPickerLink(assetSelection: $newID) {
                             if newID != nil {
                                 PhotoView(asset: $newTrip.photo) { image in
                                     image
