@@ -36,7 +36,10 @@ struct TripsView: View {
                 }
             }
             .navigationTitle("Trips")
-            .sheet(isPresented: $showingAdd, content: NewTripView.init)
+            .sheet(isPresented: $showingAdd) {
+                NewTripView()
+                    .environmentObject(dataController)
+            }
             .sheet(isPresented: $showingInfo, content: InfoView.init)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
