@@ -14,10 +14,10 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable, Comparable {
 
     let id = UUID()
 
-    @Published var name = ""
-    @Published var startDate = Date.now
-    @Published var endDate = Date.now.addingTimeInterval(1*60*60*24)
-    @Published var photo = PhotoAsset.example
+    @Published var name: String
+    @Published var startDate: Date
+    @Published var endDate: Date
+    @Published var photo: PhotoAsset
     @Published var locations = [Location]()
     @Published var notes = [Note]()
     @Published var mapDelta: Coordinates?
@@ -31,7 +31,7 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable, Comparable {
     }
 
     static let example: Trip = {
-        let trip = Trip()
+        let trip = Trip(photo: .example)
         trip.name = "New Trip"
         trip.locations = [.example]
         return trip
@@ -45,11 +45,31 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable, Comparable {
         lhs.startDate > rhs.startDate
     }
 
-    init() { }
+    init(photo: PhotoAsset) {
+        name = ""
+        startDate = Date.now
+        endDate = Date.now.addingTimeInterval(1*60*60*24)
+        self.photo = photo
+    }
+    
+    init(name: String, startDate: Date, endDate: Date, assetID: String) {
+        self.name = name
+        self.startDate = startDate
+        self.endDate = endDate
+        photo = PhotoAsset(identifier: assetID)
+    }
+    
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        try decodeData(container: container)
+        
+        name = try container.decode(String.self, forKey: .name)
+        photo = try container.decode(PhotoAsset.self, forKey: .photo)
+        startDate = try container.decode(Date.self, forKey: .startDate)
+        endDate = try container.decode(Date.self, forKey: .endDate)
+        locations = try container.decode([Location].self, forKey: .locations)
+        notes = try container.decode([Note].self, forKey: .notes)
+        mapDelta = try container.decode(Coordinates?.self, forKey: .mapDelta)
     }
 
     func hash(into hasher: inout Hasher) {
@@ -69,16 +89,6 @@ class Trip: ObservableObject, Identifiable, Codable, Hashable, Comparable {
         try container.encode(locations, forKey: .locations)
         try container.encode(notes, forKey: .notes)
         try container.encode(mapDelta, forKey: .mapDelta)
-    }
-    
-    private func decodeData(container: KeyedDecodingContainer<Trip.CodingKeys>) throws {
-        name = try container.decode(String.self, forKey: .name)
-        photo = try container.decode(PhotoAsset.self, forKey: .photo)
-        startDate = try container.decode(Date.self, forKey: .startDate)
-        endDate = try container.decode(Date.self, forKey: .endDate)
-        locations = try container.decode([Location].self, forKey: .locations)
-        notes = try container.decode([Note].self, forKey: .notes)
-        mapDelta = try container.decode(Coordinates?.self, forKey: .mapDelta)
     }
 
     func delete(_ location: Location) {
