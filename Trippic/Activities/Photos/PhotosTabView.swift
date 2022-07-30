@@ -76,7 +76,7 @@ struct PhotosTabView: View {
                 
                 buttons
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical)
+                    .padding(.vertical, 5)
                     .background(.regularMaterial)
             }
             .ignoresSafeArea()
