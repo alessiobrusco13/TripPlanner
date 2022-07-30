@@ -57,7 +57,6 @@ struct PhotosTabView: View {
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
-        .padding(.bottom, 32)
         .ignoresSafeArea()
         .safeAreaInset(edge: .bottom) {
             VStack(spacing: 15) {
