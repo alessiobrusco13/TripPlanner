@@ -64,7 +64,6 @@
 		89F67AFC287CA4FA0095DD21 /* PhotoItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F67AFB287CA4FA0095DD21 /* PhotoItemView.swift */; };
 		89F67AFE287CA8480095DD21 /* FullscreenMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F67AFD287CA8480095DD21 /* FullscreenMapView.swift */; };
 		89FA5FB52853E9C00083EE75 /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FA5FB42853E9C00083EE75 /* PhotoView.swift */; };
-		89FA5FB72853EED60083EE75 /* PhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FA5FB62853EED60083EE75 /* PhotoLibrary.swift */; };
 		89FF84A02853AF5F000CBD55 /* NoPressEffectButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FF849F2853AF5F000CBD55 /* NoPressEffectButtonStyle.swift */; };
 		89FFDDC32888946600146312 /* DeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FFDDC22888946600146312 /* DeleteButton.swift */; };
 		89FFDDC528893F6D00146312 /* DeleteContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FFDDC428893F6D00146312 /* DeleteContextMenu.swift */; };
@@ -134,7 +133,6 @@
 		89F67AFB287CA4FA0095DD21 /* PhotoItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoItemView.swift; sourceTree = "<group>"; };
 		89F67AFD287CA8480095DD21 /* FullscreenMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullscreenMapView.swift; sourceTree = "<group>"; };
 		89FA5FB42853E9C00083EE75 /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
-		89FA5FB62853EED60083EE75 /* PhotoLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibrary.swift; sourceTree = "<group>"; };
 		89FF849F2853AF5F000CBD55 /* NoPressEffectButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPressEffectButtonStyle.swift; sourceTree = "<group>"; };
 		89FFDDC22888946600146312 /* DeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButton.swift; sourceTree = "<group>"; };
 		89FFDDC428893F6D00146312 /* DeleteContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteContextMenu.swift; sourceTree = "<group>"; };
@@ -311,7 +309,6 @@
 				891AF91228218B8400BD691F /* PhotoPicker.swift */,
 				891ABB032864E839003D20A5 /* PhotoPickerLink.swift */,
 				899AA1B7284284800080CD11 /* PhotoAsset.swift */,
-				89FA5FB62853EED60083EE75 /* PhotoLibrary.swift */,
 			);
 			path = Photos;
 			sourceTree = "<group>";
@@ -412,7 +409,6 @@
 				892A756D28468B970002DB4B /* FavouriteButton.swift in Sources */,
 				89E1627D287494BA006047D3 /* PinchToZoom.swift in Sources */,
 				89180316288C0DEA00EB1613 /* LocationMapView.swift in Sources */,
-				89FA5FB72853EED60083EE75 /* PhotoLibrary.swift in Sources */,
 				8923EC27283F6A21000557C0 /* PhotosGridView.swift in Sources */,
 				895DC48E287DFB4200E4C0B3 /* DocumentPicker.swift in Sources */,
 				892768B3282C257900FBAEA0 /* LocationPickerViewModel.swift in Sources */,

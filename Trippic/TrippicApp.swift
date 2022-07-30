@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import Photos
 
 @main
 struct TrippicApp: App {
     @StateObject var dataController = DataController()
     @Environment(\.scenePhase) var scenePhase
+    
+    @AppStorage("photoLibraryAuthorization") var photoLibraryAuthorization = PHAuthorizationStatus.notDetermined
     
     var body: some Scene {
         WindowGroup {
@@ -22,7 +25,9 @@ struct TrippicApp: App {
                     }
                 }
                 .task {
-                    await PhotoLibrary.checkAuthorization()
+                    if photoLibraryAuthorization == .notDetermined {
+                        photoLibraryAuthorization = await PHPhotoLibrary.requestAuthorization(for: .readWrite)
+                    }
                 }
         }
     }
