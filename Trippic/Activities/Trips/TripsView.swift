@@ -93,7 +93,6 @@ struct TripsView: View {
                     withAnimation {
                         dataController.trips.removeAll(where: selectedTrips.contains)
                         selectedTrips.removeAll()
-                        editMode?.wrappedValue = .inactive
                     }
                 }
             }
