@@ -22,7 +22,7 @@ struct PhotoPageView: View {
                         .frame(maxWidth: geo.size.width * 0.9, maxHeight: geo.size.height * 0.9)
                 }
                 .pinchToZoom()
-                .padding(.bottom, 70)
+//                .padding(.bottom, 70)
             }
             .frame(width: geo.size.width, height: geo.size.height)
         }
