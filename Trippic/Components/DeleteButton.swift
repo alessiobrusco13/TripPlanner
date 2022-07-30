@@ -17,12 +17,10 @@ struct DeleteButton<Item: Hashable>: View {
     var body: some View {
         Button(action: delete) {
             Label("Delete Selection", systemImage: "trash")
+                .labelStyle(.iconOnly)
+                .font(.title2)
         }
         .disabled(selection.isEmpty)
-        .onChange(of: editMode?.wrappedValue) { _ in
-            guard selection.isEmpty == false else { return }
-            selection.removeAll()
-        }
     }
     
     func delete() {
@@ -33,6 +31,39 @@ struct DeleteButton<Item: Hashable>: View {
         editMode?.wrappedValue = .inactive
         completion?()
         selection.removeAll()
+    }
+    
+    struct SafeAreaInsetModifier: ViewModifier {
+        @Binding var data: [Item]
+        @Binding var selection: Set<Item>
+        var completion: (() -> Void)?
+        
+        @Environment(\.editMode) var editMode
+        
+        func body(content: Content) -> some View {
+            content
+                .safeAreaInset(edge: .bottom) {
+                    if editMode?.wrappedValue.isEditing ?? false {
+                        HStack {
+                            Spacer()
+                            
+                            DeleteButton(data: $data, selection: $selection)
+                        }
+                        .padding()
+                        .background(.regularMaterial)
+                    }
+                }
+        }
+    }
+}
+
+extension View {
+    func deleteButton<Item: Hashable>(
+        data: Binding<[Item]>,
+        selection: Binding<Set<Item>>,
+        completion: (() -> Void)? = nil
+    ) -> some View {
+        modifier(DeleteButton.SafeAreaInsetModifier(data: data, selection: selection, completion: completion))
     }
 }
 

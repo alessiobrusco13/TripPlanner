@@ -270,16 +270,8 @@ struct TripView: View {
                 EmptyView()
             }
         }
-        .overlay {
-            if showingTripPhoto {
-                PhotosTabView(photo: viewModel.trip.photo) {
-                    withAnimation {
-                        showingTripPhoto = false
-                    }
-                }
-                .transition(.move(edge: .bottom))
-                .background(.ultraThinMaterial)
-            }
+        .fullScreenCover(isPresented: $showingTripPhoto) {
+            PhotosTabView(photo: viewModel.trip.photo)
         }
         .fullScreenCover(isPresented: $viewModel.showingFullscreenMap) {
             FullscreenMapView(region: $viewModel.fullscreenMapRegion, locations: viewModel.trip.locations)

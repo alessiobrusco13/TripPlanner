@@ -43,6 +43,7 @@ struct NotesView: View {
                         .transition(.opacity)
                 }
             }
+            .deleteButton(data: $notes, selection: $editingSelection)
             .toolbar {
                 ToolbarItem(placement: .keyboard) {
                     HStack {
@@ -67,16 +68,6 @@ struct NotesView: View {
                         }
                     }
                 }
-                
-                ToolbarItem(placement: .bottomBar) {
-                    if editMode?.wrappedValue.isEditing ?? false {
-                        HStack {
-                            Spacer()
-                            
-                            DeleteButton(data: $notes, selection: $editingSelection)
-                        }
-                    }
-                }
             }
             .animation(.default, value: notes)
             .onChange(of: focusedNoteID) {
@@ -84,6 +75,9 @@ struct NotesView: View {
             }
             .onChange(of: editMode?.wrappedValue) { _ in
                 focusedNoteID = nil
+                
+                guard editingSelection.isEmpty == false else { return }
+                editingSelection.removeAll()
             }
         }
     }

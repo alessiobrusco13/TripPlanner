@@ -20,6 +20,7 @@
 		892A756D28468B970002DB4B /* FavouriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892A756C28468B970002DB4B /* FavouriteButton.swift */; };
 		892B9F29283A9B3F00235819 /* LocationRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B9F28283A9B3F00235819 /* LocationRowView.swift */; };
 		892B9F2D283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B9F2C283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift */; };
+		892ED7182895383B0020F171 /* ClearBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892ED7172895383B0020F171 /* ClearBackground.swift */; };
 		895D12B6282831750071DC98 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895D12B5282831750071DC98 /* LocationView.swift */; };
 		895DC48B287DF75800E4C0B3 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895DC48A287DF75800E4C0B3 /* Document.swift */; };
 		895DC48E287DFB4200E4C0B3 /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895DC48D287DFB4200E4C0B3 /* DocumentPicker.swift */; };
@@ -86,6 +87,7 @@
 		892A756C28468B970002DB4B /* FavouriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteButton.swift; sourceTree = "<group>"; };
 		892B9F28283A9B3F00235819 /* LocationRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRowView.swift; sourceTree = "<group>"; };
 		892B9F2C283AAFFA00235819 /* [CLLocationCoordinate2D]-centerCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "[CLLocationCoordinate2D]-centerCoordinate.swift"; sourceTree = "<group>"; };
+		892ED7172895383B0020F171 /* ClearBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearBackground.swift; sourceTree = "<group>"; };
 		895D12B5282831750071DC98 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		895DC48A287DF75800E4C0B3 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		895DC48D287DFB4200E4C0B3 /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				89DCCB12283B809500030B89 /* CircleImage.swift */,
+				892ED7172895383B0020F171 /* ClearBackground.swift */,
 				892A756C28468B970002DB4B /* FavouriteButton.swift */,
 				89F67AFD287CA8480095DD21 /* FullscreenMapView.swift */,
 				89FF849F2853AF5F000CBD55 /* NoPressEffectButtonStyle.swift */,
@@ -433,6 +436,7 @@
 				8997476028880D8800E74EBB /* OutlineButtonStyle.swift in Sources */,
 				89F67AFE287CA8480095DD21 /* FullscreenMapView.swift in Sources */,
 				89DCCB13283B809500030B89 /* CircleImage.swift in Sources */,
+				892ED7182895383B0020F171 /* ClearBackground.swift in Sources */,
 				895DC494287DFF6C00E4C0B3 /* URL-exampleDocument.swift in Sources */,
 				89D3D337287DA927004C2370 /* NotesRowView.swift in Sources */,
 				8964BAD6282173C100922BCC /* DataController.swift in Sources */,

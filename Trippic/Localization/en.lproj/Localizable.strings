@@ -146,3 +146,6 @@ The app, made with the SwiftUI and MapKit frameworks for locating trips, has bee
 
 /* No comment provided by engineer. */
 "End: %@" = "End: %@";
+
+/* No comment provided by engineer. */
+"Add Trip" = "Add Trip";

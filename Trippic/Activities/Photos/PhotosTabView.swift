@@ -10,23 +10,21 @@ import SwiftUI
 struct PhotosTabView: View {
     @Binding var photos: [PhotoAsset]
     let editingEnabled: Bool
-    let dismiss: () -> Void
     
     @State private var selection: PhotoAsset
     @State private var yOffset = 0.0
+    @Environment(\.dismiss) private var dismiss
     
-    init(photos: Binding<[PhotoAsset]>, initialSelection: PhotoAsset, editingEnabled: Bool, dismiss: @escaping () -> Void) {
+    init(photos: Binding<[PhotoAsset]>, initialSelection: PhotoAsset, editingEnabled: Bool) {
         _photos = photos
         _selection = State(initialValue: initialSelection)
         self.editingEnabled = editingEnabled
-        self.dismiss = dismiss
     }
     
-    init(photo: PhotoAsset, dismiss: @escaping () -> Void) {
+    init(photo: PhotoAsset) {
         _photos = .constant([photo])
         _selection = State(wrappedValue: photo)
         editingEnabled = false
-        self.dismiss = dismiss
     }
     
     var dragGesture: some Gesture {
@@ -51,9 +49,9 @@ struct PhotosTabView: View {
         TabView(selection: $selection) {
             ForEach($photos) { $photo in
                 PhotoPageView(photo: $photo, editingEnabled: editingEnabled)
-                    .tag(photo)
                     .offset(y: yOffset)
                     .gesture(dragGesture)
+                    .tag(photo)
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
@@ -75,10 +73,14 @@ struct PhotosTabView: View {
                 
                 buttons
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, 5)
+                    .padding(.vertical, 10)
                     .background(.regularMaterial)
             }
             .ignoresSafeArea()
+        }
+        .background(.ultraThinMaterial)
+        .background {
+            ClearBackground()
         }
     }
     
@@ -110,7 +112,7 @@ struct PhotosTabView: View {
 
 struct PhotosTabView_Previews: PreviewProvider {
     static var previews: some View {
-        PhotosTabView(photos: .constant(.example), initialSelection: .example, editingEnabled: true) { }
+        PhotosTabView(photos: .constant(.example), initialSelection: .example, editingEnabled: true)
             .environmentObject(DataController())
     }
 }

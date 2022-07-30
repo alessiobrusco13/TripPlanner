@@ -77,17 +77,10 @@ struct PhotosGridView: View {
             }
             .frame(maxWidth: .infinity)
         }
+        .animation(.default, value: photos)
         .navigationBarTitleDisplayMode(.inline)
-        .overlay {
-            if let selectedPhoto = selectedPhoto {
-                PhotosTabView(photos: filteredPhotos, initialSelection: selectedPhoto, editingEnabled: editingEnabled) {
-                    withAnimation {
-                        self.selectedPhoto = nil
-                    }
-                }
-                .transition(.move(edge: .bottom))
-                .background(.ultraThinMaterial)
-            }
+        .fullScreenCover(item: $selectedPhoto) { selection in
+            PhotosTabView(photos: $photos, initialSelection: selection, editingEnabled: true)
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
@@ -114,17 +107,8 @@ struct PhotosGridView: View {
                     }
                 }
             }
-            
-            ToolbarItem(placement: .bottomBar) {
-                if editMode?.wrappedValue.isEditing ?? false {
-                    HStack {
-                        Spacer()
-
-                        DeleteButton(data: $photos, selection: $editingSelection)
-                    }
-                }
-            }
         }
+        .deleteButton(data: $photos, selection: $editingSelection)
         .onChange(of: showingFavorites) { _ in
             withAnimation(.spring()) {
                 selectedPhoto = nil
@@ -134,6 +118,10 @@ struct PhotosGridView: View {
             if newValue.isEmpty {
                 dismiss()
             }
+        }
+        .onChange(of: editMode?.wrappedValue) { _ in
+            guard editingSelection.isEmpty == false else { return }
+            editingSelection.removeAll()
         }
         .task {
             if let startingSelection = startingSelection {

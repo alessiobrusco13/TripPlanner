@@ -9,13 +9,14 @@ import SwiftUI
 
 struct TripsView: View {
     @EnvironmentObject private var dataController: DataController
-
+    
     @State private var selectedTrips = Set<Trip>()
-    @State private var editMode = EditMode.inactive
     @State private var showingAdd = false
     @State private var showingInfo = false
     @State private var showingDeleteConfirmation = false
-
+    
+    @Environment(\.editMode) var editMode
+    
     var body: some View {
         NavigationView {
             List(selection: $selectedTrips) {
@@ -28,6 +29,7 @@ struct TripsView: View {
             }
             .listStyle(.plain)
             .animation(.default, value: dataController.trips)
+            .animation(.default, value: selectedTrips)
             .overlay {
                 if dataController.trips.isEmpty {
                     Text("There aren't any trips.")
@@ -46,40 +48,41 @@ struct TripsView: View {
                         EditButton()
                     }
                 }
-
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         showingAdd.toggle()
                     } label: {
-                        Image(systemName: "plus")
+                        Label("Add Trip", systemImage: "plus")
                     }
                 }
-
+                
                 ToolbarItem(placement: .bottomBar) {
-                    if editMode == .active {
                         HStack {
-                            Spacer()
-
-                            Button {
-                                showingDeleteConfirmation.toggle()
-                            } label: {
-                                Label("Delete Selection", systemImage: "trash")
-                            }
-                            .disabled(selectedTrips.isEmpty)
-                        }
-                    } else {
-                        HStack {
-                            Button  {
-                                showingInfo.toggle()
-                            } label: {
-                                Image(systemName: "info.circle")
-                                    .font(.body.weight(.medium))
+                            if !selectedTrips.isEmpty {
+                                Spacer()
+                                    .transition(.scale)
                             }
                             
-                            Spacer()
+                            Button {
+                                if selectedTrips.isEmpty {
+                                    showingInfo.toggle()
+                                } else {
+                                    showingDeleteConfirmation.toggle()
+                                }
+                            } label: {
+                                Label(
+                                    selectedTrips.isEmpty ? "Info" : "Delete Selection",
+                                    systemImage: selectedTrips.isEmpty ? "info.circle" : "trash"
+                                )
+                            }
+                            
+                            if selectedTrips.isEmpty {
+                                Spacer()
+                                    .transition(.scale)
+                            }
                         }
                     }
-                }
             }
             .confirmationDialog(
                 "Are you sure you want to permanently delete this trip?",
@@ -90,22 +93,21 @@ struct TripsView: View {
                     withAnimation {
                         dataController.trips.removeAll(where: selectedTrips.contains)
                         selectedTrips.removeAll()
-                        editMode = .inactive
+                        editMode?.wrappedValue = .inactive
                     }
                 }
             }
-            .onChange(of: editMode) { _ in
+            .onChange(of: editMode?.wrappedValue) { _ in
                 selectedTrips.removeAll()
             }
+            .navigationViewStyle(.stack)
         }
-        .environment(\.editMode, $editMode)
-        .navigationViewStyle(.stack)
     }
 }
 
 struct TripsView_Previews: PreviewProvider {
-        static var previews: some View {
-            TripsView()
-                .environmentObject(DataController())
-        }
+    static var previews: some View {
+        TripsView()
+            .environmentObject(DataController())
+    }
 }
