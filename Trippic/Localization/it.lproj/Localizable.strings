@@ -149,3 +149,6 @@ L’app, basata sui framework SwiftUI e MapKit per la localizzazione degli itine
 
 /* No comment provided by engineer. */
 "Add Trip" = "Aggiungi un Itinerario";
+
+/* No comment provided by engineer. */
+"Add a location to show a map of your trip." = "Aggiungi una tappa per mostrare la mappa del tuo itinerario";

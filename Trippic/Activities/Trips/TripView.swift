@@ -38,52 +38,55 @@ struct TripView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                Button {
-                    withAnimation {
-                        viewModel.showingFullscreenMap.toggle()
-                    }
-                } label: {
-                    Map(coordinateRegion: $viewModel.miniMapRegion, annotationItems: viewModel.trip.locations) { location in
-                        MapMarker(coordinate: location.locationCoordinates, tint: Color("AccentColor"))
-                    }
-                    .disabled(true)
-                    .frame(height: 300)
-                    .cornerRadius(15)
-                    .padding([.horizontal, .top])
-                }
-                .accessibilityLabel("Map")
-                .overlay(alignment: .topTrailing) {
-                    VStack {
-                        Button {
-                            withAnimation {
-                                viewModel.zoomInMiniMap()
-                            }
-                        } label: {
-                            Label("Zoom in", systemImage: "plus.magnifyingglass")
-                                .labelStyle(.iconOnly)
-                                .padding(5)
+                if viewModel.miniMapAvailable {
+                    Button {
+                        withAnimation {
+                            viewModel.showingFullscreenMap.toggle()
                         }
-                        
-                        Divider()
-                            .frame(width: 20)
-                        
-                        Button {
-                            withAnimation {
-                                viewModel.zoomOutMiniMap()
-                            }
-                        } label: {
-                            Label("Zoom out", systemImage: "minus.magnifyingglass")
-                                .labelStyle(.iconOnly)
-                                .padding(5)
+                    } label: {
+                        Map(coordinateRegion: $viewModel.miniMapRegion, annotationItems: viewModel.trip.locations) { location in
+                            MapMarker(coordinate: location.locationCoordinates, tint: Color("AccentColor"))
                         }
+                        .disabled(true)
+                        .frame(height: 300)
+                        .cornerRadius(15)
+                        .padding([.horizontal, .top])
                     }
-                    .foregroundStyle(.secondary)
-                    .font(.title2)
-                    .padding(7)
-                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
-                    .padding(25)
+                    .accessibilityLabel("Map")
+                    .overlay(alignment: .topTrailing) {
+                        VStack {
+                            Button {
+                                withAnimation {
+                                    viewModel.zoomInMiniMap()
+                                }
+                            } label: {
+                                Label("Zoom in", systemImage: "plus.magnifyingglass")
+                                    .labelStyle(.iconOnly)
+                                    .padding(5)
+                            }
+                            
+                            Divider()
+                                .frame(width: 20)
+                            
+                            Button {
+                                withAnimation {
+                                    viewModel.zoomOutMiniMap()
+                                }
+                            } label: {
+                                Label("Zoom out", systemImage: "minus.magnifyingglass")
+                                    .labelStyle(.iconOnly)
+                                    .padding(5)
+                            }
+                        }
+                        .foregroundStyle(.secondary)
+                        .font(.title2)
+                        .padding(7)
+                        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 10))
+                        .padding(25)
+                    }
+                    .transition(.move(edge: .top))
+                    .disabled(editingTrip)
                 }
-                .disabled(editingTrip)
                 
                 VStack(spacing: 8) {
                     Button {
@@ -111,7 +114,7 @@ struct TripView: View {
                     }
                     .buttonStyle(.noPressEffect)
                     .frame(width: 150, height: 150)
-                    .padding(.top, -130)
+                    .padding(.top, viewModel.miniMapAvailable ? -130 : 10)
                     
                     VStack {
                         if !editingTrip {
@@ -143,7 +146,7 @@ struct TripView: View {
                             if !editingTrip {
                                 Text(formattedStartDate)
                                     .accessibilityLabel("Start: \(formattedStartDate)")
-                                    
+                                
                             } else {
                                 if UIAccessibility.isVoiceOverRunning {
                                     DatePicker(
@@ -194,13 +197,19 @@ struct TripView: View {
                 }
                 
                 if viewModel.trip.locations.isEmpty {
-                    Text("There aren't any locations for this trip.")
-                        .font(.title3)
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.secondary)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .padding()
-                        .transition(.opacity)
+                    VStack {
+                        Text("There aren't any locations for this trip.")
+                        
+                        if !viewModel.miniMapAvailable {
+                            Text("Add a location to show a map of your trip.")
+                        }
+                    }
+                    .font(.title3)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.secondary)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding()
+                    .transition(.opacity)
                 } else {
                     ForEach($viewModel.trip.locations) { $location in
                         LocationView(location: $location, allLocations: $viewModel.trip.locations) {

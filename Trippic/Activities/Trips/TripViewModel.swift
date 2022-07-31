@@ -12,6 +12,8 @@ extension TripView {
         @Published var miniMapRegion = MKCoordinateRegion()
         @Published var fullscreenMapRegion = MKCoordinateRegion()
         
+        @Published var miniMapAvailable = false
+        
         @Published var showingFullscreenMap = false {
             didSet { updateRegions() }
         }
@@ -39,6 +41,7 @@ extension TripView {
             if trip.locations.isEmpty {
                 Task { @MainActor in
                     miniMapRegion = try await guessedRegion(meters: 30_000)
+                    miniMapAvailable = true
                 }
             } else {
                 if let delta = trip.mapDelta {
@@ -54,6 +57,8 @@ extension TripView {
                         longitudinalMeters: 20_000
                     )
                 }
+                
+                miniMapAvailable = true
             }
         }
         

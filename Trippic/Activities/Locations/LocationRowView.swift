@@ -61,9 +61,6 @@ struct LocationRowView: View {
                 onUpdate()
             }
         }
-        .onChange(of: location.photos) {
-            dump($0)
-        }
     }
     
     var buttons: some View {
@@ -114,6 +111,7 @@ struct LocationRowView: View {
         
         withAnimation {
            _ = allLocations.remove(at: index)
+            onUpdate()
         }
     }
 }
