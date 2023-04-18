@@ -125,13 +125,13 @@
 
 The app was born from an idea developed by high school students attending Istituto Sacro Cuore in Naples, following Apple’s guidelines from the ”App design diary” workbook, which led the groups into the phases of brainstorming, planning and evaluation of the prototype.
 
-The final phase of the project, consisting in the development of the app and the subsequent stages of testing, improvement of the user experience and publication on the App Store, was handled by the student Alessio Garzia Marotta Brusco with the coordination of teacher Domenico Caggiano and the help of the students of the “App Development with Swift” course.
+The development of the app and the subsequent stages of testing, improvement of the user experience and publication on the App Store, was handled by the student Alessio Garzia Marotta Brusco with the coordination of teacher Domenico Caggiano.
 
 The app, made with the SwiftUI and MapKit frameworks for locating trips, has been made compliant with Apple's Human Interface Guidelines, and fully localized in Italian and English with support for VoiceOver." = "Trippic! rappresenta un diario digitale per documentare e custodire nel tempo le esperienze vissute durante gli itinerari di viaggio personali, attraverso le istantanee dei paesaggi, dei luoghi e degli incontri rimasti nel cuore, i pensieri e le sensazioni vissute.
 
 L’app nasce da un’idea sviluppata dagli studenti della classe terza del Liceo Scientifico dell’Istituto Sacro Cuore di Napoli, seguendo le linee guida del workbook pubblicato da Apple “Diario di progettazione delle app”, che ha guidato i gruppi di lavoro nelle fasi di brainstorming, pianificazione e valutazione del prototipo.
 
-La finalizzazione del progetto con lo sviluppo dell’app e le fasi successive di testing, perfezionamento dell’esperienza utente e pubblicazione sull’App Store, è stata curata dallo studente Alessio Garzia Marotta Brusco con il coordinamento del prof. Domenico Caggiano ed il supporto operativo degli studenti del corso “App Development with Swift”.
+La realizzazione del progetto con lo sviluppo dell’app e le fasi successive di testing, perfezionamento dell’esperienza utente e pubblicazione sull’App Store, è stata curata dallo studente Alessio Garzia Marotta Brusco con il coordinamento del prof. Domenico Caggiano.
 
 L’app, basata sui framework SwiftUI e MapKit per la localizzazione degli itinerari e delle tappe, è stata resa conforme alle linee guida Apple per lo sviluppo delle interfacce utente, completamente localizzata nelle lingue italiano ed inglese con il supporto al VoiceOver.";
 
